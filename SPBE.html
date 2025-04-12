@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main_Favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-dark: #1b5e20;
+      --primary-light: #81c784;
+      --secondary: #388e3c;
+      --accent: #66bb6a;
+      --dark: #1a2e1a;
+      --light: #f8f9fa;
+      --success: #4caf50;
+      --warning: #ffa000;
+      --danger: #d32f2f;
+      --gray: #616161;
+      --gray-light: #e8f5e9;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      background-color: #f0f8f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.6;
+      color: var(--dark);
+      display: flex;
+      flex-direction: column; /* Ensure body stretches to fill the viewport */
+      min-height: 100vh;
+    }
+    
+    .nav-container {
+      background-color: var(--primary-dark);
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center the navigation links */
+      padding: 10px 20px;
+      position: relative;
+    }
+    
+    .nav-menu {
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .nav-menu li {
+      margin: 0;
+    }
+    
+    .nav-menu li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+    
+    .nav-menu li a:hover,
+    .nav-menu li a:focus {
+      background-color: var(--primary);
+      outline: none;
+    }
+    
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    
+    #app-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+      flex: 1; /* Allow the main content to grow and push the footer down */
+    }
+    
+    .app-header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeInDown 0.6s ease-out;
+    }
+    
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    
+    .app-layout {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 24px;
+    }
+    
+    .sidebar {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 20px;
+      border: 1px solid var(--gray-light);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+      animation: slideInLeft 0.5s ease-out;
+    }
+    
+    .sidebar-section {
+      margin-bottom: 24px;
+    }
+    
+    .sidebar-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .sidebar-title i {
+      margin-right: 10px;
+      color: var(--primary);
+    }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 12px;
+    }
+    
+    .topic-card {
+      background-color: white;
+      border: 1px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .topic-card:hover,
+    .topic-card:focus {
+      transform: translateY(-3px);
+      box-shadow: var(--box-shadow);
+      border-color: var(--primary-light);
+      outline: none;
+    }
+    
+    .topic-card.active {
+      background-color: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .topic-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+    
+    .topic-card.active .topic-icon {
+      color: white;
+    }
+    
+    .topic-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    
+    .subtopic-container {
+      margin-top: 20px;
+      animation: fadeIn 0.4s ease-out;
+    }
+    
+    .back-btn {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      background: none;
+      border: none;
+      color: var (--primary);
+      cursor: pointer;
+      font-weight: 500;
+      padding: 8px;
+    }
+    
+    .back-btn:hover,
+    .back-btn:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    
+    .back-btn i {
+      margin-right: 8px;
+    }
+    
+    .subtopic-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    
+    .subtopic-card {
+      background-color: white;
+      border: 1px solid var(--gray-light);
+      border-radius: var(--border-radius);
+      padding: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .subtopic-card:hover,
+    .subtopic-card:focus {
+      transform: translateY(-3px);
+      box-shadow: var (--box-shadow);
+      border-color: var(--primary-light);
+      outline: none;
+    }
+    
+    .subtopic-card.active {
+      background-color: var(--primary-light);
+      border-color: var(--primary-light);
+    }
+    
+    .subtopic-name {
+      font-weight: 500;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .subtopic-icon {
+      margin-right: 8px;
+      color: var(--primary); /* Ensure icon color is visible */
+      font-size: 1rem;
+    }
+    
+    .subtopic-count {
+      font-size: 0.8rem;
+      color: var (--gray);
+    }
+    
+    .bookmark-btn {
+      display: none; /* Hide bookmark button */
+    }
+    
+    .bookmarks-section {
+      display: none; /* Hide bookmarks section */
+    }
+    
+    .flashcard-view {
+      background-color: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 30px;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--gray-light);
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .flashcard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .flashcard-progress {
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    
+    .flashcard-actions {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .action-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--gray-light);
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    
+    .action-btn:hover,
+    .action-btn:focus {
+      background-color: var(--primary-light);
+      color: white;
+      outline: none;
+    }
+    
+    .action-btn.bookmarked {
+      background-color: var(--warning);
+      color: white;
+    }
+    
+    .flashcard-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      perspective: 1000px;
+      position: relative;
+    }
+    
+    .flashcard {
+      background-color: white;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: var(--transition);
+      border: 1px solid var(--gray-light);
+      transform-style: preserve-3d;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .flashcard.flipping {
+      animation: flipCard 0.6s ease-out forwards;
+    }
+    
+    .flashcard-subtopic {
+      font-size: 0.9rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+    
+    .flashcard-subtopic i {
+      margin-right: 8px;
+    }
+    
+    .flashcard-question, 
+    .flashcard-answer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .flashcard-question h3,
+    .flashcard-answer h3 {
+      font-size: 1.3rem;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .flashcard-question h3 i {
+      margin-right: 12px;
+      color: var(--primary);
+    }
+    
+    .flashcard-question p {
+      font-size: 1.1rem;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    
+    .flashcard-answer h3 i {
+      margin-right: 12px;
+      color: var(--success);
+    }
+    
+    .flashcard-answer-content {
+      font-size: 1.1rem;
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    
+    .flashcard-answer-content ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+    
+    .flashcard-answer-content li {
+      margin-bottom: 8px;
+    }
+    
+    .flashcard-instruction {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+    
+    .flashcard-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      border: none;
+    }
+    
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .nav-btn.prev {
+      background-color: var(--gray-light);
+      color: var(--gray);
+    }
+    
+    .nav-btn.prev:hover:not(:disabled),
+    .nav-btn.prev:focus:not(:disabled) {
+      background-color: #e0e0e0;
+    }
+    
+    .nav-btn.next {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .nav-btn.next:hover:not(:disabled),
+    .nav-btn.next:focus:not(:disabled) {
+      background-color: var(--primary-dark);
+    }
+    
+    .nav-btn i {
+      margin-right: 8px;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      color: var (--gray-light);
+      margin-bottom: 20px;
+    }
+    
+    .empty-state h3 {
+      font-size: 1.3rem;
+      color: var(--gray);
+      margin-bottom: 10px;
+    }
+    
+    .empty-state p {
+      color: var(--gray);
+      margin-bottom: 20px;
+    }
+    
+    .error-boundary {
+      padding: 20px;
+      background-color: #ffebee;
+      border-radius: var(--border-radius);
+      color: var(--danger);
+      margin: 20px 0;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    @keyframes flipCard {
+      0% { transform: rotateY(0); }
+      50% { transform: rotateY(90deg); }
+      100% { transform: rotateY(0); }
+    }
+    
+    @keyframes slideOutRight {
+      to {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+    }
+    
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .slide-out {
+      animation: slideOutRight 0.3s ease-out forwards;
+    }
+    
+    .slide-in {
+      animation: slideInRight 0.3s ease-out forwards;
+    }
+    
+    @media screen and (max-width: 992px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        position: static;
+        margin-bottom: 20px;
+      }
+      
+      .topic-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      }
+      
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--primary-dark);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .nav-menu.active {
+        max-height: 500px;
+        padding: 10px 0;
+      }
+      
+      .nav-menu li {
+        width: 100%;
+      }
+      
+      .nav-menu li a {
+        padding: 12px 20px;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .app-header {
+        margin-bottom: 20px;
+      }
+      
+      .app-title {
+        font-size: 1.8rem;
+      }
+      
+      .flashcard-view {
+        padding: 20px;
+      }
+      
+      .flashcard-question h3,
+      .flashcard-answer h3 {
+        font-size: 1.2rem;
+      }
+      
+      .flashcard-question p,
+      .flashcard-answer-content {
+        font-size: 1rem;
+      }
+      
+      .subtopic-list {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .nav-btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .flashcard-nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .nav-btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .flashcard {
+        padding: 20px;
+        min-height: 250px;
+      }
+    }
+    
+    footer {
+      background-color: var(--primary-dark); /* Solid background */
+      color: white; /* Ensure text is visible */
+      text-align: center;
+      padding: 20px 0; /* Add padding for vertical centering */
+      font-size: 0.9rem;
+      margin-top: auto; /* Push footer to the bottom */
+    }
+  </style>
+  <title>Geography Flashcards</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div class="nav-container">
+    <ul class="nav-menu">
+      <li><a href="PR.html">GCSE Past Papers</a></li>
+      <li><a href="APR.html">A Level Papers</a></li>
+      <li><a href="SPBE.html">Geography Flashcards</a></li>
+      <li><a href="BWT.html">Case Studies</a></li>
+    </ul>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const isExpanded = navMenu.classList.toggle('active');
+          this.setAttribute('aria-expanded', isExpanded);
+        });
+
+        document.addEventListener('click', function(event) {
+          if (navMenu.classList.contains('active') &&
+              !navMenu.contains(event.target) &&
+              !menuToggle.contains(event.target)) {
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        window.addEventListener('resize', function() {
+          if (window.innerWidth > 992) {
+            navMenu.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+  </script>
+  
+  <div id="app-container"></div>
+  
+  <footer>
+    <p>Content sourced from publicly available educational materials and case studies.</p>
+    <p>Icons provided by Font Awesome. Fonts by Google Fonts.</p>
+  </footer>
+  
+  <script type="text/babel">
+    class ErrorBoundary extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+      }
+    
+      static getDerivedStateFromError(error) {
+        return { hasError: true };
+      }
+    
+      componentDidCatch(error, errorInfo) {
+        console.error('Error caught by ErrorBoundary:', error, errorInfo);
+      }
+    
+      render() {
+        if (this.state.hasError) {
+          return (
+            <div className="error-boundary">
+              <h3>Something went wrong</h3>
+              <p>Please refresh the page to continue</p>
+              <button 
+                className="nav-btn next"
+                onClick={() => window.location.reload()}
+              >
+                <i className="fas fa-sync-alt"></i>
+                Refresh Page
+              </button>
+            </div>
+          );
+        }
+        return this.props.children;
+      }
+    }
+
+    const GeographyFlashcardApp = () => {
+      const [flashcards, setFlashcards] = React.useState([]);
+      const [filteredCards, setFilteredCards] = React.useState([]);
+      const [currentCardIndex, setCurrentCardIndex] = React.useState(0);
+      const [showAnswer, setShowAnswer] = React.useState(false);
+      const [isFlipping, setIsFlipping] = React.useState(false);
+      const [selectedTopic, setSelectedTopic] = React.useState(null);
+      const [selectedSubtopic, setSelectedSubtopic] = React.useState(null);
+      const [bookmarkedCards, setBookmarkedCards] = React.useState([]);
+      const [view, setView] = React.useState('topics');
+      const [animationClass, setAnimationClass] = React.useState('');
+
+      const caseStudyFacts = {
+        "Mt Etna": `<ul>
+          <li>VEI: 2-3</li>
+          <li>2021 eruption: ash plume up to 3 km high</li>
+          <li>Casualties: minimal due to monitoring</li>
+        </ul>`,
+        "Mt Merapi": `<ul>
+          <li>2010 eruption: VEI 4</li>
+          <li>Deaths: ~353</li>
+          <li>Injuries: &gt;1,000; significant infrastructure damage</li>
+        </ul>`,
+        "Eyjafjallajökull": `<ul>
+          <li>2010 eruption: VEI 4</li>
+          <li>Ash cloud: reached 9 km high, disrupted European air travel for 6 days</li>
+          <li>Direct casualties: minimal</li>
+        </ul>`,
+        "Montserrat": `<ul>
+          <li>Active since 1995</li>
+          <li>Evacuation: ~2/3 of population</li>
+          <li>Long-term socio-economic impact</li>
+        </ul>`,
+        "Yellowstone": `<ul>
+          <li>Supervolcano; last major eruption: &gt;600,000 years ago</li>
+          <li>Potential eruption: VEI 8; catastrophic global impact</li>
+        </ul>`,
+        "Boxing Day Tsunami": `<ul>
+          <li>Triggered by 9.1-9.3 magnitude earthquake in 2004</li>
+          <li>Deaths: ~230,000</li>
+          <li>Massive infrastructural damage</li>
+        </ul>`,
+        "Haiti": `<ul>
+          <li>2010 earthquake: magnitude 7.0</li>
+          <li>Deaths: &gt;230,000; Injuries: ~300,000</li>
+          <li>Damage: $8-14 billion</li>
+        </ul>`,
+        "Cyclone Nargis": `<ul>
+          <li>2008 event in Myanmar</li>
+          <li>Deaths: ~138,000; Millions displaced</li>
+          <li>Severe infrastructure damage</li>
+        </ul>`,
+        "Hurricane Katrina": `<ul>
+          <li>2005 event: ~1,833 deaths</li>
+          <li>Displacement: &gt;250,000 people</li>
+          <li>Damage: &gt;$125 billion</li>
+        </ul>`,
+        "LA Wildfire": `<ul>
+          <li>Recent events: evacuations and property losses &gt;$2 billion</li>
+          <li>Widespread damage in urban areas</li>
+        </ul>`,
+        "Alberta Wildfire": `<ul>
+          <li>2016 season: burned millions of acres</li>
+          <li>Significant regional damage</li>
+        </ul>`,
+        "Tohoku": `<ul>
+          <li>2011 earthquake/tsunami: magnitude 9.0</li>
+          <li>Deaths: ~15,000; nuclear crisis triggered</li>
+          <li>Long-term environmental and infrastructural challenges</li>
+        </ul>`,
+        "Typhoon Haiyan": `<ul>
+          <li>2013 event in the Philippines</li>
+          <li>Deaths: &gt;6,300; one of the strongest cyclones recorded</li>
+          <li>Widespread destruction</li>
+        </ul>`,
+        "Ground Zero": `<ul>
+          <li>Site of 9/11 attacks; major redevelopment</li>
+          <li>Significantly impacted New York's economic and cultural identity</li>
+        </ul>`,
+        "Plymouth": `<ul>
+          <li>Underwent substantial economic changes and urban regeneration</li>
+          <li>Shift in population and employment trends</li>
+        </ul>`,
+        "Detroit": `<ul>
+          <li>Population decline of over 60% from peak</li>
+          <li>Significant economic loss due to industrial decline; revitalisation efforts ongoing</li>
+        </ul>`,
+        "London Olympics": `<ul>
+          <li>2012 Olympics spurred major urban regeneration</li>
+          <li>Boosted local economy and altered demographic patterns</li>
+        </ul>`,
+        "Medellin": `<ul>
+          <li>Transformation from violence to innovation-driven urban revival</li>
+          <li>Enhanced urban design and economic growth</li>
+        </ul>`,
+        "Bourneville": `<ul>
+          <li>Industrial heritage from Cadburys</li>
+          <li>Economic changes redefined community identity</li>
+        </ul>`,
+        "Devonport": `<ul>
+          <li>Shift in naval and industrial activity</li>
+          <li>Notable demographic and economic changes</li>
+        </ul>`,
+        "Stonehenge": `<ul>
+          <li>Iconic monument driving tourism</li>
+          <li>Major contributor to regional economic activity and identity</li>
+        </ul>`,
+        "Glastonbury": `<ul>
+          <li>Famous for cultural festivals and historical legacy</li>
+          <li>Exemplifies the blend of heritage and modern economic trends</li>
+        </ul>`
+      };
+
+      const topicConfig = [
+        {
+          id: 'hazards',
+          name: 'Hazards',
+          icon: 'fa-mountain',
+          color: '#2e7d32',
+          subtopics: [
+            "Volcanoes",
+            "Tsunamis",
+            "Earthquakes",
+            "Tropical Storms",
+            "Wildfires",
+            "General",
+            "Geophysical Hazards",
+            "Atmospheric Hazards",
+            "Hydrological Hazards",
+            "Perception of Hazards",
+            "Hazard Response"
+          ],
+          subtopicIcons: {
+            "Volcanoes": "fa-volcano", // Ensure icon is defined and visible
+            "Tsunamis": "fa-water",
+            "Earthquakes": "fa-layer-group",
+            "Tropical Storms": "fa-wind",
+            "Wildfires": "fa-fire",
+            "General": "fa-info-circle",
+            "Geophysical Hazards": "fa-globe",
+            "Atmospheric Hazards": "fa-cloud",
+            "Hydrological Hazards": "fa-water",
+            "Perception of Hazards": "fa-eye",
+            "Hazard Response": "fa-hands-helping"
+          }
+        },
+        {
+          id: 'changing-places',
+          name: 'Changing Places',
+          icon: 'fa-city',
+          color: '#1565c0',
+          subtopics: [
+            "Place Meaning",
+            "Artistic Representation",
+            "Changing Places",
+            "Forces of Change",
+            "Rebranding",
+            "General",
+            "Emotional Attachment",
+            "Perception of Place",
+            "Social Constructs",
+            "Identity and Belonging"
+          ],
+          subtopicIcons: {
+            "Place Meaning": "fa-map-marker-alt",
+            "Artistic Representation": "fa-paint-brush",
+            "Changing Places": "fa-exchange-alt",
+            "Forces of Change": "fa-bolt",
+            "Rebranding": "fa-tag",
+            "General": "fa-info-circle",
+            "Emotional Attachment": "fa-heart",
+            "Perception of Place": "fa-eye",
+            "Social Constructs": "fa-users",
+            "Identity and Belonging": "fa-id-badge"
+          }
+        },
+        {
+          id: 'global-governance',
+          name: 'Global Governance',
+          icon: 'fa-globe',
+          color: '#6a1b9a',
+          subtopics: [
+            "Global Systems",
+            "Global Inequality",
+            "International Agreements",
+            "Global Institutions"
+          ],
+          subtopicIcons: {
+            "Global Systems": "fa-network-wired",
+            "Global Inequality": "fa-balance-scale",
+            "International Agreements": "fa-handshake",
+            "Global Institutions": "fa-university"
+          }
+        },
+        {
+          id: 'coasts',
+          name: 'Coasts',
+          icon: 'fa-water',
+          color: '#0277bd',
+          subtopics: [
+            "Coastal Processes",
+            "Landforms",
+            "Management",
+            "Case Studies"
+          ],
+          subtopicIcons: {
+            "Coastal Processes": "fa-wave-square",
+            "Landforms": "fa-mountain",
+            "Management": "fa-tasks",
+            "Case Studies": "fa-book"
+          }
+        },
+        {
+          id: 'carbon',
+          name: 'Carbon & Water',
+          icon: 'fa-tint', // Updated icon to better fit the topic
+          color: '#2e7d32',
+          subtopics: [
+            "Carbon Cycle",
+            "Energy Security",
+            "Climate Change",
+            "Mitigation"
+          ],
+          subtopicIcons: {
+            "Carbon Cycle": "fa-recycle",
+            "Energy Security": "fa-battery-three-quarters",
+            "Climate Change": "fa-temperature-high",
+            "Mitigation": "fa-hands-helping"
+          }
+        },
+        {
+          id: 'contemporary-urban',
+          name: 'Contemporary Urban',
+          icon: 'fa-building',
+          color: '#6a1b9a',
+          subtopics: [
+            "Urban Processes",
+            "Urban Climate",
+            "Urban Drainage",
+            "Sustainable Cities"
+          ],
+          subtopicIcons: {
+            "Urban Processes": "fa-city",
+            "Urban Climate": "fa-cloud-sun",
+            "Urban Drainage": "fa-water",
+            "Sustainable Cities": "fa-leaf"
+          }
+        }
+      ];
+
+      const generateFlashcards = React.useCallback(() => {
+        let generatedFlashcards = [];
+        let idCounter = 1;
+        
+        const hazardsFlashcards = [
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Mt Etna case study.",
+            answer: caseStudyFacts["Mt Etna"],
+            topic: "Hazards",
+            subtopic: "Volcanoes",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Analyze the immediate and long-term responses for Mt Etna.",
+            answer: `<ul>
+              <li>Immediate: Evacuation plans activated, air traffic diverted</li>
+              <li>Long-term: Continuous monitoring systems upgraded, tourism management improved</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Volcanoes",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Compare the eruptions of Mt Etna and Mt Merapi.",
+            answer: `<ul>
+              <li>Mt Etna: Frequent but less violent eruptions, well-monitored</li>
+              <li>Mt Merapi: More explosive eruptions, higher casualty rates</li>
+              <li>Both: Significant economic impacts but different management approaches</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Volcanoes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Boxing Day Tsunami case study.",
+            answer: caseStudyFacts["Boxing Day Tsunami"],
+            topic: "Hazards",
+            subtopic: "Tsunamis",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Explain why the 2004 Indian Ocean tsunami was so devastating.",
+            answer: `<ul>
+              <li>Magnitude 9.1-9.3 earthquake generated massive wave energy</li>
+              <li>Lack of early warning system in Indian Ocean region</li>
+              <li>High population density in coastal areas</li>
+              <li>Low-lying coastal topography increased inundation</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Tsunamis",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Haiti earthquake case study.",
+            answer: caseStudyFacts["Haiti"],
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Explain why the 2010 Haiti earthquake was particularly destructive.",
+            answer: `<ul>
+              <li>Shallow focus (13km) increased surface shaking</li>
+              <li>Poor building construction standards</li>
+              <li>High population density in Port-au-Prince</li>
+              <li>Limited emergency response capacity</li>
+              <li>Pre-existing poverty and poor infrastructure</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of Hurricane Katrina.",
+            answer: caseStudyFacts["Hurricane Katrina"],
+            topic: "Hazards",
+            subtopic: "Tropical Storms",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Compare the impacts of Hurricane Katrina and Cyclone Nargis.",
+            answer: `<ul>
+              <li>Katrina: $125 billion damage, 1,833 deaths, mostly in USA</li>
+              <li>Nargis: ~138,000 deaths, millions displaced, Myanmar</li>
+              <li>Different response capacities due to economic differences</li>
+              <li>Both highlighted need for better preparedness</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Tropical Storms",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Alberta wildfire case study.",
+            answer: caseStudyFacts["Alberta Wildfire"],
+            topic: "Hazards",
+            subtopic: "Wildfires",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Explain the factors that contributed to the severity of the Alberta wildfires.",
+            answer: `<ul>
+              <li>Unusually hot and dry weather conditions</li>
+              <li>Abundant fuel from boreal forest</li>
+              <li>Strong winds spread fires rapidly</li>
+              <li>Proximity to Fort McMurray increased economic impact</li>
+              <li>Climate change increasing wildfire risk in boreal regions</li>
+            </ul>`,
+            topic: "Hazards",
+            subtopic: "Wildfires",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is a hazard?",
+            answer: "A hazard is an event that has the potential to cause harm to the environment, people or the economy.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? A natural hazard is an event which is the result of either human or environmental processes.",
+            answer: "False. A natural hazard is an event caused by environmental processes that would occur without the presence of humans.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term geophysical hazard.",
+            answer: "A geophysical hazard is caused by land processes. Examples of geophysical hazards include: Earthquakes, Volcanic activity, Mass movements like landslides and mudflows.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? A natural hazard always results in a disaster.",
+            answer: "False. A natural hazard has the potential to cause harm, but a disaster only occurs when actual harm happens.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Give one example of an atmospheric hazard.",
+            answer: "Examples of atmospheric hazards include: Tropical storms, Wildfires.",
+            topic: "Hazards",
+            subtopic: "Atmospheric Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Which type of hazard is caused by the movement and distribution of water?",
+            answer: "A hydrological hazard is caused by the movement and distribution of water, such as floods.",
+            topic: "Hazards",
+            subtopic: "Hydrological Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What factors affect people's perception of hazards?",
+            answer: "People's perceptions of hazards are influenced by economic and cultural factors.",
+            topic: "Hazards",
+            subtopic: "Perception of Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Name one economic factor which affects hazard perception.",
+            answer: "Economic factors which affect people's perception of hazards include: Quality of housing and infrastructure, Spending on preparation and prediction, Investment in education.",
+            topic: "Hazards",
+            subtopic: "Perception of Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is a disaster?",
+            answer: "A disaster is when harm occurs to the environment, people or the economy.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Name one cultural factor which affects hazard perception.",
+            answer: "Cultural factors affecting hazard perception include: Cultural values and beliefs, Trust in scientists and government officials, Previous experiences with hazards.",
+            topic: "Hazards",
+            subtopic: "Perception of Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is fatalism in the context of hazard response?",
+            answer: "Fatalism is when people believe that hazards cannot be avoided and so must be accepted, often leading to inaction.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is adjustment/adaptation in the context of a hazard response?",
+            answer: "Adjustment/adaptation is changing behaviour to reduce potential losses, such as improving awareness of hazards and practising earthquake drills.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term mitigation.",
+            answer: "Mitigation is working to reduce or prevent the occurrence of hazards, for example, by building sea walls to prevent flooding.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is integrated risk management?",
+            answer: "Integrated risk management involves analysing potential risks and implementing a coordinated approach to manage and reduce them.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Intensity and magnitude are the same thing for hazards.",
+            answer: "False. Intensity and magnitude are similar but not the same. Magnitude measures the amount of energy released. Intensity measures the degree of shaking in a particular location.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define risk sharing.",
+            answer: "Risk sharing is working together to reduce the risk and sharing the costs of hazard response, for example, buying home insurance.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is distribution in relation to hazards?",
+            answer: "Distribution refers to where hazards occur.",
+            topic: "Hazards",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "How does the level of development affect hazard response?",
+            answer: "More developed countries are more likely to have mitigation and adaptation strategies in place. They are usually better prepared to respond to hazards effectively.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "How does distribution affect hazard response?",
+            answer: "Distribution affects hazard response because in more hazardous locations, people are more prepared for hazard events as they invest significant time and money to protect themselves.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the hazard management cycle?",
+            answer: "The hazard management cycle is a model that shows how the events of one hazard event inform planning and preparation for the next hazard event.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define response in the context of hazard events.",
+            answer: "Response is the stage of the hazard management cycle involving search and rescue and provision of emergency medical assistance and aid.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? The time taken for each stage of the hazard management cycle is always the same.",
+            answer: "False. The time taken for each stage of the hazard management cycle will vary due to factors such as level of development, magnitude of the hazard, quality of governance, and aid available.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Which human response model outlines how people react to hazard events and how hazards affect people's quality of life?",
+            answer: "The Park model of human response describes how people react to hazard events and how hazards affect people's quality of life.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? In the Park model, LDE countries tend to recover more quickly than HDE countries.",
+            answer: "False. In the Park model, LDE countries tend to recover less quickly than HDE countries.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What factors affect the steepness of the downward curve in the Park model?",
+            answer: "The steepness of the downward curve in the Park model varies depending on the nature and magnitude of the hazard. A high-magnitude event that happens very suddenly will have a steeper and deeper curve than a slow-onset, low-magnitude event.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term recovery in the context of hazard events.",
+            answer: "Recovery is the stage of the hazard management cycle involving restoring services and reconstructing damaged buildings.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Name the three phases in the Park model.",
+            answer: "The three phases in the Park model are: Relief, Rehabilitation, Reconstruction.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the preparedness stage of the hazard response cycle?",
+            answer: "The preparedness stage includes activities such as earthquake drills and public awareness campaigns.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Less developed countries are more likely to have mitigation and adaptation strategies in place.",
+            answer: "False. More developed countries are more likely to have mitigation and adaptation strategies in place and will be better prepared to respond to hazards effectively.",
+            topic: "Hazards",
+            subtopic: "Hazard Response",
+            type: "conceptual"
+          }
+        ];
+        
+        const changingPlacesFlashcards = [
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Ground Zero case study.",
+            answer: caseStudyFacts["Ground Zero"],
+            topic: "Changing Places",
+            subtopic: "Place Meaning",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Explain how places can have different meanings for different groups.",
+            answer: `<ul>
+              <li>Insiders vs outsiders perspectives</li>
+              <li>Historical vs contemporary meanings</li>
+              <li>Personal experiences shape perceptions</li>
+              <li>Media representation influences understanding</li>
+              <li>Example: Ground Zero as memorial vs tourist site</li>
+            </ul>`,
+            topic: "Changing Places",
+            subtopic: "Place Meaning",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "How can artistic representations influence our perception of place?",
+            answer: `<ul>
+              <li>Art can capture emotional connections to place</li>
+              <li>Can challenge or reinforce stereotypes</li>
+              <li>Provides alternative perspectives on place</li>
+              <li>Example: Songs about New York shaping its image</li>
+              <li>Art can document changes in places over time</li>
+            </ul>`,
+            topic: "Changing Places",
+            subtopic: "Artistic Representation",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Detroit case study.",
+            answer: caseStudyFacts["Detroit"],
+            topic: "Changing Places",
+            subtopic: "Changing Places",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Analyze the causes of Detroit's economic decline.",
+            answer: `<ul>
+              <li>Decline of automobile industry</li>
+              <li>Globalization and outsourcing of manufacturing</li>
+              <li>Racial tensions and white flight</li>
+              <li>Poor urban planning decisions</li>
+              <li>Failure to diversify economy</li>
+            </ul>`,
+            topic: "Changing Places",
+            subtopic: "Changing Places",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the Medellin case study.",
+            answer: caseStudyFacts["Medellin"],
+            topic: "Changing Places",
+            subtopic: "Forces of Change",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Evaluate the role of urban planning in Medellin's transformation.",
+            answer: `<ul>
+              <li>Social urbanism approach focused on poorest areas</li>
+              <li>Cable cars connecting hillside favelas to city center</li>
+              <li>Library parks as community hubs</li>
+              <li>Improved public transportation reduced segregation</li>
+              <li>Combined physical and social interventions</li>
+            </ul>`,
+            topic: "Changing Places",
+            subtopic: "Forces of Change",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Describe the key details of the London Olympics rebranding case study.",
+            answer: caseStudyFacts["London Olympics"],
+            topic: "Changing Places",
+            subtopic: "Rebranding",
+            type: "caseStudy"
+          },
+          {
+            id: idCounter++,
+            question: "Assess the effectiveness of the London Olympics in regenerating East London.",
+            answer: `<ul>
+              <li>Successes: Improved infrastructure, new housing, Olympic Park legacy</li>
+              <li>Challenges: Gentrification concerns, affordability issues</li>
+              <li>Mixed results on promised employment benefits</li>
+              <li>Long-term economic impact still being evaluated</li>
+              <li>Improved international image of London</li>
+            </ul>`,
+            topic: "Changing Places",
+            subtopic: "Rebranding",
+            type: "conceptual"
+          }
+        ];
+        
+        const additionalFlashcards = [
+          {
+            id: idCounter++,
+            question: "What are the four main layers of the Earth?",
+            answer: "<ul><li>Crust</li><li>Mantle</li><li>Outer core</li><li>Inner core</li></ul>",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define continental crust.",
+            answer: "The continental crust is a thicker (up to 70km), less dense layer than the oceanic crust. It is mainly composed of granite.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the asthenosphere?",
+            answer: "The asthenosphere is a plastic-type layer in the upper mantle that moves slowly under high pressure and carries the lithosphere on top.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? The lower mantle is cooler and less dense than the upper mantle.",
+            answer: "False. The lower mantle is hotter and more dense than the upper mantle.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the composition of the inner core?",
+            answer: "The inner core is a solid centre, mostly composed of iron.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term lithosphere.",
+            answer: "The lithosphere is the rigid layer above the asthenosphere, together with the crust. Together, they float on top of the asthenosphere.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are the two key causes of extreme heat in the Earth's core?",
+            answer: "<ul><li>Radioactive decay of elements such as uranium and potassium</li><li>Residual heat from the collisions of asteroids and other small bodies resulted in the formation of Earth.</li></ul>",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? There are only seven tectonic plates.",
+            answer: "False. There are seven major tectonic plates and several minor ones.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define oceanic crust.",
+            answer: "Oceanic crust is a thinner (5–10 km) and denser layer mainly composed of basalt.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the main driver of tectonic activity?",
+            answer: "The main driver of tectonic activity is the heat from the Earth's core.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the theory of plate tectonics?",
+            answer: "The theory of plate tectonics is a scientific theory that revolutionised people's understanding and study of geological processes and the Earth, explaining phenomena such as earthquakes, volcanic eruptions, mountain formations and continental movement.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Who proposed the Continental Drift Theory?",
+            answer: "Alfred Wegener proposed the Continental Drift Theory.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is convection current theory?",
+            answer: "Convection current theory explains tectonic plate movement as the result of heat from radioactive decay in the core moving upwards in the mantle, creating currents that carry the lithospheric plates above.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define slab pull.",
+            answer: "Slab pull is the process where gravity pulls a subducting plate down into the mantle at a subduction zone.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Slab pull is less important than ridge push in causing plate movement.",
+            answer: "False. Slab pull is much more important than ridge push in causing the movement of tectonic plates.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Wegener's Continental Drift Theory explained how tectonic plates move.",
+            answer: "False. Wegener's theory stated that the continents had moved but was unable to suggest how or why.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is palaeomagnetism?",
+            answer: "Palaeomagnetism is evidence that the sea floor has gradually moved apart at a mid-ocean ridge. It is shown by the alignment of minerals in cooled lava with the Earth's magnetic field.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is seafloor spreading?",
+            answer: "Seafloor spreading is the process by which new oceanic crust is formed at mid-ocean ridges and moves away from the ridge over time.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What evidence did Wegener use to support his Continental Drift Theory?",
+            answer: "<ul><li>The fit of continents.</li><li>Fossil distributions.</li><li>Rock type and structural similarities.</li><li>Past climatic evidence.</li></ul>",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is gravitational sliding (or ridge push)?",
+            answer: "Gravitational sliding (or ridge push) is the process where gravity pulls the lithosphere down the slope created as new oceanic crust cools and becomes denser. This pushes the crust forward.",
+            topic: "Hazards",
+            subtopic: "Geophysical Hazards",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the focus of an earthquake?",
+            answer: "The focus of an earthquake is the point below the Earth's surface where the earthquake starts.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term epicentre.",
+            answer: "The epicentre is the point on the Earth's surface directly above the focus of an earthquake.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Most earthquakes occur far from plate boundaries.",
+            answer: "False. Most earthquakes (about 95%) occur close to or at plate margins.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are P waves?",
+            answer: "P waves are primary seismic waves that are the fastest, reach the surface first, travel through liquids and solids, and cause backwards and forward shaking.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the term liquefaction.",
+            answer: "Liquefaction is when shaking causes loose or saturated soils to lose their strength and act like a liquid rather than a solid.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the Ring of Fire?",
+            answer: "The Ring of Fire is the area surrounding the Pacific Ocean where many earthquakes occur.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are S waves?",
+            answer: "S waves are secondary seismic waves that are slower than P waves, only travel through solids, and cause a sideways motion.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Intra-plate earthquakes occur at plate margins.",
+            answer: "False. Intra-plate earthquakes are those that do not happen at plate margins.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the name of a large wave caused by an earthquake beneath the sea bed that lifts water?",
+            answer: "A tsunami is a large wave created when an earthquake occurs beneath the sea bed, displacing water and forcing it upwards.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Which type of seismic wave is the most damaging?",
+            answer: "L waves are surface seismic waves that are the slowest, cause a side-to-side motion, and are the most damaging.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is magnitude in the context of earthquakes?",
+            answer: "Magnitude is the energy released at the source (focus) of an earthquake.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define the Moment Magnitude Scale (MMS).",
+            answer: "The Moment Magnitude Scale (MMS) is used to measure the magnitude of earthquakes, ranging from 1 to 10.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? The Moment Magnitude Scale is a linear scale.",
+            answer: "False. The Moment Magnitude Scale is a logarithmic scale.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does the Modified Mercalli Intensity Scale measure?",
+            answer: "The Modified Mercalli Intensity Scale measures the intensity of an earthquake, which is its impact on people, as well as on the built and natural environments.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define seismic gap theory.",
+            answer: "Seismic gap theory suggests that if there has been little or no earthquake activity at a plate margin for a long time, it is more likely to experience a large earthquake in the future.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? It is possible to predict earthquakes accurately.",
+            answer: "False. It is not possible to predict earthquakes accurately.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are foreshocks?",
+            answer: "Foreshocks are pre-cursor earthquakes that may indicate a larger earthquake will follow.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does a strainmeter measure?",
+            answer: "A strainmeter measures deformation, which might indicate that pressure is building up before an earthquake.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Concentrations of which gas in the atmosphere may increase before an earthquake?",
+            answer: "Concentrations of radon gas in the atmosphere may increase before an earthquake.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is the probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years?",
+            answer: "The probability of a 6.7 magnitude earthquake in the Los Angeles area within the next 30 years is 60%.",
+            topic: "Hazards",
+            subtopic: "Earthquakes",
+            type: "conceptual"
+          }
+        ];
+
+        const placeFlashcards = [
+          {
+            id: idCounter++,
+            question: "Define the term place in geography.",
+            answer: "Place in geography is space plus meaning.",
+            topic: "Place",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is topophobia?",
+            answer: "Topophobia is a negative attachment to a place.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define topophilia.",
+            answer: "Topophilia is a positive attachment to a place.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? People can only form attachments to places they have visited.",
+            answer: "False. People can form attachments to places through perception gained from media or hearing the experiences of others.",
+            topic: "Place",
+            subtopic: "Emotional Attachment",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is place perspective?",
+            answer: "Place perspective is the combination of lived experience and perception of place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define localism.",
+            answer: "Localism is a preference for the place closest to you.",
+            topic: "Place",
+            subtopic: "Identity and Belonging",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does regionalism refer to in terms of place identity?",
+            answer: "Regionalism refers to identification with a distinct region, such as describing oneself as 'Cornish' rather than 'English'.",
+            topic: "Place",
+            subtopic: "Identity and Belonging",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define sense of place.",
+            answer: "Sense of place is the attachment between person and place due to lived experience, or the distinctive character of a place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are the three ways to think about how to define place?",
+            answer: "<ul><li>Location.</li><li>Locale.</li><li>Sense of place.</li></ul>",
+            topic: "Place",
+            subtopic: "General",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What is placelessness?",
+            answer: "Placelessness is essentially no sense of place, involving no awareness of the deep and symbolic significance of places and no appreciation of their identities.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What does it mean for a place to be a social construct?",
+            answer: "For a place to be a social construct means that some people can feel 'in place' and some can feel 'out of place'.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define placemaking processes.",
+            answer: "Placemaking processes are actions used to create spatial inclusion or exclusion.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? Dominant groups always create spatial inclusion.",
+            answer: "False. Dominant groups can create social norms that lead to spatial exclusion for those who deviate from the norm.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What are insider perspectives?",
+            answer: "Insider perspectives come from being fluent in the local language, being born in the place, and knowing the customs and norms.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define outsider perspectives.",
+            answer: "Outsider perspectives are views held by people who are not from the area or do not fit the social norm.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "True or False? People with insider perspectives usually feel safe in a place.",
+            answer: "True. People with insider perspectives usually feel safe in a place.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What factors contribute to insider perspectives?",
+            answer: "<ul><li>Being fluent in the local language.</li><li>Being born in the place.</li><li>Knowing customs and norms.</li><li>Having friends/family connections.</li></ul>",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "Define spatial exclusion.",
+            answer: "Spatial exclusion is the process of physically preventing certain groups from accessing or using specific spaces.",
+            topic: "Place",
+            subtopic: "Social Constructs",
+            type: "conceptual"
+          },
+          {
+            id: idCounter++,
+            question: "What can cause people from the local area to have outsider perspectives?",
+            answer: "People from the local area can have outsider perspectives if they do not fit the social norm, such as those with different sexualities or genders.",
+            topic: "Place",
+            subtopic: "Perception of Place",
+            type: "conceptual"
+          }
+        ];
+
+        generatedFlashcards = [
+          ...hazardsFlashcards,
+          ...changingPlacesFlashcards,
+          ...additionalFlashcards,
+          ...placeFlashcards
+        ];
+        
+        setFlashcards(generatedFlashcards);
+        setFilteredCards(generatedFlashcards);
+      }, []);
+
+      React.useEffect(() => {
+        generateFlashcards();
+      }, [generateFlashcards]);
+
+      React.useEffect(() => {
+        let filtered = [...flashcards];
+        
+        if (selectedTopic) {
+          filtered = filtered.filter(card => card.topic === selectedTopic);
+        }
+        
+        if (selectedSubtopic) {
+          filtered = filtered.filter(card => card.subtopic === selectedSubtopic);
+        }
+        
+        if (view === 'bookmarks') {
+          filtered = filtered.filter(card => bookmarkedCards.includes(card.id));
+        }
+        
+        setFilteredCards(filtered);
+        setCurrentCardIndex(0);
+        setShowAnswer(false);
+      }, [flashcards, selectedTopic, selectedSubtopic, view, bookmarkedCards]);
+
+      const isCardBookmarked = React.useCallback((cardId) => {
+        return bookmarkedCards.includes(cardId);
+      }, [bookmarkedCards]);
+      
+      const selectTopic = (topic) => {
+        setAnimationClass('slide-out');
+        setTimeout(() => {
+          setSelectedTopic(topic);
+          setSelectedSubtopic(null);
+          setView('subtopics');
+          setAnimationClass('slide-in');
+        }, 300);
+      };
+      
+      const selectSubtopic = (subtopic) => {
+        setAnimationClass('slide-out');
+        setTimeout(() => {
+          setSelectedSubtopic(subtopic);
+          setView('flashcards');
+          setAnimationClass('slide-in');
+        }, 300);
+      };
+      
+      const goBackToTopics = () => {
+        setAnimationClass('slide-out');
+        setTimeout(() => {
+          setSelectedTopic(null);
+          setSelectedSubtopic(null);
+          setView('topics');
+          setAnimationClass('slide-in');
+        }, 300);
+      };
+      
+      const goBackToSubtopics = () => {
+        setAnimationClass('slide-out');
+        setTimeout(() => {
+          setSelectedSubtopic(null);
+          setView('subtopics');
+          setAnimationClass('slide-in');
+        }, 300);
+      };
+      
+      const showBookmarks = () => {}; // Remove bookmarks functionality
+      
+      const toggleCardBookmark = () => {}; // Remove bookmark toggle functionality
+      
+      const nextCard = () => {
+        if (filteredCards.length === 0) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
+          setCurrentCardIndex(prev => 
+            prev < filteredCards.length - 1 ? prev + 1 : 0
+          );
+          setShowAnswer(false);
+          setIsFlipping(false);
+        }, 300);
+      };
+      
+      const prevCard = () => {
+        if (filteredCards.length === 0 || currentCardIndex === 0) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
+          setCurrentCardIndex(prev => prev - 1);
+          setShowAnswer(false);
+          setIsFlipping(false);
+        }, 300);
+      };
+      
+      const toggleAnswer = () => {
+        if (isFlipping || filteredCards.length === 0) return;
+        
+        setIsFlipping(true);
+        setTimeout(() => {
+          setShowAnswer(!showAnswer);
+          setIsFlipping(false);
+        }, 150);
+      };
+      
+      const getSubtopicCardCount = (subtopic) => {
+        return flashcards.filter(card => 
+          card.subtopic === subtopic && 
+          (!selectedTopic || card.topic === selectedTopic)
+        ).length;
+      };
+      
+      const getSubtopicIcon = (subtopic) => {
+        const topic = topicConfig.find(t => t.subtopics.includes(subtopic));
+        if (!topic || !topic.subtopicIcons) return 'fa-folder';
+        return topic.subtopicIcons[subtopic] || {
+          "Volcanoes": "fa-volcano",
+          "Tsunamis": "fa-water",
+          "Earthquakes": "fa-layer-group",
+          "Tropical Storms": "fa-wind",
+          "Wildfires": "fa-fire",
+          "General": "fa-info-circle",
+          "Geophysical Hazards": "fa-globe",
+          "Atmospheric Hazards": "fa-cloud",
+          "Hydrological Hazards": "fa-water",
+          "Perception of Hazards": "fa-eye",
+          "Hazard Response": "fa-hands-helping"
+        }[subtopic] || 'fa-folder';
+      };
+      
+      React.useEffect(() => {
+        const handleKeyDown = (e) => {
+          if (view !== 'flashcards') return;
+          
+          switch(e.key) {
+            case 'ArrowRight':
+              nextCard();
+              break;
+            case 'ArrowLeft':
+              prevCard();
+              break;
+            case ' ':
+            case 'Enter':
+              e.preventDefault();
+              toggleAnswer();
+              break;
+            default:
+              break;
+          }
+        };
+        
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+      }, [view, filteredCards, currentCardIndex, showAnswer]);
+      
+      return (
+        <ErrorBoundary>
+          <div id="app-container">
+            <div className="app-header">
+              <h1 className="app-title">Geography Flashcards</h1>
+            </div>
+            
+            <div className="app-layout">
+              <div className="sidebar">
+                <div className="sidebar-section">
+                  <div className="search-container"></div>
+                </div>
+                
+                <div className={`sidebar-section ${animationClass}`}>
+                  {view === 'topics' && (
+                    <>
+                      <div className="sidebar-title">
+                        <i className="fas fa-layer-group"></i>
+                        Topics
+                      </div>
+                      
+                      <div className="topic-grid">
+                        {topicConfig.map(topic => (
+                          <button
+                            key={topic.id}
+                            className="topic-card"
+                            onClick={() => selectTopic(topic.name)}
+                            aria-label={`Select ${topic.name} topic`}
+                          >
+                            <i className={`fas ${topic.icon} topic-icon`}></i>
+                            <div className="topic-name">{topic.name}</div>
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  
+                  {(view === 'subtopics' || view === 'flashcards') && selectedTopic && (
+                    <div className="subtopic-container">
+                      <button 
+                        className="back-btn" 
+                        onClick={view === 'subtopics' ? goBackToTopics : goBackToSubtopics}
+                        aria-label={`Go back to ${view === 'subtopics' ? 'topics' : 'subtopics'}`}
+                      >
+                        <i className="fas fa-arrow-left"></i>
+                        {view === 'subtopics' ? 'Back to Topics' : 'Back to Subtopics'}
+                      </button>
+                      
+                      {view === 'subtopics' && (
+                        <>
+                          <div className="sidebar-title">
+                            <i className={`fas ${topicConfig.find(t => t.name === selectedTopic)?.icon || 'fa-folder'}`}></i>
+                            {selectedTopic} Subtopics
+                          </div>
+                          
+                          <div className="subtopic-list">
+                            {topicConfig.find(t => t.name === selectedTopic)?.subtopics.map(subtopic => (
+                              <div
+                                key={subtopic}
+                                className="subtopic-card"
+                                onClick={() => selectSubtopic(subtopic)}
+                                aria-label={`Select ${subtopic} subtopic`}
+                                role="button"
+                                tabIndex="0"
+                                onKeyDown={(e) => e.key === 'Enter' && selectSubtopic(subtopic)}
+                              >
+                                <div className="subtopic-name">
+                                  <i className={`fas ${getSubtopicIcon(subtopic)} subtopic-icon`}></i>
+                                  {subtopic}
+                                </div>
+                                <div className="subtopic-count">
+                                  {getSubtopicCardCount(subtopic)} cards
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
+              
+              <div className="flashcard-view">
+                {view === 'flashcards' && filteredCards.length > 0 ? (
+                  <>
+                    <div className="flashcard-header">
+                      <div className="flashcard-progress">
+                        Card {currentCardIndex + 1} of {filteredCards.length}
+                        {selectedSubtopic && ` • ${selectedSubtopic}`}
+                      </div>
+                      <div className="flashcard-actions">
+                        {/* Bookmark button removed */}
+                      </div>
+                    </div>
+                    
+                    <div 
+                      className="flashcard-content" 
+                      onClick={toggleAnswer}
+                      role="button"
+                      tabIndex="0"
+                      aria-label={showAnswer ? 'Hide answer' : 'Show answer'}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          toggleAnswer();
+                        }
+                      }}
+                    >
+                      <div className={`flashcard ${isFlipping ? 'flipping' : ''}`}>
+                        <div className="flashcard-subtopic">
+                          <i className={`fas ${filteredCards[currentCardIndex].type === 'caseStudy' ? 'fa-map-marked-alt' : 'fa-brain'}`}></i>
+                          {filteredCards[currentCardIndex].subtopic}
+                        </div>
+                        
+                        {!showAnswer ? (
+                          <div className="flashcard-question">
+                            <h3>
+                              <i className="fas fa-question-circle"></i>
+                              Question
+                            </h3>
+                            <p>{filteredCards[currentCardIndex].question}</p>
+                          </div>
+                        ) : (
+                          <div className="flashcard-answer">
+                            <h3>
+                              <i className="fas fa-lightbulb"></i>
+                              Answer
+                            </h3>
+                            <div 
+                              className="flashcard-answer-content"
+                              dangerouslySetInnerHTML={{ __html: filteredCards[currentCardIndex].answer }}
+                            />
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="flashcard-instruction">
+                        {!showAnswer ? 'Click to reveal answer' : 'Click to hide answer'}
+                      </div>
+                    </div>
+                    
+                    <div className="flashcard-nav">
+                      <button 
+                        className="nav-btn prev"
+                        onClick={prevCard}
+                        disabled={currentCardIndex === 0}
+                        aria-label="Previous card"
+                      >
+                        <i className="fas fa-arrow-left"></i>
+                        Previous
+                      </button>
+                      <button 
+                        className="nav-btn next"
+                        onClick={nextCard}
+                        aria-label="Next card"
+                      >
+                        Next
+                        <i className="fas fa-arrow-right"></i>
+                      </button>
+                    </div>
+                  </>
+                ) : view === 'flashcards' ? (
+                  <div className="empty-state">
+                    <i className="fas fa-map"></i>
+                    <h3>No flashcards found</h3>
+                    <p>Try changing your search or selection criteria</p>
+                    <button 
+                      className="nav-btn next"
+                      onClick={goBackToSubtopics}
+                      aria-label="Back to subtopics"
+                    >
+                      <i className="fas fa-arrow-left"></i>
+                      Back to Subtopics
+                    </button>
+                  </div>
+                ) : (
+                  <div className="empty-state">
+                    <i className="fas fa-globe"></i>
+                    <h3>Select a topic to begin</h3>
+                    <p>Choose from the topics on the left to view flashcards</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </ErrorBoundary>
+      );
+    };
+    
+    ReactDOM.render(
+      <GeographyFlashcardApp />,
+      document.getElementById('app-container')
+    );
+  </script>
+</body>
+</html>
