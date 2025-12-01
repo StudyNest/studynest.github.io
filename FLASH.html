@@ -281,7 +281,7 @@
             <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
         </a>
         <nav class="nav-menu">
-            <a href="index.html">Overview</a>
+            <a href="index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
             <a href="maker.html">Create Deck</a>
@@ -296,7 +296,7 @@
         </button>
     </div>
     <div class="mobile-menu-overlay" id="mobile-menu">
-        <a href="index.html">Overview</a>
+        <a href="index.html">Home</a>
         <a href="APR.html">Past Papers</a>
         <a href="FLASH.html">Flashcards</a>
         <a href="maker.html">Create Deck</a>
@@ -649,6 +649,42 @@ document.addEventListener('keydown', (e) => {
         const svg = mobileBtn.querySelector('svg');
         svg.innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
     });
+</script>
+<!-- Firebase auth toggle for nav Login -> Logout -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+    authDomain: "actiari-fixed.firebaseapp.com",
+    projectId: "actiari-fixed",
+    storageBucket: "actiari-fixed.firebasestorage.app",
+    messagingSenderId: "154407363342",
+    appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+    const loginLinks = document.querySelectorAll('a[href="login.html"]');
+    if (user) {
+        loginLinks.forEach(link => {
+            link.textContent = 'Logout';
+            link.href = '#';
+            link.style.color = '#ef4444';
+            link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
+        });
+    } else {
+        loginLinks.forEach(link => {
+            link.textContent = 'Login';
+            link.href = 'login.html';
+            link.style.color = '';
+            link.onclick = null;
+        });
+    }
+});
 </script>
 </body>
 </html>
