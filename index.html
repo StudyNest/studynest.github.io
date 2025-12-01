@@ -369,7 +369,14 @@ body.menu-open { overflow: hidden; }
                     <div class="card">
                         <h3>Flashcards</h3>
                         <p>Subject-specific revision cards designed for active recall. Select your subject to begin a session.</p>
-                        <a href="FLASH.html" class="btn btn-primary" style="background-color: #2a2a2a;">Launch Tool</a>
+                        <a href="FLASH.html" class="btn btn-primary">Launch Tool</a>
+                    </div>
+
+                    <!-- Card 3: Create Deck (visible only when signed in) -->
+                    <div id="maker-card" class="card" style="display:none;">
+                        <h3>Create Deck</h3>
+                        <p>Create and save custom flashcard packs tied to your account. Manage decks in your profile.</p>
+                        <a href="maker.html" class="btn btn-primary">Create Deck</a>
                     </div>
                 </div>
             </div>
@@ -378,8 +385,7 @@ body.menu-open { overflow: hidden; }
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container footer-inner">
-            <div></div>
+        <div class="container footer-inner" style="justify-content: center;">
             <div class="footer-links">
                 <a href="https://github.com/StudyNest/studynest.github.io">GitHub Repository</a>
             </div>
@@ -415,5 +421,34 @@ body.menu-open { overflow: hidden; }
         svg.innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
     });
 </script>
+    <!-- Firebase auth check to show/hide the Create Deck tile when signed in -->
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+        authDomain: "actiari-fixed.firebaseapp.com",
+        projectId: "actiari-fixed",
+        storageBucket: "actiari-fixed.firebasestorage.app",
+        messagingSenderId: "154407363342",
+        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const makerCard = document.getElementById('maker-card');
+    // Ensure element exists before attaching listener
+    if (makerCard) {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                makerCard.style.display = '';
+            } else {
+                makerCard.style.display = 'none';
+            }
+        });
+    }
+    </script>
 </body>
 </html>
