@@ -774,67 +774,78 @@ body.menu-open { overflow: hidden; }
                 filterQualEl.appendChild(option);
             });
         }
-
         function updateExamBoardOptions() {
+            // Build board options dynamically from `pastPapersData` based on current qualification filter (if any).
             const qual = state.filters.qualification;
             filterBoardEl.innerHTML = '<option value="all">All Boards</option>';
-            filterBoardEl.disabled = qual === 'all';
-            
-            if (qual !== 'all' && filterHierarchy[qual]) {
-                const boards = filterHierarchy[qual].boards;
-                boards.forEach(board => {
-                    const option = document.createElement('option');
-                    option.value = board;
-                    option.textContent = board;
-                    filterBoardEl.appendChild(option);
-                });
-                state.filters.examBoard = 'all';
-            }
+
+            const data = qual === 'all' ? pastPapersData : pastPapersData.filter(d => d.qualification === qual);
+            const boards = [...new Set(data.map(d => d.examBoard))].sort();
+            boards.forEach(board => {
+                const option = document.createElement('option');
+                option.value = board;
+                option.textContent = board;
+                filterBoardEl.appendChild(option);
+            });
         }
 
         function updateSubjectOptions() {
+            // Build subject options dynamically based on current qualification and board filters (treat 'all' as wildcard).
             const qual = state.filters.qualification;
             const board = state.filters.examBoard;
             filterSubjectEl.innerHTML = '<option value="all">All Subjects</option>';
-            filterSubjectEl.disabled = qual === 'all' || board === 'all';
-            
-            if (qual !== 'all' && board !== 'all' && filterHierarchy[qual] && filterHierarchy[qual].subjects[board]) {
-                const subjects = filterHierarchy[qual].subjects[board];
-                subjects.forEach(subject => {
-                    const option = document.createElement('option');
-                    option.value = subject;
-                    option.textContent = subject;
-                    filterSubjectEl.appendChild(option);
-                });
-                state.filters.subject = 'all';
-            }
+
+            let data = [...pastPapersData];
+            if (qual !== 'all') data = data.filter(d => d.qualification === qual);
+            if (board !== 'all') data = data.filter(d => d.examBoard === board);
+
+            const subjects = [...new Set(data.map(d => d.subject))].sort();
+            subjects.forEach(subject => {
+                const option = document.createElement('option');
+                option.value = subject;
+                option.textContent = subject;
+                filterSubjectEl.appendChild(option);
+            });
         }
 
         function updateYearOptions() {
+            // Build year options dynamically based on current qualification/board/subject filters.
             const qual = state.filters.qualification;
             const board = state.filters.examBoard;
             const subject = state.filters.subject;
             filterYearEl.innerHTML = '<option value="all">All Years</option>';
-            filterYearEl.disabled = qual === 'all' || board === 'all' || subject === 'all';
-            
-            if (qual !== 'all' && board !== 'all' && subject !== 'all') {
-                // Get years available for this specific combination
-                let filteredData = [...pastPapersData];
-                filteredData = filteredData.filter(item => 
-                    item.qualification === qual &&
-                    item.examBoard === board &&
-                    item.subject === subject
-                );
-                
-                const years = [...new Set(filteredData.map(item => item.year))].sort((a, b) => b - a);
-                years.forEach(year => {
-                    const option = document.createElement('option');
-                    option.value = year;
-                    option.textContent = year;
-                    filterYearEl.appendChild(option);
-                });
-                state.filters.year = 'all';
-            }
+
+            let data = [...pastPapersData];
+            if (qual !== 'all') data = data.filter(d => d.qualification === qual);
+            if (board !== 'all') data = data.filter(d => d.examBoard === board);
+            if (subject !== 'all') data = data.filter(d => d.subject === subject);
+
+            // Extract unique years. Years can be numbers or the string 'Sample'. We'll sort with 'Sample' at the top,
+            // then numeric years in descending order.
+            const yearsSet = new Set(data.map(d => d.year));
+            const years = Array.from(yearsSet);
+
+            years.sort((a, b) => {
+                // Put 'Sample' first
+                if (a === 'Sample' && b === 'Sample') return 0;
+                if (a === 'Sample') return -1;
+                if (b === 'Sample') return 1;
+
+                // If both are numbers (or numeric strings), sort descending
+                const na = typeof a === 'number' ? a : parseInt(a, 10);
+                const nb = typeof b === 'number' ? b : parseInt(b, 10);
+                if (!isNaN(na) && !isNaN(nb)) return nb - na;
+
+                // Fallback to string comparison
+                return String(b).localeCompare(String(a));
+            });
+
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                filterYearEl.appendChild(option);
+            });
         }
         
         // Render Functions
