@@ -470,6 +470,30 @@ body.menu-open { overflow: hidden; }
 
         // DATA SOURCE
         // Note: Qualification for Core Maths (IDs 1-16) updated to 'AS-Level' per request.
+        //
+        // Add new papers here. Each entry should include these fields:
+        // {
+        //   id: <unique integer>,
+        //   examBoard: 'AQA'|'OCR A'|'Edexcel',
+        //   qualification: 'A-Level'|'AS-Level'|'BTEC',
+        //   subject: 'Subject Name',
+        //   year: 2024, // or 'Sample Set' etc.
+        //   session: 'June 2024' | 'November 2023' | 'Sample Set',
+        //   paperTitle: 'Paper 1',
+        //   paperUrl: '<relative-or-absolute-url.pdf>',
+        //   insertUrl: '<relative-or-absolute-url.pdf>' // optional
+        //   markSchemeUrl: '<relative-or-absolute-url.pdf>' // optional
+        // }
+        //
+        // Recommended file layout (optional): store PDF files under a predictable folder
+        // like `Miscellaneous/<subject>/<year>/` or `Miscellaneous/<year>/` and use
+        // a consistent filename such as `AQA-Sociology-2024-Paper1.pdf`.
+        //
+        // Exams typically have 3 papers — add one object per paper (Paper 1/2/3).
+        // Example years to include: Sample Set, 2020, 2021, 2022, 2023, 2024.
+        // Make sure each `id` is unique across the dataset (can be any integer,
+        // but must not collide). IDs are used only as unique keys and may be
+        // assigned arbitrarily as long as they remain unique.
         const pastPapersData = [
           {id: 1, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 1', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/26c376e03975e18c6406b05d4f6029cea9abc213.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/245cf95db0926ef5033cced5ab42143d517703a9.pdf', insertUrl: null},
           {id: 2, examBoard: 'AQA', qualification: 'AS-Level', subject: 'Core Maths', year: 2023, session: 'June 2023', paperTitle: 'Paper 2A - Statistical Techniques', paperUrl: 'https://cdn.sanity.io/files/p28bar15/green/83c20f4ee3c3403e0d5b59710c5fafde1edce5d0.pdf', markSchemeUrl: 'https://cdn.sanity.io/files/p28bar15/green/5f05e930a9de47281f4d0b3ef228f906e77536d4.pdf', insertUrl: null},
@@ -706,7 +730,7 @@ body.menu-open { overflow: hidden; }
             'A-Level': {
                 boards: ['AQA', 'OCR A'],
                 subjects: {
-                    'AQA': ['English Language', 'Geography', 'Mathematics'],
+                    'AQA': ['English Language', 'Geography', 'Mathematics', 'Sociology'],
                     'OCR A': ['Chemistry', 'Physics']
                 }
             },
@@ -862,6 +886,17 @@ body.menu-open { overflow: hidden; }
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             <span>Question Paper</span>
                         </a>
+
+                        ${paper.insertUrl
+                            ? `<a href="${paper.insertUrl}" class="card-link card-link--paper" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                <span>Insert</span>
+                               </a>`
+                            : `<div class="card-link card-link--disabled">
+                                <span>Insert Missing</span>
+                               </div>`
+                        }
+
                         ${paper.markSchemeUrl 
                             ? `<a href="${paper.markSchemeUrl}" class="card-link card-link--ms" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><polyline points="9 15 11 17 15 13"></polyline></svg>
