@@ -1,44 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 Not Found - Actiari Study Tools</title>
-  <meta name="description" content="Page not found. Return to the homepage or explore A Level and BTEC resources.">
-  <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { background: #1a1d21; color: #e8eaed; font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; }
-    .container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    h1 { font-size: 3em; color: #00b8d4; margin-bottom: 0.2em; }
-    p { font-size: 1.2em; color: #b0b3b8; margin-bottom: 2em; }
-    a { color: #00b8d4; text-decoration: none; font-weight: 600; }
-    a:hover { text-decoration: underline; }
-    .footer { background: #31363f; color: #fff; text-align: center; padding: 20px 0; font-size: 0.9em; margin-top: auto; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found | Actiari</title>
+    <meta name="description" content="Page not found.">
+    
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ------------------- */
+        /* --- Variables --- */
+        /* ------------------- */
+        :root {
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --border-color: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --header-height: 64px;
+            --max-width: 1100px;
+        }
+
+        /* ------------------- */
+        /* --- Base Styles --- */
+        /* ------------------- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+
+        /* ------------------- */
+        /* --- Header --- */
+        /* ------------------- */
+        .site-header {
+            height: var(--header-height);
+            background-color: var(--bg-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        .header-inner {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        }
+
+        .logo {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 600; font-size: 1.1rem; color: var(--text-primary);
+        }
+        .logo img { height: 24px; width: 24px; }
+
+        .nav-menu { display: flex; gap: 32px; }
+        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+        .nav-menu a:hover { color: var(--text-primary); }
+
+        /* ------------------- */
+        /* --- 404 Content --- */
+        /* ------------------- */
+        main {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .error-content {
+            max-width: 500px;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--bg-card); /* Dark grey text */
+            /* Text Stroke Effect */
+            -webkit-text-stroke: 2px var(--border-color);
+            margin-bottom: 16px;
+            user-select: none;
+        }
+
+        .error-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .error-desc {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* ------------------- */
+        /* --- Footer --- */
+        /* ------------------- */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            text-align: center;
+            background-color: var(--bg-body);
+        }
+
+        /* ------------------- */
+        /* --- Mobile Nav CSS --- */
+        /* ------------------- */
+        .mobile-toggle {
+            display: none; background: none; border: none; cursor: pointer; color: var(--text-primary); padding: 0; z-index: 1001;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-body); z-index: 1000;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-menu-overlay a { font-size: 1.5rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+        .mobile-menu-overlay a:hover { color: var(--text-primary); }
+
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+        }
+        body.menu-open { overflow: hidden; }
+    </style>
 </head>
 <body>
-  <header class="site-header" style="background:#000000; border-bottom:1px solid #222426; padding:12px 0;">
-    <div class="page-wrapper" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
-      <a href="index.html" class="site-header__logo" aria-label="Actiari Home">
-        <img src="Miscellaneous/Main Favicon.ico" alt="Actiari Logo" width="32" height="32">
-      </a>
-      <nav class="site-header__nav">
-        <ul style="list-style:none; display:flex; gap:20px; margin:0; padding:0;">
-          <li><a href="index.html" style="color:#4dabf7;">Home</a></li>
-          <li><a href="APR.html" style="color:#4dabf7;">Past Papers</a></li>
-          <li><a href="FLASH.html" style="color:#4dabf7;">Flashcards</a></li>
-          <li><a href="login.html" style="color:#4dabf7;">Login</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-  <div class="container">
-    <h1>404</h1>
-    <p>Sorry, the page you are looking for does not exist.</p>
-    <a href="index.html">Return to Home</a>
-  </div>
-  <div class="footer">
-  </div>
+
+    <!-- Header -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">
+                <img src="Miscellaneous/Main Favicon.ico" alt="Actiari">
+            </a>
+
+            <nav class="nav-menu">
+                <a href="index.html">Overview</a>
+                <a href="APR.html">Past Papers</a>
+                <a href="FLASH.html">Flashcards</a>
+                <a href="maker.html">Create Deck</a>
+                <a href="login.html">Login</a>
+            </nav>
+
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html">Overview</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="FLASH.html">Flashcards</a>
+            <a href="maker.html">Create Deck</a>
+            <a href="login.html">Login</a>
+        </div>
+    </header>
+
+    <!-- Main 404 Content -->
+    <main>
+        <div class="error-content">
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-desc">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+            <a href="index.html" class="btn btn-primary">Return to Overview</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+        </div>
+    </footer>
+
+    <!-- LOGIC FOR NAV & MOBILE MENU -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain: "actiari-fixed.firebaseapp.com",
+            projectId: "actiari-fixed",
+            storageBucket: "actiari-fixed.firebasestorage.app",
+            messagingSenderId: "154407363342",
+            appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Manage Login/Logout Button
+        onAuthStateChanged(auth, (user) => {
+            const loginLinks = document.querySelectorAll('a[href="login.html"]');
+            if (user) {
+                loginLinks.forEach(link => {
+                    link.textContent = "Logout";
+                    link.href = "#";
+                    link.style.color = "#ef4444";
+                    link.onclick = async (e) => {
+                        e.preventDefault();
+                        await signOut(auth);
+                        window.location.reload();
+                    };
+                });
+            } else {
+                loginLinks.forEach(link => {
+                    link.textContent = "Login";
+                    link.href = "login.html";
+                    link.style.color = "";
+                    link.onclick = null;
+                });
+            }
+        });
+    </script>
+
+    <script>
+        // Mobile Menu Logic
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const body = document.body;
+        let isMenuOpen = false;
+
+        const hamburgerIcon = `
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>`;
+        
+        const closeIcon = `
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>`;
+
+        mobileBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+            body.classList.toggle('menu-open');
+            const svg = mobileBtn.querySelector('svg');
+            svg.innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
+        });
+    </script>
+
 </body>
 </html>
