@@ -5,115 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Deck</title>
     
-    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/Main Favicon.ico">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="../assets/styles.css">
+    
     <style>
-        /* ------------------- */
-        /* --- Variables --- */
-        /* ------------------- */
-        :root {
-            /* Corporate Dark Palette */
-            --bg-body: #0d0d0d;
-            --bg-card: #141414;
-            --bg-input: #0a0a0a;
-            
-            /* Borders */
-            --border-color: #2a2a2a;
-            --border-active: #444444;
-
-            /* Typography */
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1a1;
-            --text-tertiary: #666666;
-
-            /* Colors */
-            --accent-color: #2563eb;
-            --accent-hover: #1d4ed8;
-            --color-danger: #ef4444;
-            --color-warning: #f59e0b;
-
-            /* Layout */
-            --header-height: 64px;
-            --max-width: 900px; 
-        }
-
-        /* ------------------- */
-        /* --- Base Styles --- */
-        /* ------------------- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* ------------------- */
-        /* --- Header --- */
-        /* ------------------- */
-        .site-header {
-            height: var(--header-height);
-            background-color: var(--bg-body);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-        }
-        .logo img { height: 24px; width: 24px; }
-
-        .nav-menu { display: flex; gap: 32px; }
-        .nav-menu a {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-        .nav-menu a:hover { color: var(--text-primary); }
-        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
-
         /* ------------------- */
         /* --- Layout --- */
         /* ------------------- */
         main {
             flex-grow: 1;
             padding: 40px 24px;
-        }
-
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            width: 100%;
         }
 
         .page-title {
@@ -133,38 +39,15 @@
             margin-bottom: 32px;
         }
 
+        .card h2 {
+            font-size: 1.1rem; font-weight: 600; color: var(--text-primary);
+        }
+
         .card-header-row {
             display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 16px; margin-bottom: 24px;
         }
-
-        .card h2 {
-            font-size: 1.1rem; font-weight: 600; color: var(--text-primary);
-        }
-
-        /* Inputs */
-        label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            margin-top: 20px;
-            font-weight: 500;
-        }
-        label:first-of-type { margin-top: 0; }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-        input:focus { outline: none; border-color: var(--accent-color); }
 
         /* Input Pairs (Flashcards) */
         .input-pair {
@@ -197,11 +80,23 @@
             transition: all 0.2s;
         }
 
+        /* Inputs */
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        input:focus { outline: none; border-color: var(--accent-color); }
+
         /* Primary Action */
         #save-deck-btn, .btn-primary {
             background-color: var(--accent-color);
             color: #fff;
-            width: 100%;
         }
         #save-deck-btn:hover { background-color: var(--accent-hover); }
 
@@ -210,7 +105,6 @@
             background-color: transparent;
             border-color: var(--border-color);
             color: var(--text-primary);
-            width: 100%;
         }
         #add-card-btn:hover, #cancel-edit-btn:hover {
             background-color: var(--bg-input);
@@ -219,6 +113,7 @@
 
         .button-group {
             display: flex;
+            flex-direction: column;
             gap: 16px;
             margin-top: 32px;
         }
@@ -275,72 +170,10 @@
 
         /* Mobile */
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .button-group { flex-direction: column; }
             .deck-list-item { flex-direction: column; align-items: flex-start; gap: 12px; }
             .action-buttons { width: 100%; }
             .action-buttons button { flex: 1; }
         }
-
-/* ------------------- */
-/* --- Mobile Nav CSS --- */
-/* ------------------- */
-
-/* 1. Hamburger Button (Hidden on Desktop) */
-.mobile-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-primary);
-    padding: 0;
-    z-index: 1001; /* Above overlay */
-}
-
-/* 2. Mobile Menu Overlay (Hidden by default) */
-.mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--bg-body);
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 32px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-/* 3. Active State (When menu is open) */
-.mobile-menu-overlay.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.mobile-menu-overlay a {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.mobile-menu-overlay a:hover { color: var(--text-primary); }
-.mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
-
-/* 4. Media Query Updates */
-@media (max-width: 768px) {
-    .nav-menu { display: none; } /* Hide desktop nav */
-    .mobile-toggle { display: block; } /* Show hamburger */
-}
-
-/* Lock scrolling when menu is open */
-body.menu-open { overflow: hidden; }
     </style>
 </head>
 <body>
@@ -348,11 +181,11 @@ body.menu-open { overflow: hidden; }
  <header class="site-header">
     <div class="container header-inner">
         <!-- Logo (removed image per request) -->
-        <a href="index.html" class="logo">StudyNest</a>
+        <a href="../index.html" class="logo">StudyNest</a>
 
         <!-- Desktop Nav -->
         <nav class="nav-menu">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
             <a href="syllabus.html">Syllabus Tracker</a>
@@ -372,7 +205,7 @@ body.menu-open { overflow: hidden; }
 
     <!-- Mobile Full Screen Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
-        <a href="index.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="APR.html">Past Papers</a>
         <a href="FLASH.html">Flashcards</a>
         <a href="syllabus.html">Syllabus Tracker</a>
@@ -430,8 +263,8 @@ body.menu-open { overflow: hidden; }
                     </div>
 
                     <div class="button-group">
-                        <button id="add-card-btn" style="flex: 1;">+ Add Card</button>
-                        <button id="save-deck-btn" style="flex: 2;">Save Pack</button>
+                        <button id="add-card-btn">+ Add Card</button>
+                        <button id="save-deck-btn">Save Pack</button>
                     </div>
                 </div>
 

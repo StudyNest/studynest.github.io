@@ -1,0 +1,181 @@
+/* ------------------- */
+/* --- Variables --- */
+/* ------------------- */
+:root {
+    /* Corporate Dark Palette */
+    --bg-body: #0d0d0d;        /* Near black, matte */
+    --bg-card: #141414;        /* Slightly lighter */
+    --bg-card-hover: #1a1a1a;
+    --bg-input: #0a0a0a;
+    
+    /* Functional Borders */
+    --border-color: #2a2a2a;
+    --border-active: #444444;
+
+    /* Typography */
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1a1;
+    --text-tertiary: #666666;
+
+    /* Accent - Restrained Blue */
+    --accent-color: #2563eb;
+    --accent-hover: #1d4ed8;
+
+    /* Dimensions */
+    --max-width: 1100px;
+    --header-height: 64px;
+}
+
+/* ------------------- */
+/* --- Reset & Base --- */
+/* ------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+ul { list-style: none; }
+
+/* ------------------- */
+/* --- Layout Utility --- */
+/* ------------------- */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+/* ------------------- */
+/* --- Header --- */
+/* ------------------- */
+.site-header {
+    height: var(--header-height);
+    background-color: var(--bg-body);
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+}
+
+.logo img { height: 24px; width: 24px; }
+
+.nav-menu { display: flex; gap: 32px; }
+
+.nav-menu a {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.nav-menu a:hover { color: var(--text-primary); }
+.nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
+
+/* Button Styles */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: fit-content;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--accent-hover);
+}
+
+/* ------------------- */
+/* --- Mobile Nav CSS --- */
+/* ------------------- */
+
+/* 1. Hamburger Button (Hidden on Desktop) */
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-primary);
+    padding: 0;
+    z-index: 1001; /* Above overlay */
+}
+
+/* 2. Mobile Menu Overlay (Hidden by default) */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-body);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* 3. Active State (When menu is open) */
+.mobile-menu-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-overlay a {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.mobile-menu-overlay a:hover { color: var(--text-primary); }
+.mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
+
+/* 4. Media Query Updates */
+@media (max-width: 768px) {
+    .nav-menu { display: none; } /* Hide desktop nav */
+    .mobile-toggle { display: block; } /* Show hamburger */
+}
+
+/* Lock scrolling when menu is open */
+body.menu-open { overflow: hidden; }

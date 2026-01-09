@@ -5,78 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Revision Flashcards</title>
     
-    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/Main Favicon.ico">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../assets/styles.css">
     
     <style>
         /* ------------------- */
         /* --- Variables --- */
         /* ------------------- */
         :root {
-            --bg-body: #0d0d0d;
-            --bg-card: #141414;
-            --bg-input: #0a0a0a;
-            --border-color: #2a2a2a;
-            --border-active: #444444;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1a1;
-            --text-tertiary: #666666;
-            --accent-color: #2563eb;
-            --accent-hover: #1d4ed8;
-            --header-height: 64px;
             --max-width: 900px;
         }
-
-        /* ------------------- */
-        /* --- Base Styles --- */
-        /* ------------------- */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-        ul { list-style: none; }
-
-        /* ------------------- */
-        /* --- Header --- */
-        /* ------------------- */
-        .site-header {
-            height: var(--header-height);
-            background-color: var(--bg-body);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-inner {
-            width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
-        .logo {
-            display: flex; align-items: center; gap: 10px;
-            font-weight: 600; font-size: 1.1rem; color: var(--text-primary);
-        }
-        .logo img { height: 24px; width: 24px; }
-
-        .nav-menu { display: flex; gap: 32px; }
-        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
-        .nav-menu a:hover, .nav-menu a[aria-current="page"] { color: var(--text-primary); }
-        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* ------------------- */
         /* --- Main Content --- */
@@ -256,32 +199,15 @@
             .nav-menu { display: none; }
             .shortcut-hint { display: none; } /* Hide keyboard hints on mobile */
         }
-
-        /* Mobile Nav */
-        .mobile-toggle {
-            display: none; background: none; border: none; cursor: pointer; color: var(--text-primary); padding: 0; z-index: 1001;
-        }
-        .mobile-menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background-color: var(--bg-body); z-index: 1000;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-        }
-        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
-        .mobile-menu-overlay a { font-size: 1.5rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
-        .mobile-menu-overlay a:hover { color: var(--text-primary); }
-        .mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
-        @media (max-width: 768px) {
-            .mobile-toggle { display: block; }
-        }
-        body.menu-open { overflow: hidden; }
     </style>
 </head>
 <body>
 
 <header class="site-header">
     <div class="container header-inner">
-        <a href="index.html" class="logo">StudyNest</a>
+        <a href="../index.html" class="logo">StudyNest</a>
         <nav class="nav-menu">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html" class="active">Flashcards</a>
             <a href="syllabus.html">Syllabus Tracker</a>
@@ -297,7 +223,7 @@
         </button>
     </div>
     <div class="mobile-menu-overlay" id="mobile-menu">
-        <a href="index.html">Home</a>
+        <a href="../index.html">Home</a>
         <a href="APR.html">Past Papers</a>
         <a href="FLASH.html" class="active-link">Flashcards</a>
         <a href="syllabus.html">Syllabus Tracker</a>
@@ -320,7 +246,7 @@
             <select id="course-select">
                 <option value="" disabled selected>Choose a Course...</option>
                 <option value="CUSTOM" style="font-weight: 600; color: var(--accent-color);">★ My Custom Decks (Database)</option>
-                <option value="geography-data.json">Geography (A Level)</option>
+                <option value="../data/geography-data.json">Geography (A Level)</option>
             </select>
         </div>
 

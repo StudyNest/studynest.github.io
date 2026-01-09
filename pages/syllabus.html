@@ -5,73 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Syllabus Tracker</title>
     
-    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link rel="icon" type="image/x-icon" href="../assets/Main Favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../assets/styles.css">
     
     <style>
         :root {
-            --bg-body: #0d0d0d;
-            --bg-card: #141414;
             --bg-card-hover: #1a1a1a;
             --bg-sub-item: #1f1f1f;
-            --border-color: #2a2a2a;
-            --border-active: #444444;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1a1;
-            --text-tertiary: #666666;
-            --accent-color: #2563eb;
             --rag-red: #ef4444;
             --rag-amber: #f59e0b;
             --rag-green: #10b981;
-            --max-width: 1100px;
-            --header-height: 64px;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-primary);
-            line-height: 1.5;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-
-        .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 24px;
-            width: 100%;
-        }
-
-        /* --- Header --- */
-        .site-header {
-            height: var(--header-height);
-            background-color: var(--bg-body);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-
-        .logo { font-weight: 600; font-size: 1.1rem; color: var(--text-primary); }
-        .nav-menu { display: flex; gap: 32px; }
-        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
-        .nav-menu a:hover { color: var(--text-primary); }
-        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* --- Progress Bar --- */
         .progress-fixed {
@@ -79,7 +25,6 @@
         }
         .progress-fill {
             height: 100%; 
-            /* Gradient to show Green/Amber mix metaphorically */
             background: linear-gradient(90deg, var(--rag-amber) 0%, var(--rag-green) 100%);
             width: 0%; 
             transition: width 0.5s ease; 
@@ -205,7 +150,7 @@
         }
         .rag-btn:hover { transform: scale(1.1); }
 
-        /* Locked State (Not Logged In) */
+        /* Locked State */
         .locked .rag-btn { cursor: not-allowed; opacity: 0.3; }
         .locked .rag-btn:hover { transform: none; }
 
@@ -230,19 +175,7 @@
         .footer-inner { display: flex; justify-content: center; }
 
         /* Mobile */
-        .mobile-toggle { display: none; background: none; border: none; color: white; cursor: pointer; }
-        .mobile-menu-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-body);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 999;
-        }
-        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
-        .mobile-menu-overlay a { font-size: 1.5rem; color: var(--text-secondary); font-weight: 600; }
-        .mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
-        
         @media (max-width: 768px) {
-            .nav-menu { display: none; }
-            .mobile-toggle { display: block; }
             .dashboard-row { flex-direction: column; align-items: flex-start; }
             .sub-item { padding: 12px 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
             .rag-actions { align-self: flex-end; }
@@ -251,16 +184,15 @@
 </head>
 <body>
 
-    <!-- Top Progress Bar -->
     <div class="progress-fixed">
         <div class="progress-fill" id="masteryBar"></div>
     </div>
 
     <header class="site-header">
         <div class="container header-inner">
-            <a href="index.html" class="logo">StudyNest</a>
+            <a href="../index.html" class="logo">StudyNest</a>
             <nav class="nav-menu">
-                <a href="index.html">Home</a>
+                <a href="../index.html">Home</a>
                 <a href="APR.html">Past Papers</a>
                 <a href="FLASH.html">Flashcards</a>
                 <a href="syllabus.html" class="active">Syllabus Tracker</a>
@@ -276,7 +208,7 @@
             </button>
         </div>
         <div class="mobile-menu-overlay" id="mobile-menu">
-            <a href="index.html">Home</a>
+            <a href="../index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
             <a href="syllabus.html" class="active-link">Syllabus Tracker</a>
@@ -290,7 +222,6 @@
             <div class="container">
                 <h1>AQA Geography Tracker</h1>
                 <p>Track your confidence across syllabus points and case studies.</p>
-                <!-- Alert shown if user is not logged in -->
                 <div id="loginAlert" class="login-alert" style="display:none;">
                     Please <a href="login.html" style="text-decoration:underline;">login</a> to save your progress.
                 </div>
@@ -298,7 +229,6 @@
         </section>
 
         <section class="container">
-            
             <div class="dashboard-row">
                 <div class="mode-tabs">
                     <button class="tab-btn active" onclick="switchMode('syllabus')">Syllabus</button>
@@ -312,10 +242,7 @@
                 </div>
             </div>
 
-            <div id="contentContainer" class="topic-list">
-                <!-- Javascript will load content here -->
-            </div>
-
+            <div id="contentContainer" class="topic-list"></div>
         </section>
     </main>
 
@@ -466,11 +393,10 @@
             currentUser = user;
 
             if (user) {
-                // 1. Update UI to Logged In State
+                // Logged In
                 loginAlert.style.display = "none";
                 updateLoginButton(true);
 
-                // 2. Fetch Data from Firestore
                 try {
                     const docRef = doc(db, "users", user.uid);
                     const docSnap = await getDoc(docRef);
@@ -478,17 +404,17 @@
                     if (docSnap.exists() && docSnap.data().geoProgress) {
                         userData = docSnap.data().geoProgress;
                     } else {
-                        userData = {}; // No data yet
+                        userData = {}; 
                     }
                     render();
                 } catch (error) {
                     console.error("Error getting document:", error);
                 }
             } else {
-                // 1. Update UI to Guest State
+                // Guest
                 loginAlert.style.display = "inline-block";
                 updateLoginButton(false);
-                userData = {}; // Clear data so it doesn't show previous user info
+                userData = {}; 
                 render();
             }
         });
@@ -496,7 +422,6 @@
         // --- RENDER LOGIC ---
         window.switchMode = (mode) => {
             currentMode = mode;
-            // Toggle visual tabs
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 const txt = btn.innerText.toLowerCase().replace(' ', '');
                 btn.classList.toggle('active', txt === mode);
@@ -509,26 +434,23 @@
         }
 
         window.handleRagClick = async (topicId, status) => {
-            // Guard: Must be logged in
             if (!currentUser) {
                 alert("Please log in to track your progress.");
                 return;
             }
 
-            // 1. Optimistic Update (update UI immediately)
+            // 1. Optimistic Update
             userData[topicId] = status;
             
-            // Find specific row and update attribute
             const row = document.querySelector(`.sub-item button[onclick*="${topicId}"][onclick*="${status}"]`).closest('.sub-item');
             if(row) row.setAttribute('data-status', status);
 
-            // Recalc Bar/Stats immediately
+            // 2. Recalculate Stats immediately
             recalcStats();
 
-            // 2. Save to Firestore Background
+            // 3. Save to Firestore
             try {
                 const userRef = doc(db, "users", currentUser.uid);
-                // We use merge:true so we don't wipe other data in the user doc
                 await setDoc(userRef, { 
                     geoProgress: { 
                         [topicId]: status 
@@ -536,7 +458,6 @@
                 }, { merge: true });
             } catch (e) {
                 console.error("Error saving progress: ", e);
-                // Optional: Revert UI if save fails
             }
         }
 
@@ -544,9 +465,7 @@
             contentContainer.innerHTML = '';
             const dataSet = currentMode === 'syllabus' ? syllabusData : caseStudyData;
             
-            // Stats counting
-            let stats = { red: 0, amber: 0, green: 0, total: 0 };
-
+            // Build HTML
             dataSet.forEach(group => {
                 const groupDiv = document.createElement('div');
                 groupDiv.className = 'topic-group';
@@ -554,14 +473,7 @@
                 let subHtml = '';
                 
                 group.topics.forEach(topic => {
-                    stats.total++;
                     const status = userData[topic.id] || 'none';
-                    
-                    if(status === 'green') stats.green++;
-                    else if(status === 'amber') stats.amber++;
-                    else stats.red++;
-
-                    // Add 'locked' class if no user, to grey out buttons
                     const lockedClass = currentUser ? '' : 'locked';
 
                     subHtml += `
@@ -590,61 +502,67 @@
                         ${subHtml}
                     </div>
                 `;
-
                 contentContainer.appendChild(groupDiv);
             });
 
-            updateDashboard(stats);
+            // Calculate stats after rendering HTML
+            recalcStats();
+        }
+
+        /**
+         * Counts Red/Amber/Green for a given dataset based on userData
+         */
+        function getStatsForData(dataSet) {
+            let stats = { red: 0, amber: 0, green: 0, total: 0 };
+            
+            dataSet.forEach(group => {
+                group.topics.forEach(t => {
+                    stats.total++;
+                    const s = userData[t.id];
+                    if(s === 'green') stats.green++;
+                    else if(s === 'amber') stats.amber++;
+                    else stats.red++; // Note: 'none' counts as red here
+                });
+            });
+            return stats;
         }
 
         function recalcStats() {
-            // We need to count ALL data (syllabus + case studies) for accurate bar
-            let stats = { red: 0, amber: 0, green: 0, total: 0 };
+            // 1. VIEW STATS: For the Text Counters (depends on tab)
+            const currentData = currentMode === 'syllabus' ? syllabusData : caseStudyData;
+            const viewStats = getStatsForData(currentData);
+
+            // 2. GLOBAL STATS: For the Progress Bar (sums everything)
+            const syllabusStats = getStatsForData(syllabusData);
+            const caseStats = getStatsForData(caseStudyData);
             
-            // Helper to count array
-            const countArray = (arr) => {
-                arr.forEach(group => {
-                    group.topics.forEach(t => {
-                        stats.total++;
-                        const s = userData[t.id];
-                        if(s === 'green') stats.green++;
-                        else if(s === 'amber') stats.amber++;
-                        else stats.red++;
-                    })
-                })
+            const globalStats = {
+                green: syllabusStats.green + caseStats.green,
+                amber: syllabusStats.amber + caseStats.amber,
+                total: syllabusStats.total + caseStats.total
             };
 
-            // Count everything regardless of current tab view
-            countArray(syllabusData);
-            countArray(caseStudyData);
-
-            updateDashboard(stats);
+            updateDashboard(viewStats, globalStats);
         }
 
-        function updateDashboard(stats) {
-            // Update Number Counters (Only for current view usually, but we can do global)
-            // Note: The render loop calculates stats for the CURRENT VIEW.
-            // RecalcStats calculates GLOBAL.
-            
-            // Let's use the Render loop stats for numbers, but Global for the bar?
-            // For simplicity, let's update counters based on the data just rendered.
-            document.getElementById('countRed').innerText = stats.red;
-            document.getElementById('countAmber').innerText = stats.amber;
-            document.getElementById('countGreen').innerText = stats.green;
+        function updateDashboard(viewStats, globalStats) {
+            // Update Text Counters based on VIEW (active tab)
+            document.getElementById('countRed').innerText = viewStats.red;
+            document.getElementById('countAmber').innerText = viewStats.amber;
+            document.getElementById('countGreen').innerText = viewStats.green;
 
-            // Bar Calculation: (Green + Amber) / Total
-            const progressCount = stats.green + stats.amber;
-            const percentage = stats.total === 0 ? 0 : Math.round((progressCount / stats.total) * 100);
+            // Update Progress Bar based on GLOBAL (total)
+            // (Green + Amber) / Total
+            const progressCount = globalStats.green + globalStats.amber;
+            const percentage = globalStats.total === 0 ? 0 : Math.round((progressCount / globalStats.total) * 100);
             
             masteryBar.style.width = `${percentage}%`;
         }
 
-        // --- HELPER: Login/Logout Button Logic ---
         function updateLoginButton(isLoggedIn) {
-            // Update Desktop Nav
             if (isLoggedIn) {
                 navLoginBtn.textContent = 'Logout';
-                navLoginBtn.style.color = '#ef4444'; // Red color for logout
+                navLoginBtn.style.color = '#ef4444'; 
                 navLoginBtn.href = "#";
                 navLoginBtn.onclick = (e) => {
                     e.preventDefault();
@@ -657,7 +575,6 @@
                 navLoginBtn.onclick = null;
             }
 
-            // Update Mobile Nav (find the specific link)
             mobileLinks.forEach(link => {
                 if (link.getAttribute('href') === 'login.html' || link.textContent === 'Logout') {
                     if (isLoggedIn) {
