@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus Tracker | AQA Geography</title>
+    
+    <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --bg-sub-item: #1f1f1f;
+            --border-color: #2a2a2a;
+            --border-active: #444444;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
+            --accent-color: #2563eb;
+            --rag-red: #ef4444;
+            --rag-amber: #f59e0b;
+            --rag-green: #10b981;
+            --max-width: 1100px;
+            --header-height: 64px;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+            width: 100%;
+        }
+
+        /* --- Header --- */
+        .site-header {
+            height: var(--header-height);
+            background-color: var(--bg-body);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo { font-weight: 600; font-size: 1.1rem; color: var(--text-primary); }
+        .nav-menu { display: flex; gap: 32px; }
+        .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+        .nav-menu a:hover { color: var(--text-primary); }
+
+        /* --- Progress Bar --- */
+        .progress-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: transparent; z-index: 1000;
+        }
+        .progress-fill {
+            height: 100%; 
+            /* Gradient to show Green/Amber mix metaphorically */
+            background: linear-gradient(90deg, var(--rag-amber) 0%, var(--rag-green) 100%);
+            width: 0%; 
+            transition: width 0.5s ease; 
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* --- Hero --- */
+        .hero {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-body);
+        }
+        .hero h1 { font-size: 2rem; font-weight: 600; margin-bottom: 8px; }
+        .hero p { color: var(--text-secondary); }
+
+        .login-alert {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--rag-amber);
+            background: rgba(245, 158, 11, 0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* --- Dashboard Controls --- */
+        .dashboard-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .mode-tabs {
+            display: flex;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 8px 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .tab-btn.active {
+            background: var(--bg-body);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .stats-group { display: flex; gap: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+        .stat-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* --- Accordion / List Styles --- */
+        .topic-list { display: flex; flex-direction: column; gap: 16px; padding-bottom: 60px; }
+
+        .topic-group {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-card);
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .topic-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .topic-header:hover { background-color: var(--bg-card-hover); }
+
+        .topic-header h3 { font-size: 1.1rem; font-weight: 500; }
+        .topic-header p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        
+        .chevron { transition: transform 0.3s ease; color: var(--text-tertiary); }
+        .topic-group.open .chevron { transform: rotate(180deg); }
+
+        .topic-body {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            background-color: var(--bg-body);
+            border-top: 1px solid var(--border-color);
+        }
+        .topic-group.open .topic-body { max-height: 1200px; opacity: 1; }
+
+        .sub-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 4px solid var(--border-active); 
+            transition: background-color 0.2s;
+        }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-item:hover { background-color: var(--bg-sub-item); }
+
+        .sub-text { font-size: 0.95rem; color: var(--text-secondary); }
+
+        .rag-actions { display: flex; gap: 8px; }
+        .rag-btn {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border-active);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rag-btn:hover { transform: scale(1.1); }
+
+        /* Locked State (Not Logged In) */
+        .locked .rag-btn { cursor: not-allowed; opacity: 0.3; }
+        .locked .rag-btn:hover { transform: none; }
+
+        /* Status Styling */
+        .sub-item[data-status="red"] { border-left-color: var(--rag-red); }
+        .sub-item[data-status="red"] .btn-red { background: var(--rag-red); border-color: var(--rag-red); box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+        
+        .sub-item[data-status="amber"] { border-left-color: var(--rag-amber); }
+        .sub-item[data-status="amber"] .btn-amber { background: var(--rag-amber); border-color: var(--rag-amber); box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+
+        .sub-item[data-status="green"] { border-left-color: var(--rag-green); }
+        .sub-item[data-status="green"] .btn-green { background: var(--rag-green); border-color: var(--rag-green); box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
+
+        /* --- Footer --- */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+        .footer-inner { display: flex; justify-content: center; }
+
+        /* Mobile */
+        .mobile-toggle { display: none; background: none; border: none; color: white; cursor: pointer; }
+        .mobile-menu-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: var(--bg-body);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 32px;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 999;
+        }
+        .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
+        .mobile-menu-overlay a { font-size: 1.5rem; color: var(--text-secondary); font-weight: 600; }
+        
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+            .dashboard-row { flex-direction: column; align-items: flex-start; }
+            .sub-item { padding: 12px 16px; flex-direction: column; align-items: flex-start; gap: 12px; }
+            .rag-actions { align-self: flex-end; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Progress Bar -->
+    <div class="progress-fixed">
+        <div class="progress-fill" id="masteryBar"></div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="index.html" class="logo">StudyNest</a>
+            <nav class="nav-menu">
+                <a href="index.html">Home</a>
+                <a href="APR.html">Past Papers</a>
+                <a href="FLASH.html">Flashcards</a>
+                <a href="maker.html">Create Deck</a>
+                <a href="login.html" id="navLoginBtn">Login</a>
+            </nav>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="FLASH.html">Flashcards</a>
+            <a href="maker.html">Create Deck</a>
+            <a href="login.html">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>AQA Geography Tracker</h1>
+                <p>Track your confidence across syllabus points and case studies.</p>
+                <!-- Alert shown if user is not logged in -->
+                <div id="loginAlert" class="login-alert" style="display:none;">
+                    Please <a href="login.html" style="text-decoration:underline;">login</a> to save your progress.
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            
+            <div class="dashboard-row">
+                <div class="mode-tabs">
+                    <button class="tab-btn active" onclick="switchMode('syllabus')">Syllabus</button>
+                    <button class="tab-btn" onclick="switchMode('casestudies')">Case Studies</button>
+                </div>
+
+                <div class="stats-group">
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-red)"></div> <span id="countRed">0</span></div>
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-amber)"></div> <span id="countAmber">0</span></div>
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-green)"></div> <span id="countGreen">0</span></div>
+                </div>
+            </div>
+
+            <div id="contentContainer" class="topic-list">
+                <!-- Javascript will load content here -->
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <a href="https://github.com/StudyNest/studynest.github.io" style="color:var(--text-secondary)">GitHub Repository</a>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        mobileBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+
+    <!-- MAIN APP LOGIC + FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain: "actiari-fixed.firebaseapp.com",
+            projectId: "actiari-fixed",
+            storageBucket: "actiari-fixed.firebasestorage.app",
+            messagingSenderId: "154407363342",
+            appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DATA OBJECTS ---
+        const syllabusData = [
+            {
+                title: "Water and Carbon Cycles",
+                desc: "Systems, stores, and loops.",
+                topics: [
+                    { id: "wc_1", name: "Global distribution of water & carbon stores" },
+                    { id: "wc_2", name: "The Water Cycle: Budget & Catchments" },
+                    { id: "wc_3", name: "The Carbon Cycle: Photosynthesis & Respiration" },
+                    { id: "wc_4", name: "Human impact (Deforestation/Urbanisation)" }
+                ]
+            },
+            {
+                title: "Coastal Systems & Landscapes",
+                desc: "Sediment cells, erosion, and management.",
+                topics: [
+                    { id: "coast_1", name: "Sediment Cells & Budgets" },
+                    { id: "coast_2", name: "Marine Processes (Erosion/Transportation)" },
+                    { id: "coast_3", name: "Erosional Landforms (Headlands, Stacks)" },
+                    { id: "coast_4", name: "Depositional Landforms (Spits, Bars)" },
+                    { id: "coast_5", name: "Hard & Soft Engineering" }
+                ]
+            },
+            {
+                title: "Hazards",
+                desc: "Tectonics, storms, and fires.",
+                topics: [
+                    { id: "haz_1", name: "Plate Tectonics & Margins" },
+                    { id: "haz_2", name: "Volcanic Hazards (Primary/Secondary)" },
+                    { id: "haz_3", name: "Seismic Hazards & Management" },
+                    { id: "haz_4", name: "Tropical Storms: Formation & Impacts" },
+                    { id: "haz_5", name: "Wildfires: Causes & Responses" }
+                ]
+            },
+            {
+                title: "Global Systems & Governance",
+                desc: "Trade, TNCs, and Antarctica.",
+                topics: [
+                    { id: "glob_1", name: "Globalisation & Flows of Capital" },
+                    { id: "glob_2", name: "Transnational Corporations (TNCs)" },
+                    { id: "glob_3", name: "Global Governance (UN, NGOs)" },
+                    { id: "glob_4", name: "The Global Commons: Antarctica" }
+                ]
+            },
+            {
+                title: "Changing Places",
+                desc: "Place meaning, representation, and rebranding.",
+                topics: [
+                    { id: "place_1", name: "Relationships & Connections" },
+                    { id: "place_2", name: "Meaning & Representation of Place" },
+                    { id: "place_3", name: "Endogenous & Exogenous Factors" },
+                    { id: "place_4", name: "Place Rebranding & Regeneration" }
+                ]
+            },
+            {
+                title: "Contemporary Urban Environments",
+                desc: "Urbanisation, climate, and sustainability.",
+                topics: [
+                    { id: "urb_1", name: "Urbanisation & Suburbanisation" },
+                    { id: "urb_2", name: "Urban Climate (Heat Island Effect)" },
+                    { id: "urb_3", name: "Urban Waste & Water Management" },
+                    { id: "urb_4", name: "Sustainable Urban Development" }
+                ]
+            }
+        ];
+
+        const caseStudyData = [
+            {
+                title: "Physical Geography Case Studies",
+                desc: "Coasts, Hazards, and Water/Carbon examples.",
+                topics: [
+                    { id: "cs_1", name: "Local Coastal Management (e.g. Holderness)" },
+                    { id: "cs_2", name: "Distant Coastal Landscape (e.g. Odisha/Sundarbans)" },
+                    { id: "cs_3", name: "Seismic Event (e.g. Haiti or Christchurch)" },
+                    { id: "cs_4", name: "Tropical Storm (e.g. Katrina or Haiyan)" },
+                    { id: "cs_5", name: "Wildfire Event (e.g. Alberta or Victoria)" },
+                    { id: "cs_6", name: "Tropical Rainforest Case Study (Amazon)" }
+                ]
+            },
+            {
+                title: "Human Geography Case Studies",
+                desc: "Places, Urban areas, and Global trade.",
+                topics: [
+                    { id: "cs_7", name: "Local Place Study (Home Location)" },
+                    { id: "cs_8", name: "Contrasting Place Study (Distant)" },
+                    { id: "cs_9", name: "TNC Case Study (e.g. Apple or Nike)" },
+                    { id: "cs_10", name: "Banana Trade Wars (Global Trade)" },
+                    { id: "cs_11", name: "Antarctica (Global Commons)" },
+                    { id: "cs_12", name: "Urban Regeneration Project (e.g. London Docklands)" }
+                ]
+            }
+        ];
+
+        // --- APP STATE ---
+        let currentUser = null;
+        let userData = {}; // Stores the RAG data locally
+        let currentMode = "syllabus";
+
+        // --- DOM REFERENCES ---
+        const contentContainer = document.getElementById('contentContainer');
+        const loginAlert = document.getElementById('loginAlert');
+        const masteryBar = document.getElementById('masteryBar');
+        const navLoginBtn = document.getElementById('navLoginBtn');
+        const mobileLinks = document.getElementById('mobile-menu').querySelectorAll('a');
+
+        // --- AUTH & DATA LOADING ---
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+
+            if (user) {
+                // 1. Update UI to Logged In State
+                loginAlert.style.display = "none";
+                updateLoginButton(true);
+
+                // 2. Fetch Data from Firestore
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    
+                    if (docSnap.exists() && docSnap.data().geoProgress) {
+                        userData = docSnap.data().geoProgress;
+                    } else {
+                        userData = {}; // No data yet
+                    }
+                    render();
+                } catch (error) {
+                    console.error("Error getting document:", error);
+                }
+            } else {
+                // 1. Update UI to Guest State
+                loginAlert.style.display = "inline-block";
+                updateLoginButton(false);
+                userData = {}; // Clear data so it doesn't show previous user info
+                render();
+            }
+        });
+
+        // --- RENDER LOGIC ---
+        window.switchMode = (mode) => {
+            currentMode = mode;
+            // Toggle visual tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                const txt = btn.innerText.toLowerCase().replace(' ', '');
+                btn.classList.toggle('active', txt === mode);
+            });
+            render();
+        }
+
+        window.toggleAccordion = (element) => {
+            element.parentElement.classList.toggle('open');
+        }
+
+        window.handleRagClick = async (topicId, status) => {
+            // Guard: Must be logged in
+            if (!currentUser) {
+                alert("Please log in to track your progress.");
+                return;
+            }
+
+            // 1. Optimistic Update (update UI immediately)
+            userData[topicId] = status;
+            
+            // Find specific row and update attribute
+            const row = document.querySelector(`.sub-item button[onclick*="${topicId}"][onclick*="${status}"]`).closest('.sub-item');
+            if(row) row.setAttribute('data-status', status);
+
+            // Recalc Bar/Stats immediately
+            recalcStats();
+
+            // 2. Save to Firestore Background
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                // We use merge:true so we don't wipe other data in the user doc
+                await setDoc(userRef, { 
+                    geoProgress: { 
+                        [topicId]: status 
+                    } 
+                }, { merge: true });
+            } catch (e) {
+                console.error("Error saving progress: ", e);
+                // Optional: Revert UI if save fails
+            }
+        }
+
+        function render() {
+            contentContainer.innerHTML = '';
+            const dataSet = currentMode === 'syllabus' ? syllabusData : caseStudyData;
+            
+            // Stats counting
+            let stats = { red: 0, amber: 0, green: 0, total: 0 };
+
+            dataSet.forEach(group => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'topic-group';
+                
+                let subHtml = '';
+                
+                group.topics.forEach(topic => {
+                    stats.total++;
+                    const status = userData[topic.id] || 'none';
+                    
+                    if(status === 'green') stats.green++;
+                    else if(status === 'amber') stats.amber++;
+                    else stats.red++;
+
+                    // Add 'locked' class if no user, to grey out buttons
+                    const lockedClass = currentUser ? '' : 'locked';
+
+                    subHtml += `
+                        <div class="sub-item ${lockedClass}" data-status="${status}">
+                            <span class="sub-text">${topic.name}</span>
+                            <div class="rag-actions">
+                                <button class="rag-btn btn-red" onclick="handleRagClick('${topic.id}', 'red')"></button>
+                                <button class="rag-btn btn-amber" onclick="handleRagClick('${topic.id}', 'amber')"></button>
+                                <button class="rag-btn btn-green" onclick="handleRagClick('${topic.id}', 'green')"></button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                groupDiv.innerHTML = `
+                    <div class="topic-header" onclick="toggleAccordion(this)">
+                        <div>
+                            <h3>${group.title}</h3>
+                            <p>${group.desc}</p>
+                        </div>
+                        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="topic-body">
+                        ${subHtml}
+                    </div>
+                `;
+
+                contentContainer.appendChild(groupDiv);
+            });
+
+            updateDashboard(stats);
+        }
+
+        function recalcStats() {
+            // We need to count ALL data (syllabus + case studies) for accurate bar
+            let stats = { red: 0, amber: 0, green: 0, total: 0 };
+            
+            // Helper to count array
+            const countArray = (arr) => {
+                arr.forEach(group => {
+                    group.topics.forEach(t => {
+                        stats.total++;
+                        const s = userData[t.id];
+                        if(s === 'green') stats.green++;
+                        else if(s === 'amber') stats.amber++;
+                        else stats.red++;
+                    })
+                })
+            };
+
+            // Count everything regardless of current tab view
+            countArray(syllabusData);
+            countArray(caseStudyData);
+
+            updateDashboard(stats);
+        }
+
+        function updateDashboard(stats) {
+            // Update Number Counters (Only for current view usually, but we can do global)
+            // Note: The render loop calculates stats for the CURRENT VIEW.
+            // RecalcStats calculates GLOBAL.
+            
+            // Let's use the Render loop stats for numbers, but Global for the bar?
+            // For simplicity, let's update counters based on the data just rendered.
+            document.getElementById('countRed').innerText = stats.red;
+            document.getElementById('countAmber').innerText = stats.amber;
+            document.getElementById('countGreen').innerText = stats.green;
+
+            // Bar Calculation: (Green + Amber) / Total
+            const progressCount = stats.green + stats.amber;
+            const percentage = stats.total === 0 ? 0 : Math.round((progressCount / stats.total) * 100);
+            
+            masteryBar.style.width = `${percentage}%`;
+        }
+
+        // --- HELPER: Login/Logout Button Logic ---
+        function updateLoginButton(isLoggedIn) {
+            // Update Desktop Nav
+            if (isLoggedIn) {
+                navLoginBtn.textContent = 'Logout';
+                navLoginBtn.style.color = '#ef4444'; // Red color for logout
+                navLoginBtn.href = "#";
+                navLoginBtn.onclick = (e) => {
+                    e.preventDefault();
+                    signOut(auth).then(() => window.location.reload());
+                };
+            } else {
+                navLoginBtn.textContent = 'Login';
+                navLoginBtn.style.color = '';
+                navLoginBtn.href = "login.html";
+                navLoginBtn.onclick = null;
+            }
+
+            // Update Mobile Nav (find the specific link)
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('href') === 'login.html' || link.textContent === 'Logout') {
+                    if (isLoggedIn) {
+                        link.textContent = 'Logout';
+                        link.style.color = '#ef4444';
+                        link.href = "#";
+                        link.onclick = (e) => {
+                            e.preventDefault();
+                            signOut(auth).then(() => window.location.reload());
+                        };
+                    } else {
+                        link.textContent = 'Login';
+                        link.style.color = '';
+                        link.href = 'login.html';
+                        link.onclick = null;
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
