@@ -76,6 +76,7 @@
         .nav-menu { display: flex; gap: 32px; }
         .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
         .nav-menu a:hover, .nav-menu a[aria-current="page"] { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* ------------------- */
         /* --- Main Content --- */
@@ -267,6 +268,7 @@
         .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
         .mobile-menu-overlay a { font-size: 1.5rem; font-weight: 600; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
         .mobile-menu-overlay a:hover { color: var(--text-primary); }
+        .mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
         @media (max-width: 768px) {
             .mobile-toggle { display: block; }
         }
@@ -281,7 +283,7 @@
         <nav class="nav-menu">
             <a href="index.html">Home</a>
             <a href="APR.html">Past Papers</a>
-            <a href="FLASH.html">Flashcards</a>
+            <a href="FLASH.html" class="active">Flashcards</a>
             <a href="syllabus.html">Syllabus Tracker</a>
             <a href="maker.html">Create Deck</a>
             <a href="login.html">Login</a>
@@ -297,7 +299,7 @@
     <div class="mobile-menu-overlay" id="mobile-menu">
         <a href="index.html">Home</a>
         <a href="APR.html">Past Papers</a>
-        <a href="FLASH.html">Flashcards</a>
+        <a href="FLASH.html" class="active-link">Flashcards</a>
         <a href="syllabus.html">Syllabus Tracker</a>
         <a href="maker.html">Create Deck</a>
         <a href="login.html">Login</a>

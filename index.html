@@ -109,10 +109,8 @@
             font-weight: 500;
         }
 
-        .nav-menu a:hover, 
-        .nav-menu a.active {
-            color: var(--text-primary);
-        }
+        .nav-menu a:hover { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* ------------------- */
         /* --- Hero --- */
@@ -289,10 +287,8 @@
     transition: color 0.2s;
 }
 
-.mobile-menu-overlay a:hover,
-.mobile-menu-overlay a.active-link {
-    color: var(--text-primary);
-}
+.mobile-menu-overlay a:hover { color: var(--text-primary); }
+.mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
 /* 4. Media Query Updates */
 @media (max-width: 768px) {
@@ -312,7 +308,7 @@ body.menu-open { overflow: hidden; }
 
         <!-- Desktop Nav -->
         <nav class="nav-menu">
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
             <a href="syllabus.html">Syllabus Tracker</a>
@@ -332,7 +328,7 @@ body.menu-open { overflow: hidden; }
 
     <!-- Mobile Full Screen Menu Overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
-        <a href="index.html">Home</a>
+        <a href="index.html" class="active-link">Home</a>
         <a href="APR.html">Past Papers</a>
         <a href="FLASH.html">Flashcards</a>
         <a href="syllabus.html">Syllabus Tracker</a>

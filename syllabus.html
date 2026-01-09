@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syllabus Tracker | AQA Geography</title>
+    <title>Syllabus Tracker</title>
     
     <link rel="icon" type="image/x-icon" href="./Miscellaneous/Main Favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -71,6 +71,7 @@
         .nav-menu { display: flex; gap: 32px; }
         .nav-menu a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
         .nav-menu a:hover { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* --- Progress Bar --- */
         .progress-fixed {
@@ -237,6 +238,7 @@
         }
         .mobile-menu-overlay.active { opacity: 1; pointer-events: all; }
         .mobile-menu-overlay a { font-size: 1.5rem; color: var(--text-secondary); font-weight: 600; }
+        .mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
         
         @media (max-width: 768px) {
             .nav-menu { display: none; }
@@ -261,6 +263,7 @@
                 <a href="index.html">Home</a>
                 <a href="APR.html">Past Papers</a>
                 <a href="FLASH.html">Flashcards</a>
+                <a href="syllabus.html" class="active">Syllabus Tracker</a>
                 <a href="maker.html">Create Deck</a>
                 <a href="login.html" id="navLoginBtn">Login</a>
             </nav>
@@ -276,6 +279,7 @@
             <a href="index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
+            <a href="syllabus.html" class="active-link">Syllabus Tracker</a>
             <a href="maker.html">Create Deck</a>
             <a href="login.html">Login</a>
         </div>

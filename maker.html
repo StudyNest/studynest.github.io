@@ -100,6 +100,7 @@
             font-weight: 500;
         }
         .nav-menu a:hover { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
         /* ------------------- */
         /* --- Layout --- */
@@ -329,10 +330,8 @@
     transition: color 0.2s;
 }
 
-.mobile-menu-overlay a:hover,
-.mobile-menu-overlay a.active-link {
-    color: var(--text-primary);
-}
+.mobile-menu-overlay a:hover { color: var(--text-primary); }
+.mobile-menu-overlay a.active-link { color: var(--text-primary); border-bottom: 2px solid var(--text-primary); }
 
 /* 4. Media Query Updates */
 @media (max-width: 768px) {
@@ -357,7 +356,7 @@ body.menu-open { overflow: hidden; }
             <a href="APR.html">Past Papers</a>
             <a href="FLASH.html">Flashcards</a>
             <a href="syllabus.html">Syllabus Tracker</a>
-            <a href="maker.html">Create Deck</a>
+            <a href="maker.html" class="active">Create Deck</a>
             <a href="login.html">Login</a>
         </nav>
 
@@ -377,7 +376,7 @@ body.menu-open { overflow: hidden; }
         <a href="APR.html">Past Papers</a>
         <a href="FLASH.html">Flashcards</a>
         <a href="syllabus.html">Syllabus Tracker</a>
-        <a href="maker.html">Create Deck</a>
+        <a href="maker.html" class="active-link">Create Deck</a>
         <a href="login.html">Login</a>
     </div>
 </header>
