@@ -873,9 +873,9 @@
                     page.querySelector('#zone-blank').appendChild(this.createEditor(32));
                 } else if (this.state.layout === 'case') {
                     const grid = page.querySelector('.case-grid');
-                    this.appendCaseBox(grid, 'Problem', 'w-half', 'h-med');
-                    this.appendCaseBox(grid, 'Impact', 'w-half', 'h-med');
-                    this.appendCaseBox(grid, 'Solution', 'w-full', 'h-med');
+                    this.appendCaseBox(grid, 'Placeholder', 'w-half', 'h-med');
+                    this.appendCaseBox(grid, 'Placeholder', 'w-half', 'h-med');
+                    this.appendCaseBox(grid, 'Placeholder', 'w-full', 'h-med');
                 }
                 this.attachOverflowGuard(page);
                 this.updateSidebarUI();
