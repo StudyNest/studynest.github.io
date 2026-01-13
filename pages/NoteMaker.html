@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Studio v4.21</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../assets/Miscellaneous/Main Favicon.ico">
+
+
+    <style>
+        /* ------------------- */
+        /* --- Dark Theme Variables --- */
+        /* ------------------- */
+        :root {
+            --bg-body: #0d0d0d;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --bg-input: #0a0a0a;
+            
+            --border-color: #2a2a2a;
+            --border-active: #444444;
+
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #666666;
+
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+
+            --paper-line-color: #cbd5e1;
+            --line-opacity: 0.2;
+        }
+
+        /* --- Global Reset --- */
+        * { box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-body); 
+            color: var(--text-primary); 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            margin: 0; 
+            overflow: hidden; 
+        }
+
+        /* --- Scrollbars --- */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary); }
+
+        /* --- Navbar --- */
+        .app-navbar {
+            height: 60px;
+            background-color: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            flex-shrink: 0;
+            z-index: 50;
+            position: relative;
+        }
+
+        .nav-group { display: flex; align-items: center; gap: 8px; }
+        
+        .btn-nav {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .btn-nav:hover { background-color: var(--bg-card-hover); color: var(--text-primary); border-color: var(--text-tertiary); }
+        
+        .toolbar-btn {
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 4px;
+            color: var(--text-secondary);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .toolbar-btn:hover { background: var(--bg-card-hover); color: white; }
+        
+        /* Color Groups */
+        .color-group {
+            display: flex; align-items: center; gap: 4px;
+            background: var(--bg-input);
+            padding: 3px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .color-preset {
+            width: 18px; height: 18px;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.1s;
+        }
+        .color-preset:hover { transform: scale(1.15); z-index: 10; border-color: white; }
+
+        /* Dynamic Custom Box */
+        .custom-active-box {
+            width: 18px; height: 18px;
+            border-radius: 3px;
+            cursor: pointer;
+            border: 1px dashed var(--text-secondary);
+            position: relative;
+        }
+        .custom-active-box:hover { border: 1px solid white; transform: scale(1.15); }
+        
+        .custom-picker-trigger {
+            width: 20px; height: 20px; 
+            margin-left: 2px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: var(--text-secondary);
+            border-radius: 3px;
+        }
+        .custom-picker-trigger:hover { background: var(--bg-card-hover); color: white; }
+
+        .divider { width: 1px; height: 20px; background: var(--border-color); margin: 0 8px; }
+
+        /* --- Modals (Common) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 99; display: none;
+            backdrop-filter: blur(2px);
+        }
+        .modal-overlay.show { display: block; animation: fadeIn 0.2s; }
+
+        /* --- Color Modal --- */
+        #color-modal {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            z-index: 100;
+            display: none;
+            width: 220px;
+        }
+        #color-modal.show { display: block; animation: slideDown 0.15s ease-out; }
+
+        /* --- Print Dialog --- */
+        #print-dialog {
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            z-index: 101;
+            display: none;
+            width: 340px;
+            text-align: center;
+        }
+        #print-dialog.show { display: block; animation: zoomIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideDown { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+
+        .modal-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        .modal-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; }
+        
+        /* FIXED: Added standard appearance property */
+        input[type="color"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: none; 
+            width: 40px; 
+            height: 40px; 
+            cursor: pointer; 
+            background: none;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: 1px solid var(--border-color); border-radius: 4px; }
+
+        .btn-apply {
+            background: var(--accent-color); color: white; border: none; padding: 4px 12px;
+            border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-weight: 500;
+        }
+        .btn-apply:hover { background: var(--accent-hover); }
+
+        .btn-cancel {
+            background: transparent; border: 1px solid var(--border-color); color: var(--text-secondary);
+            padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 500;
+        }
+        .btn-cancel:hover { color: white; border-color: var(--text-tertiary); }
+        
+        .btn-primary {
+            background: var(--accent-color); border: none; color: white;
+            padding: 8px 20px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+        }
+        .btn-primary:hover { background: var(--accent-hover); }
+
+        .recent-grid { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+        .recent-swatch { width: 20px; height: 20px; border-radius: 3px; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); }
+        .recent-swatch:hover { transform: scale(1.1); border-color: white; }
+
+
+        /* --- Sidebar --- */
+        .app-sidebar {
+            width: 280px;
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            overflow-y: auto;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section-title {
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+        .sidebar-section-title:first-child { margin-top: 0; }
+
+        .layout-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        
+        .layout-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .layout-card:hover { background: var(--bg-card-hover); border-color: var(--text-tertiary); }
+        .layout-card.active { border-color: var(--accent-color); background: #1e2530; box-shadow: 0 0 0 1px var(--accent-color); }
+
+        .layout-name { font-size: 0.75rem; color: var(--text-secondary); font-weight: 500; }
+        .layout-card.active .layout-name { color: var(--text-primary); }
+
+        .style-options { display: flex; flex-direction: column; gap: 8px; }
+        .option-row { display: flex; background: var(--bg-input); padding: 4px; border-radius: 6px; border: 1px solid var(--border-color); }
+        
+        .option-btn {
+            flex: 1;
+            padding: 6px;
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--text-secondary);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .option-btn:hover { color: var(--text-primary); }
+        .option-btn.active { background: var(--bg-card-hover); color: var(--text-primary); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+
+        .color-grid { display: flex; gap: 8px; margin-bottom: 16px; }
+        .color-swatch { 
+            width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; 
+            transition: transform 0.2s;
+        }
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.active { border-color: var(--text-primary); transform: scale(1.1); }
+
+        /* --- Workspace --- */
+        #workspace {
+            flex: 1;
+            background-color: var(--bg-body);
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 2rem;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        /* --- THE PAPER --- */
+        .a4-page {
+            background: white;
+            width: 210mm; 
+            height: 297mm;
+            text-align: left;
+            margin: 0 auto 3rem auto;
+            padding: 10mm 12mm; 
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            color: #334155;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .a4-page.landscape { width: 297mm; height: 210mm; }
+
+        .page-header { 
+            height: 10%; border-bottom: 2px solid var(--paper-line-color); margin-bottom: 1rem; 
+            display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 0.5rem; flex-shrink: 0; 
+        }
+        
+        .cornell-body { 
+            height: 65%;
+            display: flex; gap: 1rem; margin-bottom: 1rem; flex-shrink: 0; overflow: hidden; 
+        }
+        .cornell-left { width: 30%; height: 100%; display: flex; flex-direction: column; border-right: 2px solid var(--paper-line-color); padding-right: 1rem; overflow: hidden; }
+        .cornell-right { flex: 1; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+        
+        .cornell-footer { 
+            height: 15%; 
+            border-top: 2px solid var(--paper-line-color); padding-top: 0.5rem; display: flex; flex-direction: column; flex-shrink: 0; overflow: hidden; position: relative; 
+        }
+        
+        .case-grid { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 10px; height: 88%; overflow: hidden; }
+        
+        .case-box { 
+            border: 1px solid var(--paper-line-color); background: #f8fafc; border-radius: 6px; 
+            display: flex; flex-direction: column; position: relative; box-sizing: border-box; overflow: hidden; 
+        }
+        .case-box-header { 
+            display: flex; justify-content: space-between; align-items: center; padding: 2px 8px; 
+            border-bottom: 1px solid var(--paper-line-color); height: 32px; flex-shrink: 0; background-color: rgba(0,0,0,0.05); 
+        }
+
+        /* --- Rigid Editor & Lines --- */
+        .rigid-editor {
+            width: 100%; height: 100%; max-height: 100%; outline: none; resize: none; overflow: hidden; 
+            white-space: pre-wrap; word-wrap: break-word; border-radius: 4px;
+            background-image: linear-gradient(transparent 95%, rgba(0,0,0,0.2) 95%);
+            background-repeat: repeat-y; box-sizing: border-box; padding: 0 2px 5px 2px;
+            cursor: text; display: block;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        .bg-grid .rigid-editor { 
+            background-image: linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px); 
+        }
+        .bg-plain .rigid-editor { background-image: none; }
+        
+        .rigid-editor ul { list-style: disc inside; margin: 0; padding: 0; }
+        .rigid-editor ol { list-style: decimal inside; margin: 0; padding: 0; }
+        [contenteditable]:empty::before { content: attr(placeholder); color: #94a3b8; pointer-events: none; display: block; }
+        .flash-error { animation: flashRed 0.2s ease-in-out; }
+        @keyframes flashRed { 0% { background-color: rgba(255,0,0,0.2); } 100% { background-color: transparent; } }
+
+        /* Controls */
+        .section-controls {
+            opacity: 0; position: absolute; top: 4px; right: 4px;
+            background: #e2e8f0; border: 1px solid #cbd5e1;
+            border-radius: 12px; padding: 2px 6px; display: flex; gap: 4px;
+            transition: opacity 0.2s; z-index: 10; pointer-events: auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .container-wrapper { position: relative; flex: 1; display: flex; flex-direction: column; height: 100%; min-height: 0; overflow: hidden; }
+        .container-wrapper:hover .section-controls, .case-box:hover .section-controls { opacity: 1; }
+        .ctrl-btn { font-size: 10px; color: #475569; padding: 2px 6px; border-radius: 4px; cursor: pointer; background: white; border: 1px solid #cbd5e1; font-weight: 600; }
+        .ctrl-btn:hover { background: var(--accent-color); color: white; border-color: var(--accent-color); }
+        .ctrl-label { font-size: 9px; color: #94a3b8; align-self: center; font-weight: 600; }
+
+        /* Helpers & Minis */
+        .w-half { width: calc(50% - 5px); } .w-full { width: 100%; }
+        .h-small { height: 23%; } .h-med { height: 32%; } .h-tall { height: 49%; }
+        .mini-page { width: 40px; height: 52px; background: #fff; border: 1px solid #555; position: relative; opacity: 0.8; }
+        .mini-line { background: #cbd5e1; position: absolute; left: 0; right: 0; height: 1px; }
+        .mini-cornell .side { position: absolute; top: 10px; bottom: 10px; left: 0; width: 12px; border-right: 1px solid #999; }
+        .mini-cornell .footer { position: absolute; bottom: 0; left: 0; right: 0; height: 10px; border-top: 1px solid #999; }
+        .mini-cornell .header { position: absolute; top: 0; left: 0; right: 0; height: 10px; border-bottom: 1px solid #999; }
+        .mini-case { display: flex; flex-wrap: wrap; padding: 2px; gap: 1px; padding-top: 8px; }
+        .mini-case .box { background: #e2e8f0; width: calc(50% - 1px); height: 12px; border: 1px solid #999; }
+        .mini-case .box-full { width: 100%; }
+        .mini-blank .header { position: absolute; top: 0; left: 0; right: 0; height: 10px; border-bottom: 1px solid #999; }
+
+        /* --- PRINT FIX v4 --- */
+        @media print {
+            .app-navbar, .app-sidebar, button, .no-print, .section-controls, #color-modal, .modal-overlay, #print-dialog { 
+                display: none !important; 
+            }
+
+            /* FIXED: Force remove headers and footers using @page margin */
+            @page {
+                margin: 0;
+                size: auto;
+            }
+
+            body, html, #workspace, .flex { 
+                display: block !important; 
+                width: 100% !important; 
+                height: auto !important; 
+                margin: 0 !important; 
+                padding: 0 !important;
+                background: white !important;
+                overflow: visible !important;
+            }
+
+            .a4-page {
+                display: block !important;
+                margin: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                page-break-after: always !important;
+                break-after: page !important;
+                page-break-inside: avoid !important;
+                height: 290mm !important; 
+                width: 210mm !important;
+                overflow: hidden !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            .a4-page:last-child { page-break-after: auto !important; break-after: auto !important; }
+            .a4-page.landscape { width: 297mm !important; height: 200mm !important; }
+            
+            .rigid-editor { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+
+    <!-- Modal for Custom Colors -->
+    <div id="color-modal">
+        <div class="modal-row">
+            <span class="modal-label">Pick Color:</span>
+            <input type="color" id="modal-picker-input" value="#000000">
+            <button class="btn-apply" onclick="app.applyCustomColor()">Confirm</button>
+        </div>
+        <div class="modal-label">Recent:</div>
+        <div class="recent-grid" id="recent-colors-list"></div>
+        <div class="text-right mt-2">
+            <button onclick="app.closeModals()" class="text-[10px] text-red-500 hover:text-red-400">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Print Advice Modal -->
+    <div id="print-dialog">
+        <div class="text-center">
+            <div class="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-400">
+                <i class="fa-solid fa-file-pdf text-xl"></i>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Export Recommendation</h3>
+            <p class="text-[var(--text-secondary)] text-sm mb-6 leading-relaxed">
+                For the best quality, please select <b class="text-white">"Save as PDF"</b> in the destination dropdown.<br><br>
+                <span class="text-xs opacity-70">Avoid "Microsoft Print to PDF" as it may ignore formatting.</span>
+            </p>
+            <div class="flex gap-3 justify-center">
+                <button class="btn-cancel" onclick="app.closeModals()">Cancel</button>
+                <button class="btn-primary" onclick="app.triggerSystemPrint()">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="app-navbar">
+        <div class="nav-group">
+            <a href="../index.html" class="btn-nav"><i class="fa-solid fa-chevron-left text-xs"></i><span>Back</span></a>
+            <div class="divider"></div>
+            
+            <button onmousedown="event.preventDefault(); document.execCommand('bold')" class="toolbar-btn" title="Bold"><i class="fa-solid fa-bold"></i></button>
+            <button onmousedown="event.preventDefault(); document.execCommand('italic')" class="toolbar-btn" title="Italic"><i class="fa-solid fa-italic"></i></button>
+            <button onmousedown="event.preventDefault(); document.execCommand('underline')" class="toolbar-btn" title="Underline"><i class="fa-solid fa-underline"></i></button>
+            
+            <div class="divider"></div>
+            
+            <!-- Text Color -->
+            <div class="color-group">
+                <i class="fa-solid fa-font text-xs text-slate-400 mx-1"></i>
+                <div class="color-preset bg-slate-700" onmousedown="event.preventDefault(); app.formatText('foreColor', '#334155')" title="Default"></div>
+                <div class="color-preset bg-red-600" onmousedown="event.preventDefault(); app.formatText('foreColor', '#dc2626')" title="Red"></div>
+                <div class="color-preset bg-blue-600" onmousedown="event.preventDefault(); app.formatText('foreColor', '#2563eb')" title="Blue"></div>
+                <div class="custom-active-box" id="btn-custom-text" title="Apply Custom Color" onmousedown="event.preventDefault(); app.applyLastCustom('foreColor')"></div>
+                <div class="custom-picker-trigger" title="Pick New Color" onclick="app.openPicker('foreColor')">
+                    <i class="fa-solid fa-eye-dropper text-[10px]"></i>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Highlight -->
+            <div class="color-group">
+                <i class="fa-solid fa-highlighter text-xs text-slate-400 mx-1"></i>
+                <div class="color-preset bg-transparent border-slate-500 relative" onmousedown="event.preventDefault(); app.formatText('hiliteColor', 'transparent')" title="No Highlight">
+                    <i class="fa-solid fa-ban text-[8px] text-red-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
+                </div>
+                <div class="color-preset bg-yellow-200" onmousedown="event.preventDefault(); app.formatText('hiliteColor', '#fef08a')" title="Yellow"></div>
+                <div class="color-preset bg-green-200" onmousedown="event.preventDefault(); app.formatText('hiliteColor', '#bbf7d0')" title="Green"></div>
+                <div class="color-preset bg-pink-200" onmousedown="event.preventDefault(); app.formatText('hiliteColor', '#fbcfe8')" title="Pink"></div>
+                <div class="custom-active-box" id="btn-custom-hilite" title="Apply Custom Highlight" onmousedown="event.preventDefault(); app.applyLastCustom('hiliteColor')"></div>
+                <div class="custom-picker-trigger" title="Pick New Color" onclick="app.openPicker('hiliteColor')">
+                    <i class="fa-solid fa-eye-dropper text-[10px]"></i>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <button onmousedown="event.preventDefault(); document.execCommand('insertUnorderedList')" class="toolbar-btn" title="Bullet List"><i class="fa-solid fa-list-ul"></i></button>
+            <button onmousedown="event.preventDefault(); document.execCommand('insertOrderedList')" class="toolbar-btn" title="Number List"><i class="fa-solid fa-list-ol"></i></button>
+            <button onmousedown="event.preventDefault(); document.execCommand('removeFormat')" class="toolbar-btn" title="Clear Formatting"><i class="fa-solid fa-eraser"></i></button>
+        </div>
+        
+        <div class="nav-group">
+             <span class="text-red-500 text-[10px] mr-2 font-medium hidden md:inline">Work does not save to site, please export before closing</span>
+             <div class="flex bg-[var(--bg-input)] p-1 rounded-md border border-[var(--border-color)]">
+                <button onclick="app.setOrientation('portrait')" id="btn-portrait" class="px-3 py-1 rounded text-xs font-medium text-white bg-[var(--accent-color)]">P</button>
+                <button onclick="app.setOrientation('landscape')" id="btn-landscape" class="px-3 py-1 rounded text-xs font-medium text-[var(--text-secondary)] hover:text-white">L</button>
+            </div>
+            <!-- Calls custom modal -->
+            <button onclick="app.confirmPrint()" class="btn-nav" style="background: var(--accent-color); color: white; border:none;">
+                <i class="fa-solid fa-print"></i> PDF
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+        
+        <!-- Sidebar -->
+        <aside class="app-sidebar hidden md:flex">
+            <div class="sidebar-section-title">Page Layout</div>
+            <div class="layout-grid">
+                <div class="layout-card active" onclick="app.setTemplate('cornell')" id="card-cornell">
+                    <div class="mini-page mini-cornell"><div class="header"></div><div class="side"></div><div class="footer"></div></div>
+                    <span class="layout-name">Cornell</span>
+                </div>
+                <div class="layout-card" onclick="app.setTemplate('case')" id="card-case">
+                    <div class="mini-page mini-case"><div class="header"></div><div class="box"></div> <div class="box"></div><div class="box box-full"></div></div>
+                    <span class="layout-name">Case Study</span>
+                </div>
+                <div class="layout-card" onclick="app.setTemplate('blank')" id="card-blank">
+                    <div class="mini-page mini-blank"><div class="header"></div></div>
+                    <span class="layout-name">Blank</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section-title">Structure Color</div>
+            <div class="color-grid">
+                <div class="color-swatch active" style="background: #cbd5e1;" onclick="app.setStructureColor('#cbd5e1', this)"></div>
+                <div class="color-swatch" style="background: #94a3b8;" onclick="app.setStructureColor('#94a3b8', this)"></div>
+                <div class="color-swatch" style="background: #334155;" onclick="app.setStructureColor('#334155', this)"></div>
+                <div class="color-swatch" style="background: #000000;" onclick="app.setStructureColor('#000000', this)"></div>
+                <div class="color-swatch" style="background: #2563eb;" onclick="app.setStructureColor('#2563eb', this)"></div>
+            </div>
+
+            <div class="sidebar-section-title">Pattern</div>
+            <div class="style-options">
+                <div class="option-row">
+                    <div class="option-btn active" onclick="app.setPattern('bg-lined')" id="pat-lined">Lined</div>
+                    <div class="option-btn" onclick="app.setPattern('bg-grid')" id="pat-grid">Grid</div>
+                    <div class="option-btn" onclick="app.setPattern('bg-plain')" id="pat-plain">Plain</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section-title">Typography</div>
+            <div class="style-options">
+                <div class="option-row">
+                    <div class="option-btn active" onclick="app.setFont('font-sans')" id="font-sans">Sans</div>
+                    <div class="option-btn" onclick="app.setFont('font-serif')" id="font-serif">Serif</div>
+                    <div class="option-btn" onclick="app.setFont('font-hand')" id="font-hand">Hand</div>
+                </div>
+            </div>
+
+            <div class="mt-auto pt-6 border-t border-[var(--border-color)] text-center">
+                <button onclick="app.reset()" class="text-xs text-red-500 hover:text-red-400 font-medium">Reset Document</button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main id="workspace">
+            <div id="pages"></div>
+            <button onclick="app.addPage()" class="no-print mt-6 mb-20 px-6 py-3 bg-[var(--bg-card)] hover:bg-[var(--accent-color)] text-[var(--text-secondary)] hover:text-white rounded-full text-sm font-semibold shadow-lg border border-[var(--border-color)] transition-all">
+                + Add Another Page
+            </button>
+        </main>
+    </div>
+
+    <style id="print-orientation-style"></style>
+
+    <script>
+        const app = {
+            state: { 
+                layout: 'cornell', pattern: 'bg-lined', font: 'font-sans', orientation: 'portrait', pageCount: 0, 
+                recentColors: [], 
+                customText: null, 
+                customHilite: null 
+            },
+            savedSelection: null,
+            activePickerMode: 'foreColor',
+
+            init() { 
+                if(!this.loadState()) {
+                    this.addPage(); 
+                }
+                document.getElementById('workspace').addEventListener('input', () => this.saveState());
+                this.renderRecentColors();
+                this.updateCustomBoxes();
+
+                window.onbeforeunload = function() {
+                    return "You have unsaved changes. Please export to PDF before leaving.";
+                };
+
+                // Intercept CTRL+P
+                document.addEventListener('keydown', (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                        e.preventDefault();
+                        this.confirmPrint();
+                    }
+                });
+            },
+
+            // --- Modal Management ---
+            closeModals() {
+                document.getElementById('color-modal').classList.remove('show');
+                document.getElementById('print-dialog').classList.remove('show');
+                document.getElementById('modal-overlay').classList.remove('show');
+            },
+
+            confirmPrint() {
+                this.closeModals(); // Close others
+                document.getElementById('modal-overlay').classList.add('show');
+                document.getElementById('print-dialog').classList.add('show');
+            },
+
+            triggerSystemPrint() {
+                this.closeModals();
+                setTimeout(() => window.print(), 100);
+            },
+
+            // --- Selection & Colors ---
+            saveSelection() {
+                const sel = window.getSelection();
+                if (sel.rangeCount > 0) {
+                    this.savedSelection = sel.getRangeAt(0);
+                }
+            },
+
+            restoreSelection() {
+                if (this.savedSelection) {
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(this.savedSelection);
+                }
+            },
+
+            formatText(command, value) {
+                document.execCommand(command, false, value);
+            },
+
+            openPicker(mode) {
+                this.saveSelection();
+                this.activePickerMode = mode;
+                this.closeModals();
+                document.getElementById('color-modal').classList.add('show');
+                const modal = document.getElementById('color-modal');
+                modal.style.left = '50%';
+            },
+
+            applyCustomColor() {
+                const color = document.getElementById('modal-picker-input').value;
+                this.restoreSelection();
+                this.formatText(this.activePickerMode, color);
+                
+                if (this.activePickerMode === 'foreColor') this.state.customText = color;
+                if (this.activePickerMode === 'hiliteColor') this.state.customHilite = color;
+                
+                this.addToRecent(color);
+                this.updateCustomBoxes();
+                this.closeModals();
+            },
+
+            applyLastCustom(mode) {
+                const color = (mode === 'foreColor') ? this.state.customText : this.state.customHilite;
+                if (color) {
+                    this.saveSelection(); 
+                    this.formatText(mode, color);
+                } else {
+                    this.openPicker(mode); 
+                }
+            },
+
+            updateCustomBoxes() {
+                const textBox = document.getElementById('btn-custom-text');
+                const hiliteBox = document.getElementById('btn-custom-hilite');
+                
+                if (this.state.customText) {
+                    textBox.style.backgroundColor = this.state.customText;
+                    textBox.style.border = "1px solid rgba(255,255,255,0.3)";
+                }
+                if (this.state.customHilite) {
+                    hiliteBox.style.backgroundColor = this.state.customHilite;
+                    hiliteBox.style.border = "1px solid rgba(255,255,255,0.3)";
+                }
+            },
+
+            addToRecent(color) {
+                this.state.recentColors = this.state.recentColors.filter(c => c !== color);
+                this.state.recentColors.unshift(color);
+                if(this.state.recentColors.length > 5) this.state.recentColors.pop();
+                
+                this.renderRecentColors();
+                this.saveState();
+            },
+
+            renderRecentColors() {
+                const container = document.getElementById('recent-colors-list');
+                container.innerHTML = '';
+                this.state.recentColors.forEach(color => {
+                    const d = document.createElement('div');
+                    d.className = 'recent-swatch';
+                    d.style.backgroundColor = color;
+                    d.title = color;
+                    d.onmousedown = (e) => {
+                        e.preventDefault();
+                        this.restoreSelection();
+                        this.formatText(this.activePickerMode, color);
+                        
+                        if (this.activePickerMode === 'foreColor') this.state.customText = color;
+                        if (this.activePickerMode === 'hiliteColor') this.state.customHilite = color;
+                        this.updateCustomBoxes();
+                        
+                        this.closeModals();
+                        this.addToRecent(color);
+                    };
+                    container.appendChild(d);
+                });
+            },
+
+            // --- State Management ---
+            saveState() {
+                const data = {
+                    state: this.state,
+                    html: document.getElementById('pages').innerHTML,
+                    structureColor: document.documentElement.style.getPropertyValue('--paper-line-color')
+                };
+                localStorage.setItem('notesmith_v4_data', JSON.stringify(data));
+            },
+
+            loadState() {
+                const saved = localStorage.getItem('notesmith_v4_data');
+                if (!saved) return false;
+                
+                try {
+                    const data = JSON.parse(saved);
+                    this.state = data.state;
+                    if(!this.state.recentColors) this.state.recentColors = [];
+                    
+                    document.getElementById('pages').innerHTML = data.html;
+                    if(data.structureColor) this.setStructureColor(data.structureColor, null);
+                    
+                    this.updateSidebarUI();
+                    this.setOrientation(this.state.orientation);
+                    this.renderRecentColors();
+                    this.updateCustomBoxes();
+                    
+                    document.querySelectorAll('.a4-page').forEach(page => {
+                        this.attachOverflowGuard(page);
+                        page.querySelectorAll('.rigid-editor').forEach(ed => this.updateLinePhysics(ed));
+                        const delBtn = page.querySelector('.fa-trash')?.parentElement;
+                        if(delBtn) delBtn.onclick = () => { page.remove(); this.saveState(); };
+                        
+                        const dateDiv = page.querySelector('.page-header .text-right');
+                        if(dateDiv && !dateDiv.getAttribute('contenteditable')) {
+                            dateDiv.setAttribute('contenteditable', 'true');
+                            dateDiv.className = "text-right text-sm opacity-60 outline-none";
+                        }
+                    });
+
+                    document.querySelectorAll('.case-box .bg-red-800').forEach(btn => {
+                        btn.onclick = () => { btn.closest('.case-box').remove(); this.saveState(); }
+                    });
+
+                    return true;
+                } catch(e) { return false; }
+            },
+
+            updateSidebarUI() {
+                document.querySelectorAll('.layout-card').forEach(el => el.classList.remove('active'));
+                document.getElementById(`card-${this.state.layout}`).classList.add('active');
+
+                ['bg-lined', 'bg-grid', 'bg-plain'].forEach(p => {
+                    const el = document.getElementById(p.replace('bg', 'pat'));
+                    if(p === this.state.pattern) el.classList.add('active'); else el.classList.remove('active');
+                });
+
+                ['font-sans', 'font-serif', 'font-hand'].forEach(f => {
+                    const el = document.getElementById(f);
+                    if(f === this.state.font) el.classList.add('active'); else el.classList.remove('active');
+                });
+            },
+
+            createEditor(initialRows = 20) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'container-wrapper';
+                wrapper.innerHTML = `
+                    <div class="section-controls">
+                        <span class="ctrl-label">ROWS:</span>
+                        <button class="ctrl-btn" onclick="app.adjustRows(this, -1)">-</button>
+                        <button class="ctrl-btn" onclick="app.adjustRows(this, 1)">+</button>
+                    </div>
+                    <div class="rigid-editor" contenteditable="true" spellcheck="false" data-rows="${initialRows}"></div>
+                `;
+                setTimeout(() => this.updateLinePhysics(wrapper.querySelector('.rigid-editor')), 0);
+                return wrapper;
+            },
+
+            getLayoutHTML() {
+                const date = new Date().toLocaleDateString();
+                const headerHTML = `
+                    <div class="page-header">
+                        <div class="w-3/4">
+                            <div contenteditable="true" class="text-4xl font-bold outline-none mb-1" placeholder="Title: "></div>
+                            <div contenteditable="true" class="text-lg opacity-70 outline-none" placeholder="Sub-Title: "></div>
+                        </div>
+                        <div contenteditable="true" class="text-right text-sm opacity-60 outline-none">${date}</div>
+                    </div>
+                `;
+                if (this.state.layout === 'cornell') {
+                    return `${headerHTML}<div class="cornell-body"><div class="cornell-left" id="zone-cues"><div class="text-xs font-bold uppercase tracking-widest opacity-50 mb-1 select-none">Cues</div></div><div class="cornell-right" id="zone-notes"><div class="text-xs font-bold uppercase tracking-widest opacity-50 mb-1 select-none">Notes</div></div></div><div class="cornell-footer" id="zone-summary"><div class="text-xs font-bold uppercase tracking-widest opacity-50 mb-1 select-none">Summary</div></div>`;
+                } else if (this.state.layout === 'case') {
+                    return `${headerHTML}<div class="no-print mb-2 text-right"><button onclick="app.addCaseBox(this)" class="px-2 py-1 bg-slate-200 rounded text-xs text-slate-800 font-bold hover:bg-indigo-200">+ Add Box</button></div><div class="case-grid"></div>`;
+                } else {
+                    return `${headerHTML}<div class="flex-1 flex flex-col" id="zone-blank"></div>`;
+                }
+            },
+
+            addPage() {
+                this.state.pageCount++;
+                const container = document.getElementById('pages');
+                const page = document.createElement('div');
+                page.className = `a4-page ${this.state.pattern} ${this.state.font} ${this.state.orientation}`;
+                page.id = `page-${this.state.pageCount}`;
+                page.innerHTML = this.getLayoutHTML();
+
+                if(this.state.pageCount > 1 || document.querySelectorAll('.a4-page').length > 0) {
+                    const btn = document.createElement('button');
+                    btn.className = 'no-print absolute top-2 -right-10 text-red-400 hover:text-red-600';
+                    btn.innerHTML = '<i class="fa-solid fa-trash"></i>';
+                    btn.onclick = () => { page.remove(); this.saveState(); };
+                    page.appendChild(btn);
+                }
+
+                container.appendChild(page);
+
+                if (this.state.layout === 'cornell') {
+                    page.querySelector('#zone-cues').appendChild(this.createEditor(20)); 
+                    page.querySelector('#zone-notes').appendChild(this.createEditor(20));
+                    page.querySelector('#zone-summary').appendChild(this.createEditor(8)); 
+                } else if (this.state.layout === 'blank') {
+                    page.querySelector('#zone-blank').appendChild(this.createEditor(32));
+                } else if (this.state.layout === 'case') {
+                    const grid = page.querySelector('.case-grid');
+                    this.appendCaseBox(grid, 'Problem', 'w-half', 'h-med');
+                    this.appendCaseBox(grid, 'Impact', 'w-half', 'h-med');
+                    this.appendCaseBox(grid, 'Solution', 'w-full', 'h-med');
+                }
+                this.attachOverflowGuard(page);
+                this.updateSidebarUI();
+                this.saveState();
+            },
+
+            addCaseBox(btn) {
+                const grid = btn.closest('.a4-page').querySelector('.case-grid');
+                this.appendCaseBox(grid, 'New Section', 'w-half', 'h-small');
+            },
+
+            appendCaseBox(grid, title, widthClass, heightClass) {
+                const box = document.createElement('div');
+                box.className = `case-box ${widthClass} ${heightClass}`;
+                box.innerHTML = `
+                    <div class="case-box-header">
+                        <div contenteditable="true" class="font-bold text-xs uppercase outline-none">${title}</div>
+                        <div class="section-controls">
+                             <span class="ctrl-label">SIZE:</span>
+                             <button class="ctrl-btn" onclick="app.toggleWidth(this)">W</button>
+                             <button class="ctrl-btn" onclick="app.toggleHeight(this)">H</button>
+                             <div class="w-px h-3 bg-slate-300 mx-1 self-center"></div>
+                             <span class="ctrl-label">ROWS:</span>
+                             <button class="ctrl-btn" onclick="app.adjustRows(this, -1)">-</button>
+                             <button class="ctrl-btn" onclick="app.adjustRows(this, 1)">+</button>
+                             <button class="ctrl-btn bg-red-800 hover:bg-red-600 ml-1 text-white border-red-900" onclick="this.closest('.case-box').remove(); app.saveState();">X</button>
+                        </div>
+                    </div>
+                    <div class="container-wrapper p-1">
+                        <div class="rigid-editor h-full" contenteditable="true" data-rows="10"></div>
+                    </div>
+                `;
+                grid.appendChild(box);
+                
+                if (grid.scrollHeight > grid.clientHeight) {
+                    box.remove();
+                    alert("Page is full!");
+                } else {
+                    setTimeout(() => this.updateLinePhysics(box.querySelector('.rigid-editor')), 0);
+                    this.saveState();
+                }
+            },
+
+            toggleWidth(btn) {
+                const box = btn.closest('.case-box');
+                const grid = box.parentElement;
+                const oldClass = box.classList.contains('w-half') ? 'w-half' : 'w-full';
+                const newClass = oldClass === 'w-half' ? 'w-full' : 'w-half';
+                box.classList.replace(oldClass, newClass);
+                if (grid.scrollHeight > grid.clientHeight) {
+                    box.classList.replace(newClass, oldClass);
+                    alert("Not enough horizontal space.");
+                } else {
+                    this.updateLinePhysics(box.querySelector('.rigid-editor'));
+                    this.saveState();
+                }
+            },
+
+            toggleHeight(btn) {
+                const box = btn.closest('.case-box');
+                const grid = box.parentElement;
+                let oldClass, newClass;
+                if (box.classList.contains('h-small')) { oldClass = 'h-small'; newClass = 'h-med'; }
+                else if (box.classList.contains('h-med')) { oldClass = 'h-med'; newClass = 'h-tall'; }
+                else { oldClass = 'h-tall'; newClass = 'h-small'; }
+
+                box.classList.remove(oldClass);
+                box.classList.add(newClass);
+
+                if (grid.scrollHeight > grid.clientHeight) {
+                    box.classList.remove(newClass);
+                    box.classList.add(oldClass); 
+                    alert("Not enough vertical space.");
+                } else {
+                    this.updateLinePhysics(box.querySelector('.rigid-editor'));
+                    this.saveState();
+                }
+            },
+
+            adjustRows(btn, delta) {
+                let wrapper = btn.closest('.container-wrapper'); 
+                if(!wrapper) wrapper = btn.closest('.case-box').querySelector('.container-wrapper');
+                const editor = wrapper.querySelector('.rigid-editor');
+                let current = parseInt(editor.getAttribute('data-rows'));
+                let next = current + delta;
+                if (next < 2) next = 2;
+                if (next > 60) next = 60;
+                editor.setAttribute('data-rows', next);
+                this.updateLinePhysics(editor);
+                this.saveState();
+            },
+
+            updateLinePhysics(editor) {
+                const height = editor.clientHeight;
+                const rows = parseInt(editor.getAttribute('data-rows'));
+                const rowHeight = height / rows;
+                editor.style.backgroundSize = `100% ${rowHeight}px`;
+                editor.style.lineHeight = `${rowHeight}px`;
+                editor.style.fontSize = `${rowHeight * 0.80}px`;
+                editor.style.paddingBottom = "5px"; 
+            },
+
+            attachOverflowGuard(pageElement) {
+                pageElement.addEventListener('input', (e) => {
+                    if (!e.target.classList.contains('rigid-editor')) return;
+                    const el = e.target;
+                    if (el.scrollHeight > el.clientHeight) {
+                        this.flashError(el);
+                        let safety = 0;
+                        while(el.scrollHeight > el.clientHeight && safety < 100) {
+                            el.innerText = el.innerText.slice(0, -1);
+                            safety++;
+                        }
+                        this.placeCaretAtEnd(el);
+                    }
+                });
+                window.addEventListener('resize', () => {
+                   document.querySelectorAll('.rigid-editor').forEach(el => this.updateLinePhysics(el)); 
+                });
+            },
+
+            placeCaretAtEnd(el) {
+                el.focus();
+                if (typeof window.getSelection != "undefined" && typeof document.createRange != "undefined") {
+                    var range = document.createRange();
+                    range.selectNodeContents(el);
+                    range.collapse(false);
+                    var sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            },
+
+            flashError(el) {
+                el.classList.add('flash-error');
+                setTimeout(() => el.classList.remove('flash-error'), 200);
+            },
+
+            setTemplate(t) { if(confirm('Change layout? This will clear current content.')) { this.state.layout = t; this.reset(); } },
+            
+            setPattern(p) { 
+                this.state.pattern = p; 
+                document.querySelectorAll('.a4-page').forEach(el => { el.classList.remove('bg-plain', 'bg-lined', 'bg-grid'); el.classList.add(p); }); 
+                this.updateSidebarUI();
+                this.saveState();
+            },
+            
+            setFont(f) { 
+                this.state.font = f; 
+                document.querySelectorAll('.a4-page').forEach(el => { el.classList.remove('font-sans', 'font-serif', 'font-hand'); el.classList.add(f); }); 
+                this.updateSidebarUI();
+                this.saveState();
+            },
+            
+            setStructureColor(color, btn) {
+                document.documentElement.style.setProperty('--paper-line-color', color);
+                document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+                if(btn) btn.classList.add('active');
+                if(!btn) {
+                    document.querySelectorAll('.color-swatch').forEach(sw => {
+                        if(sw.getAttribute('onclick').includes(color)) sw.classList.add('active');
+                    });
+                }
+                this.saveState();
+            },
+
+            setOrientation(o) {
+                this.state.orientation = o;
+                const styleEl = document.getElementById('print-orientation-style');
+                const btnP = document.getElementById('btn-portrait');
+                const btnL = document.getElementById('btn-landscape');
+                
+                if (o === 'landscape') {
+                    styleEl.innerHTML = '@page { size: landscape; margin: 0; }';
+                    btnL.className = "px-3 py-1 rounded text-xs font-medium text-white bg-[var(--accent-color)]";
+                    btnP.className = "px-3 py-1 rounded text-xs font-medium text-[var(--text-secondary)] hover:text-white";
+                } else {
+                    styleEl.innerHTML = '@page { size: portrait; margin: 0; }';
+                    btnP.className = "px-3 py-1 rounded text-xs font-medium text-white bg-[var(--accent-color)]";
+                    btnL.className = "px-3 py-1 rounded text-xs font-medium text-[var(--text-secondary)] hover:text-white";
+                }
+                document.querySelectorAll('.a4-page').forEach(el => {
+                    if(o === 'landscape') el.classList.add('landscape'); else el.classList.remove('landscape');
+                    setTimeout(() => { el.querySelectorAll('.rigid-editor').forEach(ed => this.updateLinePhysics(ed)); }, 100);
+                });
+                this.saveState();
+            },
+            
+            reset() { 
+                if(confirm("Are you sure you want to reset? All content will be lost.")) {
+                    if(confirm("This cannot be undone. Are you absolutely sure?")) {
+                        localStorage.removeItem('notesmith_v4_data');
+                        document.getElementById('pages').innerHTML = ''; 
+                        this.state.pageCount = 0; 
+                        this.state.recentColors = [];
+                        this.state.customText = null;
+                        this.state.customHilite = null;
+                        this.addPage(); 
+                    }
+                }
+            }
+        };
+
+        app.init();
+    </script>
+</body>
+</html>
