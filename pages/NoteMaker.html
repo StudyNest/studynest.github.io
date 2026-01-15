@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes Studio v4.23</title>
+    <title>Notes Studio v4.27</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -30,7 +30,8 @@
             --accent-color: #2563eb;
             --accent-hover: #1d4ed8;
 
-            --paper-line-color: #cbd5e1;
+            /* Default to a darker grey for visibility */
+            --paper-line-color: #94a3b8; 
             --line-opacity: 0.2;
         }
 
@@ -96,6 +97,7 @@
             transition: all 0.2s;
         }
         .toolbar-btn:hover { background: var(--bg-card-hover); color: white; }
+        .toolbar-btn.active-tool { background: var(--accent-color); color: white; border-color: var(--accent-color); }
         
         /* Color Groups */
         .color-group {
@@ -283,13 +285,22 @@
         .option-btn:hover { color: var(--text-primary); }
         .option-btn.active { background: var(--bg-card-hover); color: var(--text-primary); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
-        .color-grid { display: flex; gap: 8px; margin-bottom: 16px; }
+        .color-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
         .color-swatch { 
             width: 24px; height: 24px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; 
             transition: transform 0.2s;
         }
         .color-swatch:hover { transform: scale(1.1); }
-        .color-swatch.active { border-color: var(--text-primary); transform: scale(1.1); }
+        .color-swatch.active { border-color: var(--text-primary); transform: scale(1.1); box-shadow: 0 0 0 2px var(--bg-card), 0 0 0 3px var(--text-primary); }
+        
+        /* New Structure Picker */
+        .struct-picker-label {
+            width: 24px; height: 24px; border-radius: 50%; cursor: pointer; 
+            border: 1px dashed var(--text-tertiary); display: flex; align-items: center; justify-content: center;
+            color: var(--text-tertiary); transition: all 0.2s;
+        }
+        .struct-picker-label:hover { color: white; border-color: white; }
+        #struct-picker-input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
         /* --- Workspace --- */
         #workspace {
@@ -354,15 +365,13 @@
         .rigid-editor {
             width: 100%; height: 100%; max-height: 100%; outline: none; resize: none; overflow: hidden; 
             white-space: pre-wrap; word-wrap: break-word; border-radius: 4px;
-            background-image: linear-gradient(transparent 95%, rgba(0,0,0,0.2) 95%);
+            background-image: linear-gradient(transparent 95%, var(--paper-line-color) 95%);
             background-repeat: repeat-y; box-sizing: border-box; padding: 0 2px 5px 2px;
             cursor: text; display: block;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
         }
-        .bg-grid .rigid-editor { 
-            background-image: linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px); 
-        }
+        
         .bg-plain .rigid-editor { background-image: none; }
         
         .rigid-editor ul { list-style: disc inside; margin: 0; padding: 0; }
@@ -503,9 +512,9 @@
             <a href="../index.html" class="btn-nav"><i class="fa-solid fa-chevron-left text-xs"></i><span>Back</span></a>
             <div class="divider"></div>
             
-            <button onmousedown="event.preventDefault(); document.execCommand('bold')" class="toolbar-btn" title="Bold"><i class="fa-solid fa-bold"></i></button>
-            <button onmousedown="event.preventDefault(); document.execCommand('italic')" class="toolbar-btn" title="Italic"><i class="fa-solid fa-italic"></i></button>
-            <button onmousedown="event.preventDefault(); document.execCommand('underline')" class="toolbar-btn" title="Underline"><i class="fa-solid fa-underline"></i></button>
+            <button id="btn-bold" onmousedown="event.preventDefault(); document.execCommand('bold')" class="toolbar-btn" title="Bold"><i class="fa-solid fa-bold"></i></button>
+            <button id="btn-italic" onmousedown="event.preventDefault(); document.execCommand('italic')" class="toolbar-btn" title="Italic"><i class="fa-solid fa-italic"></i></button>
+            <button id="btn-underline" onmousedown="event.preventDefault(); document.execCommand('underline')" class="toolbar-btn" title="Underline"><i class="fa-solid fa-underline"></i></button>
             
             <div class="divider"></div>
             
@@ -572,26 +581,28 @@
                     <div class="mini-page mini-case"><div class="header"></div><div class="box"></div> <div class="box"></div><div class="box box-full"></div></div>
                     <span class="layout-name">Case Study</span>
                 </div>
-                <div class="layout-card" onclick="app.setTemplate('blank')" id="card-blank">
-                    <div class="mini-page mini-blank"><div class="header"></div></div>
-                    <span class="layout-name">Blank</span>
-                </div>
             </div>
 
             <div class="sidebar-section-title">Structure Color</div>
             <div class="color-grid">
-                <div class="color-swatch active" style="background: #cbd5e1;" onclick="app.setStructureColor('#cbd5e1', this)"></div>
-                <div class="color-swatch" style="background: #94a3b8;" onclick="app.setStructureColor('#94a3b8', this)"></div>
-                <div class="color-swatch" style="background: #334155;" onclick="app.setStructureColor('#334155', this)"></div>
-                <div class="color-swatch" style="background: #000000;" onclick="app.setStructureColor('#000000', this)"></div>
-                <div class="color-swatch" style="background: #2563eb;" onclick="app.setStructureColor('#2563eb', this)"></div>
+                <!-- DARKER DEFAULT COLORS FOR BETTER VISIBILITY -->
+                <div class="color-swatch active" style="background: #94a3b8;" title="Standard Grey" onclick="app.setStructureColor('#94a3b8', this)"></div>
+                <div class="color-swatch" style="background: #475569;" title="Dark Slate" onclick="app.setStructureColor('#475569', this)"></div>
+                <div class="color-swatch" style="background: #3b82f6;" title="Blueprint Blue" onclick="app.setStructureColor('#3b82f6', this)"></div>
+                <div class="color-swatch" style="background: #22c55e;" title="Engineering Green" onclick="app.setStructureColor('#22c55e', this)"></div>
+                <div class="color-swatch" style="background: #ef4444;" title="Margin Red" onclick="app.setStructureColor('#ef4444', this)"></div>
+                <div class="color-swatch" style="background: #000000;" title="Black" onclick="app.setStructureColor('#000000', this)"></div>
+                
+                <label class="struct-picker-label" title="Custom Line Color">
+                    <i class="fa-solid fa-plus text-[10px]"></i>
+                    <input type="color" id="struct-picker-input" onchange="app.setStructureColor(this.value, this.parentElement)">
+                </label>
             </div>
 
             <div class="sidebar-section-title">Pattern</div>
             <div class="style-options">
                 <div class="option-row">
                     <div class="option-btn active" onclick="app.setPattern('bg-lined')" id="pat-lined">Lined</div>
-                    <div class="option-btn" onclick="app.setPattern('bg-grid')" id="pat-grid">Grid</div>
                     <div class="option-btn" onclick="app.setPattern('bg-plain')" id="pat-plain">Plain</div>
                 </div>
             </div>
@@ -651,6 +662,21 @@
                     if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
                         e.preventDefault();
                         this.confirmPrint();
+                    }
+                });
+
+                // Update Toolbar State (Bold/Italic/Underline)
+                document.addEventListener('selectionchange', () => this.updateToolbarState());
+            },
+
+            updateToolbarState() {
+                const tools = ['bold', 'italic', 'underline'];
+                tools.forEach(tool => {
+                    const isActive = document.queryCommandState(tool);
+                    const btn = document.getElementById(`btn-${tool}`);
+                    if(btn) {
+                        if(isActive) btn.classList.add('active-tool');
+                        else btn.classList.remove('active-tool');
                     }
                 });
             },
@@ -833,7 +859,11 @@
                     
                     document.querySelectorAll('.a4-page').forEach(page => {
                         this.attachOverflowGuard(page);
-                        page.querySelectorAll('.rigid-editor').forEach(ed => this.updateLinePhysics(ed));
+                        page.querySelectorAll('.rigid-editor').forEach(ed => {
+                            // Recover rows from attribute or default
+                            if(!ed.getAttribute('data-rows')) ed.setAttribute('data-rows', '20');
+                            this.updateLinePhysics(ed);
+                        });
                         const delBtn = page.querySelector('.fa-trash')?.parentElement;
                         if(delBtn) delBtn.onclick = () => { page.remove(); this.saveState(); };
                         
@@ -854,11 +884,14 @@
 
             updateSidebarUI() {
                 document.querySelectorAll('.layout-card').forEach(el => el.classList.remove('active'));
-                document.getElementById(`card-${this.state.layout}`).classList.add('active');
+                const layoutCard = document.getElementById(`card-${this.state.layout}`);
+                if(layoutCard) layoutCard.classList.add('active');
 
                 ['bg-lined', 'bg-grid', 'bg-plain'].forEach(p => {
                     const el = document.getElementById(p.replace('bg', 'pat'));
-                    if(p === this.state.pattern) el.classList.add('active'); else el.classList.remove('active');
+                    if(el) {
+                        if(p === this.state.pattern) el.classList.add('active'); else el.classList.remove('active');
+                    }
                 });
 
                 ['font-sans', 'font-serif', 'font-hand'].forEach(f => {
@@ -899,6 +932,7 @@
                 } else if (this.state.layout === 'case') {
                     return `${headerHTML}<div class="no-print mb-2 text-right"><button onclick="app.addCaseBox(this)" class="px-2 py-1 bg-slate-200 rounded text-xs text-slate-800 font-bold hover:bg-indigo-200">+ Add Box</button></div><div class="case-grid"></div>`;
                 } else {
+                    // Fallback to blank only if state was somehow corrupted, but UI prevents selecting it
                     return `${headerHTML}<div class="flex-1 flex flex-col" id="zone-blank"></div>`;
                 }
             },
@@ -925,13 +959,15 @@
                     page.querySelector('#zone-cues').appendChild(this.createEditor(20)); 
                     page.querySelector('#zone-notes').appendChild(this.createEditor(20));
                     page.querySelector('#zone-summary').appendChild(this.createEditor(8)); 
-                } else if (this.state.layout === 'blank') {
-                    page.querySelector('#zone-blank').appendChild(this.createEditor(32));
                 } else if (this.state.layout === 'case') {
                     const grid = page.querySelector('.case-grid');
                     this.appendCaseBox(grid, 'Placeholder', 'w-half', 'h-med');
                     this.appendCaseBox(grid, 'Placeholder', 'w-half', 'h-med');
                     this.appendCaseBox(grid, 'Placeholder', 'w-full', 'h-med');
+                } else {
+                     // Fallback for Blank if loaded from old save
+                     const zone = page.querySelector('#zone-blank');
+                     if(zone) zone.appendChild(this.createEditor(32));
                 }
                 this.attachOverflowGuard(page);
                 this.updateSidebarUI();
@@ -1045,26 +1081,58 @@
                 const height = editor.clientHeight;
                 const rows = parseInt(editor.getAttribute('data-rows'));
                 const rowHeight = height / rows;
-                editor.style.backgroundSize = `100% ${rowHeight}px`;
                 editor.style.lineHeight = `${rowHeight}px`;
                 editor.style.fontSize = `${rowHeight * 0.80}px`;
+                
+                // Update Grid Size logic
+                if (this.state.pattern === 'bg-grid') {
+                    // Make exact squares for "Math Grid" effect
+                    // REMOVED FOR V4.27 CLEANUP
+                } else {
+                    // Standard Lined Paper
+                    editor.style.backgroundSize = `100% ${rowHeight}px`;
+                }
+                
                 editor.style.paddingBottom = "5px"; 
             },
 
+            // --- FIXED OVERFLOW LOGIC (Snapshot Restore) ---
             attachOverflowGuard(pageElement) {
-                pageElement.addEventListener('input', (e) => {
-                    if (!e.target.classList.contains('rigid-editor')) return;
-                    const el = e.target;
-                    if (el.scrollHeight > el.clientHeight) {
-                        this.flashError(el);
-                        let safety = 0;
-                        while(el.scrollHeight > el.clientHeight && safety < 100) {
-                            el.innerText = el.innerText.slice(0, -1);
-                            safety++;
-                        }
-                        this.placeCaretAtEnd(el);
+                const editors = pageElement.querySelectorAll('.rigid-editor');
+                
+                editors.forEach(el => {
+                    // Initialize saved state
+                    if (!el.dataset.savedHtml) {
+                        el.dataset.savedHtml = el.innerHTML;
                     }
+
+                    // 1. On Focus: Snapshot the content just in case
+                    el.addEventListener('focus', () => {
+                        el.dataset.savedHtml = el.innerHTML;
+                    });
+
+                    // 2. On Input: Check logic
+                    el.addEventListener('input', (e) => {
+                        if (el.scrollHeight > el.clientHeight) {
+                            // OVERFLOW DETECTED!
+                            
+                            // A. Flash red
+                            this.flashError(el);
+                            
+                            // B. Hard Reset to last valid HTML
+                            // This prevents bullets from turning into plain text
+                            el.innerHTML = el.dataset.savedHtml;
+
+                            // C. Restore Cursor to end (best effort)
+                            this.placeCaretAtEnd(el);
+                        } else {
+                            // VALID INPUT
+                            // Update the "Safe" state
+                            el.dataset.savedHtml = el.innerHTML;
+                        }
+                    });
                 });
+
                 window.addEventListener('resize', () => {
                    document.querySelectorAll('.rigid-editor').forEach(el => this.updateLinePhysics(el)); 
                 });
@@ -1094,6 +1162,10 @@
             setPattern(p) { 
                 this.state.pattern = p; 
                 document.querySelectorAll('.a4-page').forEach(el => { el.classList.remove('bg-plain', 'bg-lined', 'bg-grid'); el.classList.add(p); }); 
+                
+                // Trigger update to fix grid sizes if switching to/from grid
+                document.querySelectorAll('.rigid-editor').forEach(ed => this.updateLinePhysics(ed));
+                
                 this.updateSidebarUI();
                 this.saveState();
             },
@@ -1107,12 +1179,21 @@
             
             setStructureColor(color, btn) {
                 document.documentElement.style.setProperty('--paper-line-color', color);
-                document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
-                if(btn) btn.classList.add('active');
-                if(!btn) {
-                    document.querySelectorAll('.color-swatch').forEach(sw => {
-                        if(sw.getAttribute('onclick').includes(color)) sw.classList.add('active');
-                    });
+                
+                // Clear active from swatches
+                document.querySelectorAll('.color-swatch, .struct-picker-label').forEach(el => el.classList.remove('active'));
+                
+                if(btn) {
+                    // Check if it's the picker container or a swatch
+                    if(btn.tagName === 'LABEL') {
+                        // It's the picker
+                        btn.classList.add('active');
+                        btn.style.borderColor = color;
+                        btn.style.color = color;
+                    } else {
+                        // It's a preset swatch
+                        btn.classList.add('active');
+                    }
                 }
                 this.saveState();
             },
