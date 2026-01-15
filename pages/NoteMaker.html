@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notes Studio v4.21</title>
+    <title>Notes Studio v4.23</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
@@ -161,8 +161,8 @@
         }
         #color-modal.show { display: block; animation: slideDown 0.15s ease-out; }
 
-        /* --- Print Dialog --- */
-        #print-dialog {
+        /* --- Dialogs (Print & Reset) --- */
+        #print-dialog, #reset-dialog {
             position: fixed; top: 50%; left: 50%;
             transform: translate(-50%, -50%);
             background: var(--bg-card);
@@ -175,7 +175,10 @@
             width: 340px;
             text-align: center;
         }
-        #print-dialog.show { display: block; animation: zoomIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28); }
+        #print-dialog.show, #reset-dialog.show { 
+            display: block; 
+            animation: zoomIn 0.2s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
+        }
 
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideDown { from { opacity: 0; transform: translate(-50%, -10px); } to { opacity: 1; transform: translate(-50%, 0); } }
@@ -184,7 +187,6 @@
         .modal-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
         .modal-label { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; }
         
-        /* FIXED: Added standard appearance property */
         input[type="color"] {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -382,6 +384,7 @@
         .ctrl-btn { font-size: 10px; color: #475569; padding: 2px 6px; border-radius: 4px; cursor: pointer; background: white; border: 1px solid #cbd5e1; font-weight: 600; }
         .ctrl-btn:hover { background: var(--accent-color); color: white; border-color: var(--accent-color); }
         .ctrl-label { font-size: 9px; color: #94a3b8; align-self: center; font-weight: 600; }
+        .row-count { font-size: 9px; color: #475569; font-weight: 700; align-self: center; min-width: 12px; text-align: center; }
 
         /* Helpers & Minis */
         .w-half { width: calc(50% - 5px); } .w-full { width: 100%; }
@@ -398,7 +401,7 @@
 
         /* --- PRINT FIX v4 --- */
         @media print {
-            .app-navbar, .app-sidebar, button, .no-print, .section-controls, #color-modal, .modal-overlay, #print-dialog { 
+            .app-navbar, .app-sidebar, button, .no-print, .section-controls, #color-modal, .modal-overlay, #print-dialog, #reset-dialog { 
                 display: none !important; 
             }
 
@@ -472,6 +475,24 @@
             <div class="flex gap-3 justify-center">
                 <button class="btn-cancel" onclick="app.closeModals()">Cancel</button>
                 <button class="btn-primary" onclick="app.triggerSystemPrint()">Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Warning Modal -->
+    <div id="reset-dialog">
+        <div class="text-center">
+            <div class="w-12 h-12 bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4 text-red-500">
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Reset Document?</h3>
+            <p class="text-[var(--text-secondary)] text-sm mb-6 leading-relaxed">
+                This will delete all pages and content.<br>
+                <span class="text-xs opacity-70 text-red-400 font-medium">This action cannot be undone.</span>
+            </p>
+            <div class="flex gap-3 justify-center">
+                <button class="btn-cancel" onclick="app.closeModals()">Cancel</button>
+                <button class="btn-primary" style="background-color: #dc2626;" onclick="app.executeReset()">Yes, Reset</button>
             </div>
         </div>
     </div>
@@ -610,6 +631,8 @@
             },
             savedSelection: null,
             activePickerMode: 'foreColor',
+            pendingReset: null,
+            pendingTemplate: null,
 
             init() { 
                 if(!this.loadState()) {
@@ -636,6 +659,7 @@
             closeModals() {
                 document.getElementById('color-modal').classList.remove('show');
                 document.getElementById('print-dialog').classList.remove('show');
+                document.getElementById('reset-dialog').classList.remove('show');
                 document.getElementById('modal-overlay').classList.remove('show');
             },
 
@@ -648,6 +672,37 @@
             triggerSystemPrint() {
                 this.closeModals();
                 setTimeout(() => window.print(), 100);
+            },
+
+            // --- Reset Logic ---
+            triggerReset(type, templateName = null) {
+                this.closeModals();
+                this.pendingReset = type;
+                this.pendingTemplate = templateName;
+                document.getElementById('modal-overlay').classList.add('show');
+                document.getElementById('reset-dialog').classList.add('show');
+            },
+
+            executeReset() {
+                this.closeModals();
+                
+                // If reset triggered by template change
+                if (this.pendingReset === 'template' && this.pendingTemplate) {
+                    this.state.layout = this.pendingTemplate;
+                }
+
+                // Perform Wipe
+                localStorage.removeItem('notesmith_v4_data');
+                document.getElementById('pages').innerHTML = ''; 
+                this.state.pageCount = 0; 
+                this.state.recentColors = [];
+                this.state.customText = null;
+                this.state.customHilite = null;
+                this.addPage(); 
+
+                // Clear pending
+                this.pendingReset = null;
+                this.pendingTemplate = null;
             },
 
             // --- Selection & Colors ---
@@ -819,6 +874,7 @@
                     <div class="section-controls">
                         <span class="ctrl-label">ROWS:</span>
                         <button class="ctrl-btn" onclick="app.adjustRows(this, -1)">-</button>
+                        <span class="row-count">${initialRows}</span>
                         <button class="ctrl-btn" onclick="app.adjustRows(this, 1)">+</button>
                     </div>
                     <div class="rigid-editor" contenteditable="true" spellcheck="false" data-rows="${initialRows}"></div>
@@ -900,6 +956,7 @@
                              <div class="w-px h-3 bg-slate-300 mx-1 self-center"></div>
                              <span class="ctrl-label">ROWS:</span>
                              <button class="ctrl-btn" onclick="app.adjustRows(this, -1)">-</button>
+                             <span class="row-count">10</span>
                              <button class="ctrl-btn" onclick="app.adjustRows(this, 1)">+</button>
                              <button class="ctrl-btn bg-red-800 hover:bg-red-600 ml-1 text-white border-red-900" onclick="this.closest('.case-box').remove(); app.saveState();">X</button>
                         </div>
@@ -957,13 +1014,29 @@
 
             adjustRows(btn, delta) {
                 let wrapper = btn.closest('.container-wrapper'); 
-                if(!wrapper) wrapper = btn.closest('.case-box').querySelector('.container-wrapper');
+                let containerDiv = wrapper;
+                
+                // Handling Case Box logic (buttons are in header, editor in body)
+                if(!wrapper) {
+                    const box = btn.closest('.case-box');
+                    wrapper = box.querySelector('.container-wrapper');
+                    containerDiv = btn.parentElement; // The controls section in header
+                } else {
+                    containerDiv = wrapper.querySelector('.section-controls');
+                }
+
                 const editor = wrapper.querySelector('.rigid-editor');
                 let current = parseInt(editor.getAttribute('data-rows'));
                 let next = current + delta;
                 if (next < 2) next = 2;
                 if (next > 60) next = 60;
+                
                 editor.setAttribute('data-rows', next);
+                
+                // Update the display number
+                const display = containerDiv.querySelector('.row-count');
+                if(display) display.innerText = next;
+
                 this.updateLinePhysics(editor);
                 this.saveState();
             },
@@ -1014,7 +1087,9 @@
                 setTimeout(() => el.classList.remove('flash-error'), 200);
             },
 
-            setTemplate(t) { if(confirm('Change layout? This will clear current content.')) { this.state.layout = t; this.reset(); } },
+            setTemplate(t) { 
+                this.triggerReset('template', t);
+            },
             
             setPattern(p) { 
                 this.state.pattern = p; 
@@ -1065,17 +1140,7 @@
             },
             
             reset() { 
-                if(confirm("Are you sure you want to reset? All content will be lost.")) {
-                    if(confirm("This cannot be undone. Are you absolutely sure?")) {
-                        localStorage.removeItem('notesmith_v4_data');
-                        document.getElementById('pages').innerHTML = ''; 
-                        this.state.pageCount = 0; 
-                        this.state.recentColors = [];
-                        this.state.customText = null;
-                        this.state.customHilite = null;
-                        this.addPage(); 
-                    }
-                }
+                this.triggerReset('full');
             }
         };
 
