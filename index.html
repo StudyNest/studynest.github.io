@@ -3,292 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <meta name="description" content="Home">
-    
-    <link rel="icon" type="image/x-icon" href="../assets/Miscellaneous/Main Favicon.ico">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="/CSS/styles.css">
-    
-    <style>
-        /* ------------------- */
-        /* --- Hero --- */
-        /* ------------------- */
-        .hero {
-            padding: 80px 0 60px;
-            border-bottom: 1px solid var(--border-color);
-            background-color: var(--bg-body);
-        }
-
-        .hero h1 {
-            font-size: 2.75rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-        }
-
-        /* ------------------- */
-        /* --- Grid & Cards --- */
-        /* ------------------- */
-        .main-content {
-            padding: 60px 0;
-            flex-grow: 1;
-        }
-
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-tertiary);
-            margin-bottom: 24px;
-            font-weight: 600;
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 24px;
-            border-radius: 4px; /* Small radius for professional look */
-            display: flex;
-            flex-direction: column;
-            transition: border-color 0.2s ease, background-color 0.2s ease;
-        }
-
-        .card:hover {
-            border-color: var(--border-active);
-            background-color: var(--bg-card-hover);
-        }
-
-        .card h3 {
-            font-size: 1.25rem;
-            font-weight: 500;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-bottom: 24px;
-            flex-grow: 1;
-        }
-
-        /* ------------------- */
-        /* --- Footer --- */
-        /* ------------------- */
-        .site-footer {
-            border-top: 1px solid var(--border-color);
-            padding: 40px 0;
-            color: var(--text-tertiary);
-            font-size: 0.85rem;
-            background-color: var(--bg-body);
-        }
-
-        .footer-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-links a { margin-left: 20px; color: var(--text-secondary); }
-        .footer-links a:hover { color: var(--text-primary); text-decoration: underline; }
-
-        /* ------------------- */
-        /* --- Mobile --- */
-        /* ------------------- */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .nav-menu { display: none; }
-            .footer-inner { flex-direction: column; gap: 20px; text-align: center; }
-            .footer-links a { margin: 0 10px; }
-        }
-    </style>
+    <title>Home | StudyNest</title>
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
 
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
-
-        <!-- Desktop Nav -->
-        <nav class="nav-menu">
-            <a href="/index.html" class="active">Home</a>
-            <a href="/pages/APR.html">Past Papers</a>
-            <a href="/pages/NoteMaker.html">Note Maker</a>
-            <a href="/pages/syllabus/syllabus.html">Geography Case Studies</a>
-            <a href="/pages/login.html">Login</a>
+        <nav class="nav-menu" id="nav-menu">
+            <a href="index.html" class="active">Home</a>
+            <a href="pages/APR.html">Past Papers</a>
+            <a href="pages/NoteMaker.html">Note Maker</a>
+            <a href="pages/syllabus/syllabus.html">Geography Case Studies</a>
+            <a href="pages/login.html" class="auth-link">Login</a>
         </nav>
-
-        <!-- Mobile Hamburger Button -->
         <button class="mobile-toggle" aria-label="Toggle Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
-    </div>
-
-    <!-- Mobile Full Screen Menu Overlay -->
-    <div class="mobile-menu-overlay" id="mobile-menu">
-        <a href="/index.html" class="active-link">Home</a>
-        <a href="/pages/APR.html">Past Papers</a>
-        <a href="/pages/NoteMaker.html">Note Maker</a>
-        <a href="/pages/syllabus/syllabus.html">Geography Case Studies</a>
-        <a href="/pages/login.html">Login</a>
     </div>
 </header>
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container">
-                <h1>Study Resources</h1>
-                <p>A central repository for A Level and BTEC revision materials. Access past papers, mark schemes, and other study tools.</p>
-            </div>
-        </section>
+<main>
+    <section class="hero">
+        <div class="container">
+            <h1>Study Resources</h1>
+            <p>A central repository for A Level and BTEC revision materials. Access past papers, mark schemes, and other study tools.</p>
+        </div>
+    </section>
 
-        <!-- Dashboard Grid -->
-        <section class="main-content">
-            <div class="container">
-                <div class="section-label">Available Tools</div>
-                
-                <div class="card-grid">
-                    <!-- Card 1 -->
-                    <div class="card">
-                        <h3>Past Papers</h3>
-                        <p>Searchable archive of exam papers from AQA, OCR A, and Edexcel. Includes question papers and official mark schemes.</p>
-                        <a href="pages/APR.html" class="btn btn-primary">Browse Archive</a>
-                    </div>
-
-
-                    <!-- Card 3 -->
-                    <div class="card">
-                        <h3>Syllabus Tracker</h3>
-                        <p>Track your confidence level for every topic in AQA Geography. Focus your revision on weak areas.</p>
-                        <a href="/pages/syllabus/syllabus.html" class="btn btn-primary">Start Tracking</a>
-                    </div>
-
-                                        <!-- Card 3 -->
-                    <div class="card">
-                        <h3>Note Maker</h3>
-                        <p>Create and download your own notes with customizable templates and formatting options.</p>
-                        <a href="/pages/NoteMaker.html" class="btn btn-primary">Launch Tool</a>
-                    </div>
-
+    <section class="main-content">
+        <div class="container">
+            <div class="section-label">Available Tools</div>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Past Papers</h3>
+                    <p>Searchable archive of exam papers from AQA, OCR A, and Edexcel. Includes question papers and official mark schemes.</p>
+                    <a href="pages/APR.html" class="btn btn-primary">Browse Archive</a>
+                </div>
+                <div class="card">
+                    <h3>Syllabus Tracker</h3>
+                    <p>Track your confidence level for every topic in AQA Geography. Focus your revision on weak areas.</p>
+                    <a href="pages/syllabus/syllabus.html" class="btn btn-primary">Start Tracking</a>
+                </div>
+                <div class="card">
+                    <h3>Note Maker</h3>
+                    <p>Create and download your own notes with customizable templates and formatting options.</p>
+                    <a href="pages/NoteMaker.html" class="btn btn-primary">Launch Tool</a>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+</main>
 
-    <!-- Footer -->
-    <footer class="site-footer">
-        <div class="container footer-inner" style="justify-content: center;">
-            <div class="footer-links">
-                <a href="https://github.com/StudyNest/studynest.github.io">GitHub Repository</a>
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="pages/APR.html">Past Papers</a>
+                <a href="pages/NoteMaker.html">Note Maker</a>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="pages/login.html" class="auth-link">Login</a>
+                <a href="https://github.com/StudyNest/studynest.github.io" target="_blank">GitHub Repository</a>
             </div>
         </div>
-    </footer>
-<script>
-    const mobileBtn = document.querySelector('.mobile-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const body = document.body;
-    let isMenuOpen = false;
+        <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+    </div>
+</footer>
 
-    // SVG Icons
-    const hamburgerIcon = `
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>`;
-    
-    const closeIcon = `
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>`;
-
-    mobileBtn.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
-        
-        // Toggle Menu Visibility
-        mobileMenu.classList.toggle('active');
-        
-        // Toggle Scroll Lock
-        body.classList.toggle('menu-open');
-        
-        // Change Icon
-        const svg = mobileBtn.querySelector('svg');
-        svg.innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
-    });
-</script>
-    <!-- Firebase auth check to show/hide the Create Deck tile when signed in -->
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
-        authDomain: "actiari-fixed.firebaseapp.com",
-        projectId: "actiari-fixed",
-        storageBucket: "actiari-fixed.firebasestorage.app",
-        messagingSenderId: "154407363342",
-        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
-    };
-
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const makerCard = document.getElementById('maker-card');
-    // Ensure element exists before attaching listener
-    if (makerCard) {
-        onAuthStateChanged(auth, (user) => {
-            // Toggle maker card visibility
-            if (user) {
-                makerCard.style.display = '';
-            } else {
-                makerCard.style.display = 'none';
-            }
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
 
-            // Also update any Login links in the nav to become Logout when signed in
-            const loginLinks = document.querySelectorAll('a[href="pages/login.html"]');
+    onAuthStateChanged(auth, (user) => {
+        const loginLinks = document.querySelectorAll('.auth-link');
+        loginLinks.forEach(link => {
             if (user) {
-                loginLinks.forEach(link => {
-                    link.textContent = 'Logout';
-                    link.href = '#';
-                    link.style.color = '#ef4444';
-                    link.onclick = async (e) => {
-                        e.preventDefault();
-                        await signOut(auth);
-                        window.location.reload();
-                    };
-                });
+                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
             } else {
-                loginLinks.forEach(link => {
-                    link.textContent = 'Login';
-                    link.href = 'pages/login.html'; 
-// Or 'Pages/login.html' depending on Reason 2 below
-                    link.style.color = '';
-                    link.onclick = null;
-                });
+                link.textContent = 'Login'; link.href = 'pages/login.html'; link.style.color = ''; link.onclick = null;
             }
         });
-    }
-    </script>
+    });
+</script>
+<script type="module" src="JS/auth.js"></script>
+
 </body>
 </html>

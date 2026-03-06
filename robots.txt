@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 # Explicit sitemap location for crawlers
-Sitemap: https://actiari.github.io/sitemap.xml
+Sitemap: https://studynest.github.io/sitemap.xml
 
 # Optional: submit site to Google Search Console and Bing Webmaster Tools
 # - Google: https://search.google.com/search-console
