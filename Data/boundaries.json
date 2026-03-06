@@ -1,0 +1,57 @@
+[
+  {
+    "examBoard": "AQA",
+    "qualification": "A-Level",
+    "subject": "Mathematics",
+    "year": 2023,
+    "maxMark": 300,
+    "boundaries": [
+      {"grade": "A*", "mark": 238}, {"grade": "A", "mark": 188}, {"grade": "B", "mark": 152}, 
+      {"grade": "C", "mark": 116}, {"grade": "D", "mark": 80}, {"grade": "E", "mark": 45}
+    ]
+  },
+  {
+    "examBoard": "AQA",
+    "qualification": "A-Level",
+    "subject": "Mathematics",
+    "year": 2022,
+    "maxMark": 300,
+    "boundaries": [
+      {"grade": "A*", "mark": 231}, {"grade": "A", "mark": 175}, {"grade": "B", "mark": 139}, 
+      {"grade": "C", "mark": 103}, {"grade": "D", "mark": 67}, {"grade": "E", "mark": 32}
+    ]
+  },
+  {
+    "examBoard": "AQA",
+    "qualification": "A-Level",
+    "subject": "Geography",
+    "year": 2023,
+    "maxMark": 300,
+    "boundaries": [
+      {"grade": "A*", "mark": 239}, {"grade": "A", "mark": 210}, {"grade": "B", "mark": 177}, 
+      {"grade": "C", "mark": 144}, {"grade": "D", "mark": 111}, {"grade": "E", "mark": 79}
+    ]
+  },
+  {
+    "examBoard": "OCR A",
+    "qualification": "A-Level",
+    "subject": "Physics",
+    "year": 2023,
+    "maxMark": 270,
+    "boundaries": [
+      {"grade": "A*", "mark": 208}, {"grade": "A", "mark": 175}, {"grade": "B", "mark": 143}, 
+      {"grade": "C", "mark": 111}, {"grade": "D", "mark": 80}, {"grade": "E", "mark": 49}
+    ]
+  },
+  {
+    "examBoard": "OCR A",
+    "qualification": "A-Level",
+    "subject": "Physics",
+    "year": 2022,
+    "maxMark": 270,
+    "boundaries": [
+      {"grade": "A*", "mark": 201}, {"grade": "A", "mark": 161}, {"grade": "B", "mark": 130}, 
+      {"grade": "C", "mark": 100}, {"grade": "D", "mark": 70}, {"grade": "E", "mark": 40}
+    ]
+  }
+]
