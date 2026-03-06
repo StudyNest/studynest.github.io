@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Syllabus</title>
+    
+    <link rel="icon" type="image/x-icon" href="../assets/Miscellaneous/Main Favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Your external CSS -->
+    <link rel="stylesheet" href="/CSS/styles.css">
+    
+    <style>
+        /* --- Local Overrides & Specific Styles --- */
+        :root {
+            --bg-sub-item: #1f1f1f;
+            --rag-red: #ef4444;
+            --rag-amber: #f59e0b;
+            --rag-green: #10b981;
+            --accent-blue: #3b82f6; 
+        }
+
+        /* Progress Bar */
+        .progress-fixed {
+            position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: transparent; z-index: 1000;
+        }
+        .progress-fill {
+            height: 100%; 
+            background: linear-gradient(90deg, var(--rag-amber) 0%, var(--rag-green) 100%);
+            width: 0%; 
+            transition: width 0.5s ease; 
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--border-color);
+            background-color: var(--bg-body);
+        }
+        .hero h1 { font-size: 2rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        .hero p { color: var(--text-secondary); }
+
+        .login-alert {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--rag-amber);
+            background: rgba(245, 158, 11, 0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        /* Dashboard Controls */
+        .dashboard-row {
+            display: flex;
+            justify-content: flex-end; /* Moved to end since tabs are gone */
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* Stats Group */
+        .stats-group { display: flex; gap: 20px; font-size: 0.9rem; color: var(--text-secondary); }
+        .stat-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Topic List & Accordion */
+        .topic-list { display: flex; flex-direction: column; gap: 16px; padding-bottom: 60px; }
+
+        /* Paper Header Separation */
+        .paper-header {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-top: 25px;
+            margin-bottom: 5px;
+            padding-left: 12px;
+            border-left: 3px solid var(--accent-blue);
+        }
+        .paper-header:first-of-type { margin-top: 0; }
+
+        .topic-group {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--bg-card);
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .topic-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        .topic-header:hover { background-color: var(--bg-card-hover); }
+
+        .topic-header h3 { font-size: 1.1rem; font-weight: 500; color: var(--text-primary); }
+        .topic-header p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        
+        .chevron { transition: transform 0.3s ease; color: var(--text-tertiary); }
+        .topic-group.open .chevron { transform: rotate(180deg); }
+
+        .topic-body {
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.4s ease, opacity 0.3s ease;
+            background-color: var(--bg-body);
+            border-top: 1px solid var(--border-color);
+        }
+        .topic-group.open .topic-body { max-height: 2000px; opacity: 1; }
+
+        .sub-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 4px solid var(--border-active); 
+            transition: background-color 0.2s;
+        }
+        .sub-item:last-child { border-bottom: none; }
+        .sub-item:hover { background-color: var(--bg-sub-item); }
+
+        /* --- STYLES FOR THE COLORED SUB-TOPICS --- */
+        .text-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        
+        .cs-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            /* Color is applied via JS inline style */
+        }
+        
+        .cs-name {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* RAG Buttons */
+        .rag-actions { display: flex; gap: 8px; flex-shrink: 0; margin-left: 15px; }
+        .rag-btn {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border-active);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rag-btn:hover { transform: scale(1.1); }
+
+        .locked .rag-btn { cursor: not-allowed; opacity: 0.3; }
+        
+        /* Status Colors */
+        .sub-item[data-status="red"] { border-left-color: var(--rag-red); }
+        .sub-item[data-status="red"] .btn-red { background: var(--rag-red); border-color: var(--rag-red); box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+        
+        .sub-item[data-status="amber"] { border-left-color: var(--rag-amber); }
+        .sub-item[data-status="amber"] .btn-amber { background: var(--rag-amber); border-color: var(--rag-amber); box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+
+        .sub-item[data-status="green"] { border-left-color: var(--rag-green); }
+        .sub-item[data-status="green"] .btn-green { background: var(--rag-green); border-color: var(--rag-green); box-shadow: 0 0 8px rgba(16, 185, 129, 0.4); }
+
+        /* Footer */
+        .site-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+        .footer-inner { display: flex; justify-content: center; }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .dashboard-row { flex-direction: column; align-items: flex-start; }
+            .sub-item { padding: 12px 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+            .text-stack { max-width: 65%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-fixed">
+        <div class="progress-fill" id="masteryBar"></div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/index.html" class="logo">StudyNest</a>
+            <nav class="nav-menu">
+                <a href="/index.html">Home</a>
+                <a href="/pages/APR.html">Past Papers</a>
+                <a href="/pages/NoteMaker.html">Note Maker</a>
+                <a href="/pages/syllabus/syllabus.html" class="active">Geography Case Studies</a>
+                <a href="/pages/login.html" id="navLoginBtn">Login</a>
+            </nav>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-menu-overlay" id="mobile-menu">
+            <a href="/index.html">Home</a>
+            <a href="/pages/APR.html">Past Papers</a>
+            <a href="/pages/NoteMaker.html">Note Maker</a>
+            <a href="/pages/syllabus/syllabus.html" class="active-link">Geography Case Studies</a>
+            <a href="/pages/login.html">Login</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Geography Syllabus</h1>
+                <p>Track your confidence across your case studies.</p>
+                <div id="loginAlert" class="login-alert" style="display:none;">
+                    Please <a href="/pages/login.html" style="text-decoration:underline;">login</a> to save your progress.
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="dashboard-row">
+                <!-- TABS REMOVED HERE -->
+
+                <div class="stats-group">
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-red)"></div> <span id="countRed">0</span></div>
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-amber)"></div> <span id="countAmber">0</span></div>
+                    <div class="stat-item"><div class="dot" style="background:var(--rag-green)"></div> <span id="countGreen">0</span></div>
+                </div>
+            </div>
+
+            <div id="contentContainer" class="topic-list"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner">
+            <a href="https://github.com/StudyNest/studynest.github.io" style="color:var(--text-secondary)">GitHub Repository</a>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let isMenuOpen = false;
+        mobileBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            mobileMenu.classList.toggle('active');
+        });
+    </script>
+
+    <!-- MAIN APP LOGIC + FIREBASE -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // --- FIREBASE CONFIG ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain: "actiari-fixed.firebaseapp.com",
+            projectId: "actiari-fixed",
+            storageBucket: "actiari-fixed.firebasestorage.app",
+            messagingSenderId: "154407363342",
+            appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // --- DATA (Syllabus Data REMOVED) ---
+
+        const caseStudyData = [
+            // PAPER 1
+            {
+                title: "Water And Carbon",
+                paper: 1,
+                desc: "Case Studies for the Water & Carbon Topic",
+                topics: [
+                    { id: "wc_cs_1", name: "Carbon Cycle - Amazon Rainforest / Indonesia Rainforest / Other" },
+                    { id: "wc_cs_2", name: "Water Cycle - River Exe / Other Water Basin" },
+                    { id: "wc_cs_3", name: "Flooding - Boscastle Floods / Other" },
+                    { id: "wc_cs_4", name: "Water Cycle - Examples of Water Stores (i.e. Oceans, Ground Water, Glaciers, Biosphere, etc)" }
+                ]
+            },
+            {
+                title: "Coasts",
+                paper: 1,
+                desc: "Coastal management and landscape case studies.",
+                topics: [
+                    { id: "coast_cs_1", name: "Erosion & Management - Holderness" },
+                    { id: "coast_cs_2", name: "ICZM / Management - Odisha / Other" },
+                    { id: "coast_cs_3", name: "Plants - Examples of Pioneer Plant Species (Mudflat / Salt Marsh)" },
+                    { id: "coast_cs_4", name: "Plants - Examples of Plant Species (Sand Dunes)" },
+                    { id: "coast_cs_5", name: "Plants - Example of a Climax Community (Forest, Woodlands, etc)" }
+                ]
+            },
+            {
+                title: "Hazards",
+                paper: 1,
+                desc: "Volcanic, seismic, storm, and wildfire case studies.",
+                topics: [
+                    { id: "haz_cs_1", name: "Volcanoes - Eyjafjallajökull / Other HIC" },
+                    { id: "haz_cs_2", name: "Volcanoes - Mt Etna / Other NEE or LIC" },
+                    { id: "haz_cs_3", name: "Tsunami - Boxing Day 2004 & DART" },
+                    { id: "haz_cs_4", name: "Tsunami - Tohoku Japan / Other HIC" },
+                    { id: "haz_cs_5", name: "Earthquake - Haiti Earthquake / Other LIC" },
+                    { id: "haz_cs_6", name: "Earthquake - Tohoku Earthquake / Other HIC" },
+                    { id: "haz_cs_7", name: "Tropical Storm - Cyclone Nargis / Other NEE or LIC" },
+                    { id: "haz_cs_8", name: "Tropical Storm - Hurricane Katrina / Other HIC" },
+                    { id: "haz_cs_9", name: "Wildfire - Alberta Bushfire / Other Lower Impact HIC" },
+                    { id: "haz_cs_10", name: "Wildfire - Australia (Black Friday OR Saturday) / Other High Impact HIC" },
+                    { id: "haz_cs_11", name: "Multi Hazardous - Phillipines / Other with >2 types of Natural Hazards" },
+                    { id: "haz_cs_12", name: "Social / Religious Impact - Christchurch Earthquake / Other" }
+                ]
+            },
+            // PAPER 2
+            {
+                title: "Global Governance",
+                paper: 2,
+                desc: "Globalisation, trade, and governance case studies.",
+                topics: [
+                    { id: "glob_cs_1", name: "Global Inequality - KOF Index" },
+                    { id: "glob_cs_15", name: "Global Inequality - Switzerland (High-Ranking Example)" },
+                    { id: "glob_cs_17", name: "Global Inequality - Eritrea (Low-Ranking Example)" },
+                    { id: "glob_cs_2", name: "Shrinking World - Containerisation" },
+                    { id: "glob_cs_3", name: "Global Flows - Silk Road / Other" },
+                    { id: "glob_cs_4", name: "Production and Consumption - Cocoa / Steel / Rare Earth Minerals (REMs) / Other Resource" },
+                    { id: "glob_cs_5", name: "Trading Bloc - BRIC" },
+                    { id: "glob_cs_6", name: "Trading Bloc - European Union (EU)" },
+                    { id: "glob_cs_8", name: "Emerging Global Hubs - Continent of Asia + China + India" },
+                    { id: "glob_cs_7", name: "TNCs - (insert example here)" },
+                    { id: "glob_cs_9", name: "Global Trade - World Trade Organisation (WTO)" },
+                    { id: "glob_cs_10", name: "Global Trade - International Monetary Fund (IMF)" },
+                    { id: "glob_cs_11", name: "Global Trade - World Bank" },
+                    { id: "glob_cs_12", name: "Global Commons - United Nations (UN)" },
+                    { id: "glob_cs_13", name: "Global Commons - NATO"},
+                    { id: "glob_cs_14", name: "Global Commons - Antarctica" }
+                ]
+            },
+            {
+                title: "Changing Places",
+                paper: 2,
+                desc: "Place change, perception, and representation case studies.",
+                topics: [
+                    { id: "place_cs_1", name: "Agents of Change - Medellin Colombia (Cartels)" },
+                    { id: "place_cs_2", name: "Agents of Change - Bournville (Cadbury)" },
+                    { id: "place_cs_3", name: "Agents of Change - Port Talbot (Steel)" },
+                    { id: "place_cs_4", name: "Rebranding - Plymouth Ocean City / Other" },
+                    { id: "place_cs_5", name: "Rebranding - Llandudno" },
+                    { id: "place_cs_16", name: "Rebranding - Visit Britain / Other Tourism Rebranding" },
+                    { id: "place_cs_6", name: "Media Place - New York / Other" },
+                    { id: "place_cs_7", name: "Far Place - Detroit USA" },
+                    { id: "place_cs_8", name: "Near Place - Plymouth / Other" },
+                    { id: "place_cs_9", name: "Near Place - London Olympics + Clays Lane (Regeneration)" },
+                    { id: "place_cs_10", name: "Perception of Place - New York 9/11 (Conflict of Opinions) / Other" },
+                    { id: "place_cs_11", name: "Media Influence - Africa" },
+                    { id: "place_cs_12", name: "Representation - New York Song (Informal) OR below " },
+                    { id: "place_cs_13", name: "Representation - Janner's Song (Informal) OR above / Other" },
+                    { id: "place_cs_14", name: "Representation - London Street Art OR other relevant art (Abstract)" },
+                    { id: "place_cs_15", name: "Representation - Big Data / Index Multiple Deprivations (Formal)" },
+                    { id: "place_cs_17", name: "Misc - Poundbury" }
+                ]
+            },
+            {
+                title: "Contemporary Urban Environments",
+                paper: 2,
+                desc: "Urban sustainability, change, and management case studies.",
+                topics: [
+                    { id: "urb_cs_1", name: "Post Modern City - Las Vegas / Other" },
+                    { id: "urb_cs_2", name: "Sustainability - Freiburg (Solar Panels)" },
+                    { id: "urb_cs_3", name: "River Management - River Skerne / Other" },
+                    { id: "urb_cs_4", name: "Flood Management (SUDS) - Lambs Drove Cambourne" },
+                    { id: "urb_cs_5", name: "Economic Change - Shanghai China" },
+                    { id: "urb_cs_18", name: "Economic Change - Coventry, UK" },
+                    { id: "urb_cs_6", name: "Technological Change - Bengaluru / Bangalore (Call Centres and Energy)" },
+                    { id: "urb_cs_7", name: "Socio-Economic And Inequality - Los Angeles (Race and Income)" },
+                    { id: "urb_cs_8", name: "Socio-Economic And Inequality - Mumbai (Race and Income)" },
+                    { id: "urb_cs_9", name: "Regeneration - Longbridge" },
+                    { id: "urb_cs_10", name: "Regeneration - London Olympics " },
+                    { id: "urb_cs_11", name: "Pollution - Beijing" },
+                    { id: "urb_cs_12", name: "Waste Management (Landfill) - Manilla Dump" },
+                    { id: "urb_cs_13", name: "Waste Management (Incineration) - Amsterdam AEB Plant" },
+                    { id: "urb_cs_14", name: "Urban Landscapes - Example of an Edge City" },
+                    { id: "urb_cs_15", name: "Urban Landscapes - Example of a Gated Community"},
+                    { id: "urb_cs_16", name: "Urban Issues - Rio de Janeiro" },
+                    { id: "urb_cs_17", name: "Urban Issues - Pacification (also Rio de Janeiro) "}
+                ]
+            }
+        ];
+
+        // --- STATE ---
+        let currentUser = null;
+        let userData = {}; 
+        
+        // --- DOM REFERENCES ---
+        const contentContainer = document.getElementById('contentContainer');
+        const loginAlert = document.getElementById('loginAlert');
+        const masteryBar = document.getElementById('masteryBar');
+        const navLoginBtn = document.getElementById('navLoginBtn');
+        const mobileLinks = document.getElementById('mobile-menu').querySelectorAll('a');
+
+        // --- AUTH ---
+        onAuthStateChanged(auth, async (user) => {
+            currentUser = user;
+
+            if (user) {
+                loginAlert.style.display = "none";
+                updateLoginButton(true);
+                try {
+                    const docRef = doc(db, "users", user.uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists() && docSnap.data().geoProgress) {
+                        userData = docSnap.data().geoProgress;
+                    } else {
+                        userData = {}; 
+                    }
+                    render();
+                } catch (error) {
+                    console.error("Error getting document:", error);
+                }
+            } else {
+                loginAlert.style.display = "inline-block";
+                updateLoginButton(false);
+                userData = {}; 
+                render();
+            }
+        });
+
+        // --- LOGIC ---
+        // Removed switchMode logic as there are no tabs anymore.
+
+        window.toggleAccordion = (element) => {
+            element.parentElement.classList.toggle('open');
+        }
+
+        window.handleRagClick = async (topicId, status) => {
+            if (!currentUser) {
+                alert("Please log in to track your progress.");
+                return;
+            }
+            userData[topicId] = status;
+            const row = document.querySelector(`.sub-item button[onclick*="${topicId}"][onclick*="${status}"]`).closest('.sub-item');
+            if(row) row.setAttribute('data-status', status);
+            recalcStats();
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                await setDoc(userRef, { geoProgress: { [topicId]: status } }, { merge: true });
+            } catch (e) { console.error("Error saving progress: ", e); }
+        }
+
+        // --- COLOR ASSIGNMENT ---
+        function getCategoryColor(text) {
+            const t = text.toLowerCase();
+            
+            // PHYSICAL GEOGRAPHY COLORS
+            if (t.includes('volcano')) return '#fca5a5';     // Red-ish
+            if (t.includes('earthquake') || t.includes('tsunami') || t.includes('seismic')) return '#f87171'; // Red
+            if (t.includes('storm')) return '#a5b4fc';       // Stormy Blue/Indigo
+            if (t.includes('wildfire')) return '#fb923c';    // Orange/Fire
+            if (t.includes('carbon')) return '#86efac';      // Green (Nature)
+            if (t.includes('water') || t.includes('flood') || t.includes('river')) return '#67e8f9'; // Cyan
+            if (t.includes('coast') || t.includes('erosion') || t.includes('iczm')) return '#fde047'; // Sand/Yellow
+            if (t.includes('plant') || t.includes('pioneer') || t.includes('dune') || t.includes('climax')) return '#4ade80'; // Green
+
+            // HUMAN GEOGRAPHY COLORS
+            if (t.includes('agents')) return '#fdba74';      
+            if (t.includes('rebrand') || t.includes('regen')) return '#d8b4fe'; 
+            if (t.includes('media') || t.includes('represent') || t.includes('perception')) return '#f9a8d4'; 
+            if (t.includes('near') || t.includes('far')) return '#a5b4fc';      
+            if (t.includes('post modern')) return '#f0abfc'; 
+            if (t.includes('sustain')) return '#86efac';     
+            if (t.includes('economic') || t.includes('techno')) return '#fde047'; 
+            if (t.includes('inequality') || t.includes('socio')) return '#fca5a5'; 
+            if (t.includes('waste') || t.includes('pollut')) return '#d4d4d8';   
+            if (t.includes('global') || t.includes('system')) return '#93c5fd';  
+            if (t.includes('product') || t.includes('consum')) return '#6ee7b7'; 
+            if (t.includes('flow') || t.includes('silk') || t.includes('container')) return '#fcd34d';
+            if (t.includes('Urban Landscapes') || t.includes('Urban Issues and Challenges')) return '#f0abfc';
+            if (t.includes('Urban Issues')) return '#A52A2A '; // Brown
+            
+            return '#cbd5e1'; // Fallback
+        }
+
+        function render() {
+            contentContainer.innerHTML = '';
+            // Only using caseStudyData now
+            const dataSet = caseStudyData; 
+            
+            let lastPaper = null;
+            dataSet.sort((a, b) => a.paper - b.paper);
+
+            dataSet.forEach(group => {
+                // Header for Paper 1 vs 2
+                if (group.paper !== lastPaper) {
+                    const paperTitle = group.paper === 1 ? "Paper 1 (Physical Geography)" : "Paper 2 (Human Geography)";
+                    const headerEl = document.createElement('h2');
+                    headerEl.className = 'paper-header';
+                    headerEl.textContent = paperTitle;
+                    contentContainer.appendChild(headerEl);
+                    lastPaper = group.paper;
+                }
+
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'topic-group';
+                
+                let subHtml = '';
+                
+                group.topics.forEach(topic => {
+                    const status = userData[topic.id] || 'none';
+                    const lockedClass = currentUser ? '' : 'locked';
+                    
+                    let displayText = '';
+
+                    // SPLITTING LOGIC FOR ALL CASE STUDIES
+                    if (topic.name.includes(" - ")) {
+                        const parts = topic.name.split(" - ");
+                        const subTopic = parts[0];
+                        const csName = parts.slice(1).join(" - "); 
+                        
+                        const categoryColor = getCategoryColor(subTopic);
+
+                        displayText = `
+                            <div class="text-stack">
+                                <span class="cs-sub" style="color:${categoryColor} !important;">${subTopic}</span>
+                                <span class="cs-name">${csName}</span>
+                            </div>
+                        `;
+                    } else {
+                        // Fallback
+                        displayText = `<span class="sub-text">${topic.name}</span>`;
+                    }
+
+                    subHtml += `
+                        <div class="sub-item ${lockedClass}" data-status="${status}">
+                            ${displayText}
+                            <div class="rag-actions">
+                                <button class="rag-btn btn-red" onclick="handleRagClick('${topic.id}', 'red')"></button>
+                                <button class="rag-btn btn-amber" onclick="handleRagClick('${topic.id}', 'amber')"></button>
+                                <button class="rag-btn btn-green" onclick="handleRagClick('${topic.id}', 'green')"></button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                groupDiv.innerHTML = `
+                    <div class="topic-header" onclick="toggleAccordion(this)">
+                        <div>
+                            <h3>${group.title}</h3>
+                            <p>${group.desc}</p>
+                        </div>
+                        <svg class="chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="topic-body">
+                        ${subHtml}
+                    </div>
+                `;
+                contentContainer.appendChild(groupDiv);
+            });
+            
+            recalcStats();
+        }
+
+        // --- STATS LOGIC ---
+        function getStatsForData(dataSet) {
+            let stats = { red: 0, amber: 0, green: 0, total: 0 };
+            dataSet.forEach(group => {
+                group.topics.forEach(t => {
+                    stats.total++;
+                    const s = userData[t.id];
+                    if(s === 'green') stats.green++;
+                    else if(s === 'amber') stats.amber++;
+                    else stats.red++;
+                });
+            });
+            return stats;
+        }
+
+        function recalcStats() {
+            // Stats are just Case Studies now
+            const stats = getStatsForData(caseStudyData);
+            updateDashboard(stats);
+        }
+
+        function updateDashboard(stats) {
+            document.getElementById('countRed').innerText = stats.red;
+            document.getElementById('countAmber').innerText = stats.amber;
+            document.getElementById('countGreen').innerText = stats.green;
+
+            const progressCount = stats.green + stats.amber;
+            const percentage = stats.total === 0 ? 0 : Math.round((progressCount / stats.total) * 100);
+            masteryBar.style.width = `${percentage}%`;
+        }
+
+        function updateLoginButton(isLoggedIn) {
+            if (isLoggedIn) {
+                navLoginBtn.textContent = 'Logout';
+                navLoginBtn.style.color = '#ef4444'; 
+                navLoginBtn.href = "#";
+                navLoginBtn.onclick = (e) => {
+                    e.preventDefault();
+                    signOut(auth).then(() => window.location.reload());
+                };
+            } else {
+                navLoginBtn.textContent = 'Login';
+                navLoginBtn.style.color = '';
+                navLoginBtn.href = "login.html";
+                navLoginBtn.onclick = null;
+            }
+
+            mobileLinks.forEach(link => {
+                if (link.getAttribute('href') === 'login.html' || link.textContent === 'Logout') {
+                    if (isLoggedIn) {
+                        link.textContent = 'Logout';
+                        link.style.color = '#ef4444';
+                        link.href = "#";
+                        link.onclick = (e) => {
+                            e.preventDefault();
+                            signOut(auth).then(() => window.location.reload());
+                        };
+                    } else {
+                        link.textContent = 'Login';
+                        link.style.color = '';
+                        link.href = 'login.html';
+                        link.onclick = null;
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
