@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Boundaries | StudyNest</title>
+    <link rel="icon" type="image/x-icon" href="../assets/Main%20Favicon.ico">
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="../index.html" class="logo">StudyNest</a>
+        <nav class="nav-menu" id="nav-menu">
+            <a href="../index.html">Home</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="boundaries.html" class="active">Grade Boundaries</a>
+            <a href="syllabus/syllabus.html">Syllabus</a>
+            <a href="login.html" class="auth-link">Login</a>
+        </nav>
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </div>
+</header>
+
+<main class="container page-wrapper" style="padding: 40px 24px;">
+    <div class="page-header" style="margin-bottom: 2rem;">
+        <h1>Grade Boundaries</h1>
+        <p style="color: var(--text-secondary);">Official raw mark to grade conversions per exam board and year.</p>
+    </div>
+
+    <section class="controls-container">
+        <div class="filters" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div class="filter-group">
+                <label>Qualification</label>
+                <select id="filter-qualification">
+                    <option value="all">Select Qualification</option>
+                    <option value="A-Level">A-Level</option>
+                    <option value="AS-Level">AS-Level</option>
+                    <option value="BTEC">BTEC</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Exam Board</label>
+                <select id="filter-exam-board" disabled><option value="all">Select Exam Board</option></select>
+            </div>
+            <div class="filter-group">
+                <label>Year</label>
+                <select id="filter-year" disabled><option value="all">Select Year</option></select>
+            </div>
+        </div>
+    </section>
+
+    <div class="results-header">
+        <div id="results-count"></div>
+    </div>
+    
+    <div id="results-container" class="card-grid"></div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="boundaries.html">Grade Boundaries</a>
+                <a href="APR.html">Past Papers</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script type="module" src="../JS/boundaries.js"></script>
+<script>
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+</script>
+</body>
+</html>
