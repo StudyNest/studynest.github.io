@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coursework Handbook | StudyNest</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/Main%20Favicon.ico">
+    <link rel="stylesheet" href="../../CSS/style.css">
+    <style>
+        /* Handbook Layout Fixes */
+        .handbook-wrapper { 
+            margin-top: 40px; 
+            max-width: 900px; 
+            margin-left: auto; 
+            margin-right: auto;
+            padding-bottom: 100px; 
+        }
+
+        /* Main Content Cards */
+        .phase-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-color); 
+            border-radius: 16px; 
+            padding: 40px; 
+            margin-bottom: 40px; 
+            position: relative; 
+        }
+        
+        .phase-tag { 
+            position: absolute; 
+            top: -15px; 
+            left: 30px; 
+            background: var(--accent-color); 
+            color: white; 
+            padding: 4px 15px; 
+            border-radius: 20px; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+        }
+        
+        h2 { font-size: 1.8rem; margin-bottom: 20px; color: var(--text-primary); }
+        h3 { font-size: 1.1rem; color: var(--accent-color); margin: 32px 0 16px; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border-color); padding-bottom: 8px;}
+        h4 { font-size: 1rem; color: var(--text-primary); margin: 20px 0 10px; font-weight: 600; }
+        
+        .check-list { list-style: none; padding: 0; }
+        .check-list li { position: relative; padding-left: 30px; margin-bottom: 15px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+        .check-list li::before { content: '→'; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+        
+        .tip-box { background: rgba(59, 130, 246, 0.05); border-left: 4px solid var(--accent-color); padding: 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .tip-box strong { color: var(--text-primary); display: block; margin-bottom: 5px; }
+
+        @media(max-width: 768px) {
+            .phase-card { padding: 30px 20px; }
+            h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="../../index.html" class="logo">StudyNest</a>
+        <nav class="nav-menu" id="nav-menu">
+            <a href="../../index.html">Home</a>
+            <a href="../pages/APR.html">Past Papers</a>
+            <a href="../pages/syllabus.html" class="active">Syllabus</a>
+            <a href="../pages/login.html" class="auth-link">Login</a>
+        </nav>
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </div>
+</header>
+
+<main>
+    <section class="hero">
+        <div class="container">
+            <h1>NEA Fieldwork Handbook</h1>
+            <p>A complete structural guide for the AQA Independent Investigation (7037).</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="handbook-wrapper">
+
+            <!-- Phase 1: Formatting & Setup -->
+            <div class="phase-card">
+                <span class="phase-tag">Phase 1</span>
+                <h2>Basic Formatting & Setup</h2>
+                <div class="tip-box">
+                    <strong>Note:</strong> Be easy to read. It makes the examiner's life easier and they will be less likely to miss parts.
+                </div>
+                <h3>General Guidelines</h3>
+                <ul class="check-list">
+                    <li>Use paragraphs and tables where appropriate.</li>
+                    <li>Be in a printable format (the document must have pages).</li>
+                    <li>Use a readable font and font size (Font Size 12 Calibri is the default and best here).</li>
+                    <li>Have images and graphs that are not blurry.</li>
+                    <li>Include headings that could be put into a table of contents and navigation on Word / Google Docs to meet professional standards.</li>
+                    <li>Include references. Any book, image, website or other piece of material must be cited in the document to avoid plagiarism.</li>
+                </ul>
+                <h3>Document Beginning</h3>
+                <ul class="check-list">
+                    <li>Title of the fieldwork.</li>
+                    <li>A relevant image relating to the fieldwork.</li>
+                    <li>A table of contents from Word using the built-in headings feature.</li>
+                </ul>
+            </div>
+
+            <!-- Phase 2: Introduction -->
+            <div class="phase-card">
+                <span class="phase-tag">Phase 2</span>
+                <h2>Introduction Section</h2>
+                <h3>Executive Summary</h3>
+                <ul class="check-list">
+                    <li>Give an overview of your title. What are the main processes at play here?</li>
+                    <li>What does your investigation aim to do?</li>
+                </ul>
+                <h3>Links to Specification</h3>
+                <ul class="check-list">
+                    <li>List any sections from the official AQA specification relevant to your title and fieldwork project (e.g. 3.2.3 | Contemporary Urban Environments).</li>
+                </ul>
+                <h3>Maps & Locations</h3>
+                <ul class="check-list">
+                    <li>Map of Country / Region relevant to fieldwork (i.e. Great Britain for Holderness).</li>
+                    <li>Map of sub-region (i.e. Southwest England for Plymouth).</li>
+                    <li>Map of city / specific area of fieldwork.</li>
+                    <li><strong>Explanation:</strong> What does the map show? Why are they relevant? Why did you choose this place? Give history behind the area. Is this area easy for you to get to?</li>
+                </ul>
+                <h3>What is X?</h3>
+                <ul class="check-list">
+                    <li>Explain the main focus of your project (e.g. if focusing on regeneration, explain what regeneration is).</li>
+                    <li>Explain any processes (e.g. erosional processes).</li>
+                    <li>Explain these things in terms of your chosen fieldwork location.</li>
+                    <li><strong>Case Study Link:</strong> Give a case study where this occurred. Explain how it relates to the location you will go to.</li>
+                    <li>Showcase images of the fieldwork study area and the comparative case study.</li>
+                    <li>If relevant (e.g. for erosion), include diagrams to explain how the process works.</li>
+                </ul>
+            </div>
+
+            <!-- Phase 3: Hypothesis & Methodology -->
+            <div class="phase-card">
+                <span class="phase-tag">Phase 3</span>
+                <h2>Hypothesis & Methodology</h2>
+                <h3>Hypothesis Requirements</h3>
+                <ul class="check-list">
+                    <li>Full statement of each Hypothesis.</li>
+                    <li><strong>Expected Outcome:</strong> i.e. "If you get further away from the CBD, you would expect foot traffic to decrease."</li>
+                </ul>
+                <h3>Methodology Breakdown</h3>
+                <ul class="check-list">
+                    <li>Method Name.</li>
+                    <li>Is it a primary or secondary data method?</li>
+                    <li>Is the data quantitative or qualitative?</li>
+                    <li>What equipment did you use?</li>
+                    <li><strong>Choices:</strong> Collected on the same day? Weather interference plans? Conditions affecting collection?</li>
+                    <li><strong>Sampling:</strong> What sampling type was used and why?</li>
+                    <li><strong>Relevance:</strong> How does this method relate to the hypotheses? What will you show or find?</li>
+                    <li><strong>Limitations:</strong> Issues that could come up; is data subjective or biased?</li>
+                    <li><strong>Improvements:</strong> Could you do more sites? Make repeat results more consistent?</li>
+                </ul>
+            </div>
+
+            <!-- Phase 4: Data & Conclusions -->
+            <div class="phase-card">
+                <span class="phase-tag">Phase 4</span>
+                <h2>Data Presentation & Analysis</h2>
+                <h3>Presentation Choices</h3>
+                <ul class="check-list">
+                    <li><strong>Graphical Methods:</strong> i.e. scatter or bar graphs.</li>
+                    <li><strong>Statistical Analysis:</strong> i.e. a Spearman's Rank of a scatter graph.</li>
+                    <li><strong>Map-based methods:</strong> i.e. proportional shapes.</li>
+                </ul>
+                <h3>Analysis Requirements</h3>
+                <ul class="check-list">
+                    <li>Provide presentation methods (graphs) for each hypothesis.</li>
+                    <li>Analyse the data: Give trends, specific examples, and identify anomalies.</li>
+                </ul>
+                <h3>Conclusions</h3>
+                <ul class="check-list">
+                    <li>Hypothesis 1, 2, and 3 Conclusions + Research Title / Overall Conclusion.</li>
+                    <li>State clearly if you <strong>Accept or Reject</strong> the hypothesis.</li>
+                    <li><strong>Why:</strong> Provide evidence or relate to theory mentioned in the intro.</li>
+                    <li><strong>Sense-Check:</strong> Do findings make sense? Discussion of levels of bias or issues.</li>
+                </ul>
+            </div>
+
+            <!-- Phase 5: Evaluation -->
+            <div class="phase-card">
+                <span class="phase-tag">Phase 5</span>
+                <h2>Full Evaluation</h2>
+                
+                <h3>Location Factors</h3>
+                <ul class="check-list">
+                    <li>Size and number of transects (if applicable).</li>
+                    <li>Weather, Safety, Day performed, and Time of year performed.</li>
+                    <li>Ease of data collection and number of sites available (could you have done more?).</li>
+                </ul>
+
+                <h3>Title & Hypothesis Evaluation</h3>
+                <ul class="check-list">
+                    <li>For each hypothesis: was it too narrow or too broad? Was it a good choice for the title?</li>
+                    <li>Potential Changes: How would you change it? (e.g. focusing on economics specifically).</li>
+                    <li>Helpfulness: Was it actually helpful? Did you prove anything useful?</li>
+                </ul>
+
+                <h3>Collection Methods Review</h3>
+                <ul class="check-list">
+                    <li>Talk about if each method was useful. If not, was it the method itself or a lack of planning (e.g. broad questions)?</li>
+                    <li>Reliability: Was data reliable, accurate, and valid? Could people argue against it?</li>
+                    <li>Mixture: Effectiveness of primary and secondary data combination.</li>
+                </ul>
+
+                <h3>Issues & Potential Changes</h3>
+                <ul class="check-list">
+                    <li><strong>Issues Encountered:</strong> What happened and what did it lead to (e.g. invalid data)?</li>
+                    <li><strong>Fixes:</strong> How did you solve it? (e.g. ignore vs specific solution).</li>
+                    <li><strong>Future Changes:</strong> How would you prevent issues next time? Improvements to strengthen research validity (e.g. government data).</li>
+                </ul>
+
+                <h3>Analysis, Presentation & Results</h3>
+                <ul class="check-list">
+                    <li>Was the choice of data representation good? Could it be improved?</li>
+                    <li>Inclusion of annotated site images to show evidence.</li>
+                    <li>Ease of analysis: Would more sites or data have helped?</li>
+                </ul>
+
+                <h3>Ethical Considerations</h3>
+                <ul class="check-list">
+                    <li><strong>Social:</strong> Consider public safety and privacy.</li>
+                    <li><strong>Environmental:</strong> Consider harm caused to the environment.</li>
+                    <li><strong>Research Outcome:</strong> Does the report portray a specific group negatively?</li>
+                    <li><strong>Mitigation:</strong> How did you mitigate these issues?</li>
+                </ul>
+
+                <h3>Overall Conclusion</h3>
+                <ul class="check-list">
+                    <li>Were you pleased with the fieldwork overall? Why?</li>
+                    <li>Concluding the report summary.</li>
+                </ul>
+            </div>
+
+            <!-- Phase 6: Bibliography -->
+            <div class="phase-card">
+                <span class="phase-tag">Final</span>
+                <h2>Bibliography</h2>
+                <ul class="check-list">
+                    <li>Links to every book, image, website, or piece of material used in or with the fieldwork project.</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="../pages/APR.html">Past Papers</a>
+            </div>
+            <div class="footer-col">
+                <h4>Platform</h4>
+                <a href="../pages/login.html" class="auth-link">Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    mobileBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+    });
+
+    onAuthStateChanged(auth, (user) => {
+        const loginLinks = document.querySelectorAll('.auth-link');
+        loginLinks.forEach(link => {
+            if (user) {
+                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
+            } else {
+                link.textContent = 'Login'; link.href = '../login.html'; link.style.color = ''; link.onclick = null;
+            }
+        });
+    });
+</script>
+<script type="module" src="../JS/auth.js"></script>
+
+</body>
+</html>
