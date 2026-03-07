@@ -2,620 +2,470 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Track your progress through the AQA Geography A Level syllabus with StudyNest's interactive tracker and case study reviews.">
+    <meta property="og:title" content="Geography Syllabus | StudyNest">
+    <meta property="og:description" content="Track your progress through the AQA Geography A Level syllabus with StudyNest's interactive tracker and case study reviews.">
+    <meta property="og:image" content="https://studynest.github.io/assets/Main%20Favicon.ico">
+    <meta property="og:url" content="https://studynest.github.io/pages/syllabus/geography-syllabus.html">
+    <meta property="og:type" content="website">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Track your progress through the AQA Geography A Level syllabus with StudyNest's interactive tracker and case study reviews.">
-<meta property="og:title" content="Geography Syllabus | StudyNest">
-<meta property="og:description" content="Track your progress through the AQA Geography A Level syllabus with StudyNest's interactive tracker and case study reviews.">
-<meta property="og:image" content="https://studynest.github.io/assets/Main%20Favicon.ico">
-<meta property="og:url" content="https://studynest.github.io/pages/syllabus/geography-syllabus.html">
-<meta property="og:type" content="website">
+    <title>Geography Syllabus | StudyNest</title>
 
-<title>Geography Syllabus | StudyNest</title>
+    <link rel="icon" type="image/x-icon" href="../../assets/Main%20Favicon.ico">
+    <link rel="stylesheet" href="../../CSS/style.css">
 
-<link rel="icon" type="image/x-icon" href="../../assets/Main%20Favicon.ico">
-<link rel="stylesheet" href="../../CSS/style.css">
+    <style>
+        /* Layout Spacing & Divider */
+        .header-spacer {
+            margin-top: 40px; /* Gap after the hero section */
+            margin-bottom: 40px; /* Gap before the content */
+            border: 0;
+            border-top: 1px solid var(--border-color); /* The dividing line */
+        }
 
-<style>
+        /* External Specification Link Box */
+        .spec-link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
 
-.topic-list{
-display:flex;
-flex-direction:column;
-gap:16px;
-padding-bottom:60px;
-}
+        .spec-link-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            background: var(--bg-card-hover);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
 
-.topic-group{
-border:1px solid var(--border-color);
-border-radius:6px;
-background:var(--bg-card);
-overflow:hidden;
-}
+        .spec-link-content h4 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
 
-.topic-header{
-padding:20px;
-cursor:pointer;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
+        .spec-link-content p {
+            margin: 6px 0 0;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
 
-.topic-header:hover{
-background:var(--bg-card-hover);
-}
+        .spec-link-icon {
+            color: var(--accent-color);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
 
-.topic-header h3{
-font-size:1.15rem;
-font-weight:600;
-}
+        /* RAG Tracker Specific Styles (Integrated with your CSS) */
+        .topic-list { display: flex; flex-direction: column; gap: 16px; padding-bottom: 60px; }
+        .topic-group { border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-card); overflow: hidden; }
+        .topic-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+        .topic-header:hover { background: var(--bg-card-hover); }
+        .topic-header h3 { font-size: 1.15rem; font-weight: 600; }
+        .topic-header p { font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px; }
+        .topic-body { max-height: 0; opacity: 0; transition: max-height 0.35s ease, opacity 0.25s ease; background: var(--bg-body); border-top: 1px solid var(--border-color); }
+        .topic-group.open .topic-body { max-height: 3000px; opacity: 1; }
+        .topic-section { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-tertiary); margin: 24px 20px 12px; font-weight: 700; }
+        .sub-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid var(--border-color); border-left: 4px solid var(--border-active); }
+        .sub-item:last-child { border-bottom: none; }
+        .text-stack { display: flex; flex-direction: column; gap: 2px; max-width: 70%; }
+        .cs-type { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-color); font-weight: 700; }
+        .cs-name { font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+        .cs-desc { font-size: 0.85rem; color: var(--text-secondary); }
+        .rag-actions { display: flex; gap: 10px; }
+        .rag-btn { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--border-active); background: transparent; cursor: pointer; transition: transform 0.1s; }
+        .rag-btn:active { transform: scale(0.9); }
+        .rag-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .sub-item[data-status="red"] { border-left-color: #ef4444; }
+        .sub-item[data-status="amber"] { border-left-color: #f59e0b; }
+        .sub-item[data-status="green"] { border-left-color: #10b981; }
+        .btn-red { background: #ef4444 }
+        .btn-amber { background: #f59e0b }
+        .btn-green { background: #10b981 }
 
-.topic-header p{
-font-size:0.85rem;
-color:var(--text-secondary);
-margin-top:4px;
-}
-
-.topic-body{
-max-height:0;
-opacity:0;
-transition:max-height 0.35s ease, opacity 0.25s ease;
-background:var(--bg-body);
-border-top:1px solid var(--border-color);
-}
-
-.topic-group.open .topic-body{
-max-height:2000px;
-opacity:1;
-}
-
-.topic-section{
-font-size:0.7rem;
-text-transform:uppercase;
-letter-spacing:1px;
-color:var(--text-tertiary);
-margin:20px 20px 10px;
-font-weight:600;
-}
-
-.sub-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:14px 20px;
-border-bottom:1px solid var(--border-color);
-border-left:4px solid var(--border-active);
-}
-
-.sub-item:last-child{
-border-bottom:none;
-}
-
-.text-stack{
-display:flex;
-flex-direction:column;
-gap:2px;
-max-width:70%;
-}
-
-.cs-type{
-font-size:0.65rem;
-text-transform:uppercase;
-letter-spacing:1px;
-color:var(--accent-blue);
-font-weight:700;
-}
-
-.cs-name{
-font-size:0.95rem;
-font-weight:600;
-}
-
-.cs-desc{
-font-size:0.8rem;
-color:var(--text-secondary);
-}
-
-.rag-actions{
-display:flex;
-gap:8px;
-}
-
-.rag-btn{
-width:22px;
-height:22px;
-border-radius:50%;
-border:2px solid var(--border-active);
-background:transparent;
-cursor:pointer;
-}
-
-.rag-btn:disabled{
-opacity:0.5;
-cursor:not-allowed;
-}
-
-.sub-item[data-status="red"]{
-border-left-color:#ef4444;
-}
-
-.sub-item[data-status="amber"]{
-border-left-color:#f59e0b;
-}
-
-.sub-item[data-status="green"]{
-border-left-color:#10b981;
-}
-
-.btn-red{background:#ef4444}
-.btn-amber{background:#f59e0b}
-.btn-green{background:#10b981}
-
-@media(max-width:768px){
-
-.sub-item{
-flex-direction:column;
-align-items:flex-start;
-gap:10px;
-}
-
-.text-stack{
-max-width:100%;
-}
-
-}
-
-</style>
-
+        @media(max-width:768px) {
+            .sub-item { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .text-stack { max-width: 100%; }
+        }
+    </style>
 </head>
-
 
 <body>
 
-<header class="site-header">
-<div class="container header-inner">
-
-<a href="/index.html" class="logo">StudyNest</a>
-
-<nav class="nav-menu" id="nav-menu">
-<a href="/index.html">Home</a>
-<a href="/pages/APR.html">Past Papers</a>
-<a href="/pages/syllabus/syllabus.html" class="active">Syllabus</a>
-<a href="/pages/login.html" class="auth-link">Login</a>
-</nav>
-
-<button class="mobile-toggle" aria-label="Toggle Menu">
-<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-</button>
-
-</div>
-</header>
-
-
-<section class="hero">
-
-<div class="container">
-<h1>Geography Case Studies</h1>
-<p>Track your confidence across case studies, models and named examples.</p>
-</div>
-
-</section>
-
-
-<main>
-
-<div class="container">
-
-<div id="contentContainer" class="topic-list"></div>
-
-</div>
-
-</main>
-
-<footer class="site-footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <h3>StudyNest</h3>
-                <p>Your central repository for A Level and BTEC revision materials.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Resources</h4>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a href="/index.html" class="logo">StudyNest</a>
+            <nav class="nav-menu" id="nav-menu">
+                <a href="/index.html">Home</a>
                 <a href="/pages/APR.html">Past Papers</a>
-            </div>
-            <div class="footer-col">
-                <h4>Platform</h4>
+                <a href="/pages/syllabus/syllabus.html" class="active">Syllabus</a>
                 <a href="/pages/login.html" class="auth-link">Login</a>
-                <a href="https://github.com/StudyNest/studynest.github.io" target="_blank">GitHub Repository</a>
-            </div>
+            </nav>
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
         </div>
-        <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Geography Case Studies</h1>
+            <p>Track your confidence across case studies, models and named examples.</p>
+        </div>
+    </section>
+
+    <!-- Gap and Dividing Line -->
+    <div class="container">
+        <hr class="header-spacer">
     </div>
-</footer>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth,onAuthStateChanged,signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore,doc,getDoc,setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-
-const firebaseConfig={
-apiKey:"AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
-authDomain:"actiari-fixed.firebaseapp.com",
-projectId:"actiari-fixed",
-storageBucket:"actiari-fixed.firebasestorage.app",
-messagingSenderId:"154407363342",
-appId:"1:154407363342:web:7e3b21f8189d556afaed5f"
-};
-
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
-
-
-const syllabus=[
-
-{
-title:"Water and Carbon",
-desc:"Drainage basins, carbon stores and flooding.",
-sections:[
-
-{
-name:"Case Studies",
-items:[
-["amazon","CASE STUDY","Amazon Rainforest","Rainforest and human impacts on the water cycle"],
-["exe","CASE STUDY","River Exe","Drainage basin"],
-["boscastle","CASE STUDY","Boscastle Floods","Flooding and mitigation"]
-]
-},
-
-{
-name:"Processes and Agreements",
-items:[
-["redd","MODEL","REDD+","International agreement reducing deforestation"],
-["peat","PROCESS","Forests and Peatlands","Natural Carbon Capture & Storage"],
-["ccs","PROCESS","Industrial Carbon Capture","Artifical Carbon Capture & Storage"]
-]
-}
-
-]
-},
-
-
-{
-title:"Coastal Landscapes",
-desc:"Coastal systems, erosion and depositional landforms.",
-sections:[
-
-{
-name:"Case Studies",
-items:[
-["holderness","CASE STUDY","Holderness","Erosion and defences"],
-["odisha","CASE STUDY","Odisha","ICZM and coastal flooding"]
-]
-},
-
-{
-name:"Neccessary Examples",
-items:[
-["pioneer","SPECIES","Saltmarsh Pioneer Plant Species","Mudflat and salt marsh"],
-["duneplants","SPECIES","Sand Dune Pioneer Species","Sand Dunes"],
-["climax","SPECIES","Climax Community","Landform Change"],
-["flamborough","LANDFORM","Flamborough Head","Erosional Landform"],
-["spurn","LANDFORM","Spurn Head","Depositional Landform"]
-]
-}
-
-]
-},
-
-
-{
-title:"Hazards",
-desc:"Natural hazards, models and case studies.",
-sections:[
-
-{
-name:"Models",
-items:[
-["park","MODEL","Park Model","Disaster Model"],
-["degg","MODEL","Degg Model","Disaster probability"],
-["cycle","MODEL","Disaster Management Cycle","Preparedness response recovery"],
-["risk","MODEL","Hazard Risk Equation","Risk calculation"],
-["profiles","MODEL","Hazard Profiles","Hazard comparison"]
-]
-},
-
-{
-name:"Case Studies",
-items:[
-["tohoku_eq","CASE STUDY","Tohoku Japan","HIC earthquake and tsunami"],
-["haiti","CASE STUDY","Haiti","LIC earthquake"],
-["eyja","CASE STUDY","Eyjafjallajökull","HIC Distruptive Volcano"],
-["unspecified","CASE STUDY","Any Named Example","LIC / NEE Volcano"],
-["indotsu","CASE STUDY","Indonesia","LIC Tsunami"],
-["katrina","CASE STUDY","Hurricane Katrina","HIC storm"],
-["haiyan","CASE STUDY","Typhoon Haiyan","LIC storm"],
-["blacksat","CASE STUDY","Black Saturday","Wildfire"],
-["alberta","CASE STUDY","Alberta","Wildfire"]
-]
-}
-
-]
-},
-
-
-{
-title:"Changing Places",
-desc:"Place perception, representation and change.",
-sections:[
-
-{
-name:"Data and Representation",
-items:[
-["imd","DATA","Index of Multiple Deprivation","Big data mapping"],
-["ny_song","CASE STUDY","New York Song OR Janner Song","Media representation"]
-]
-},
-
-{
-name:"Case Studies",
-items:[
-["detroit","CASE STUDY","Detroit","Far place"],
-["plymouth","CASE STUDY","Plymouth","Rebranding"],
-["llandudno","CASE STUDY","Llandudno","Media rebranding"],
-["ny_911","CASE STUDY","New York 9/11","Conflict of opinion"],
-["medellin","CASE STUDY","Medellin","Agents of change"],
-["porttalbot","CASE STUDY","Port Talbot","Industrial decline"],
-["bournville","CASE STUDY","Bournville","Stability"],
-["visitbritain","CASE STUDY","Visit Britain","Tourism rebranding"],
-["olympics","CASE STUDY","London Olympics","Urban regeneration"],
-["africa","CASE STUDY","Africa","Media representation"],
-["poundbury","CASE STUDY","Poundbury","Urban design"],
-["stonehenge","CASE STUDY","Stonehenge","Spirit of place"],
-["glastonbury","CASE STUDY","Glastonbury","Sense of place"]
-]
-}
-
-]
-},
-
-
-{
-title:"Urban Environments",
-desc:"Urban models, inequality and sustainability.",
-sections:[
-
-{
-name:"Models",
-items:[
-["burgess","MODEL","Burgess Concentric Model","Urban land use"],
-["hoyt","MODEL","Hoyt Sector Model","Urban growth"]
-]
-},
-
-{
-name:"Case Studies",
-items:[
-["skerne","CASE STUDY","River Skerne","River management"],
-["lambs","CASE STUDY","Lambs Drove","SUDS"],
-["vegas","CASE STUDY","Las Vegas","Post modern city"],
-["shanghai","CASE STUDY","Shanghai","Economic change"],
-["coventry","CASE STUDY","Coventry","Investment shifts"],
-["bangalore","CASE STUDY","Bangalore","Technology flows"],
-["la","CASE STUDY","Los Angeles","Inequality"],
-["mumbai","CASE STUDY","Mumbai","Urban inequality"],
-["longbridge","CASE STUDY","Longbridge","Urban regeneration"],
-["beijing","CASE STUDY","Beijing","Air pollution"],
-["manilla","CASE STUDY","Manilla Dump","Waste disposal"],
-["freiburg","CASE STUDY","Freiburg","Urban sustainability"],
-["amsterdam","CASE STUDY","Amsterdam AEB","Incineration"],
-["canary","CASE STUDY","Canary Wharf","Urban policy"],
-["rio","CASE STUDY","Rio de Janeiro","Pacification"]
-]
-}
-
-]
-},
-
 
-{
-title:"Global Governance",
-desc:"Globalisation, trade and inequality.",
-sections:[
-
-{
-name:"Models",
-items:[
-["kof","INDEX","KOF Index","Globalisation measurement"],
-["treaties","CASE STUDY","Montreal Protocol IWC Antarctic Treaty","International Agreements"],
-["treaties2","CASE STUDY","International Whaling Commission (IWC)","International Agreements"],
-["treaties3","CASE STUDY","Antarctic Treaty","International Agreements"],
-]
-},
-
-{
-name:"Case Studies",
-items:[
-["swiss","CASE STUDY","Switzerland","Global inequality"],
-["eritrea","CASE STUDY","Eritrea","Global inequality"],
-["container","CASE STUDY","Containerisation","Shrinking world"],
-["silk","CASE STUDY","Silk Road","Global flows"],
-["cocoa","CASE STUDY","Cocoa","Production and consumption"],
-["blocs","CASE STUDY","BRICS EU MINT NAFTA","Trading blocs"],
-["apple","CASE STUDY","Apple and Foxconn","TNC spatial organisation"],
-["coke","CASE STUDY","Coca Cola","Global product"],
-["banana","CASE STUDY","Banana","Commodity"],
-["fairtrade","CASE STUDY","Fair Trade","Reducing inequality"],
-["wto","CASE STUDY","WTO IMF World Bank","Global trade"],
-["un","CASE STUDY","United Nations","Global commons"],
-["antarctica","CASE STUDY","Antarctica","Global commons"],
-["greenpeace","CASE STUDY","Greenpeace","NGO"]
-]
-}
-
-]
-}
-
-];
-
-
-let currentUser=null;
-let userData={};
-
-const container=document.getElementById("contentContainer");
-
-
-function toggleAccordion(el){
-el.parentElement.classList.toggle("open")
-}
-
-
-function ragClick(id,status){
-
-if(!currentUser) return;
-
-userData[id]=status;
-
-const row=document.querySelector(`[data-id="${id}"]`);
-row.dataset.status=status;
-
-const ref=doc(db,"users",currentUser.uid);
-setDoc(ref,{geoProgress:{[id]:status}},{merge:true});
-
-}
-
-
-function render(){
-
-container.innerHTML="";
-
-syllabus.forEach(topic=>{
-
-let sectionHTML="";
-
-topic.sections.forEach(section=>{
-
-sectionHTML+=`<div class="topic-section">${section.name}</div>`;
-
-section.items.forEach(item=>{
-
-const [id,type,name,desc]=item;
-
-const status=userData[id]||"none";
-
-sectionHTML+=`
-
-<div class="sub-item" data-id="${id}" data-status="${status}">
-
-<div class="text-stack">
-
-<span class="cs-type">${type}</span>
-
-<span class="cs-name">${name}</span>
-
-<span class="cs-desc">${desc}</span>
-
-</div>
-
-<div class="rag-actions">
-
-<button class="rag-btn btn-red" onclick="ragClick('${id}','red')"></button>
-<button class="rag-btn btn-amber" onclick="ragClick('${id}','amber')"></button>
-<button class="rag-btn btn-green" onclick="ragClick('${id}','green')"></button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-});
-
-const block=document.createElement("div");
-
-block.className="topic-group";
-
-block.innerHTML=`
-
-<div class="topic-header" onclick="toggleAccordion(this)">
-
-<div>
-
-<h3>${topic.title}</h3>
-<p>${topic.desc}</p>
-
-</div>
-
-</div>
-
-<div class="topic-body">
-
-${sectionHTML}
-
-</div>
-
-`;
-
-container.appendChild(block);
-
-});
-
-if(!currentUser){
-const ragButtons=document.querySelectorAll(".rag-btn");
-ragButtons.forEach(btn=>btn.disabled=true);
-}
-
-document.querySelector(".topic-group")?.classList.add("open");
-
-}
-
-
-onAuthStateChanged(auth,async user=>{
-
-currentUser=user;
-const loginLinks=document.querySelectorAll(".auth-link");
-loginLinks.forEach(link=>{
-if(user){
-link.textContent="Logout";link.href="#";link.style.color="#ef4444";
-link.onclick=async e=>{e.preventDefault();await signOut(auth);window.location.reload();};
-}else{
-link.textContent="Login";link.href="/pages/login.html";link.style.color="";link.onclick=null;
-}
-});
-if(!user){
-render();
-return;
-}
-
-const ref=doc(db,"users",user.uid);
-const snap=await getDoc(ref);
-
-if(snap.exists() && snap.data().geoProgress){
-userData=snap.data().geoProgress;
-}
-
-render();
-
-});
-
-
-window.toggleAccordion=toggleAccordion;
-window.ragClick=ragClick;
-
-const mobileBtn=document.querySelector(".mobile-toggle");
-const navMenu=document.getElementById("nav-menu");
-if(mobileBtn&&navMenu){
-mobileBtn.addEventListener("click",()=>{
-navMenu.classList.toggle("active");
-document.body.classList.toggle("menu-open");
-});
-}
-
-</script>
+    <main>
+        <div class="container">
+            <!-- External Specification Box -->
+            <a href="https://www.aqa.org.uk/subjects/geography/as-and-a-level/geography-7037" target="_blank" class="spec-link-card">
+                <div class="spec-link-content">
+                    <h4>View Full AQA Specification</h4>
+                    <p>Open the official subject content and exam requirements on AQA.org.uk</p>
+                </div>
+                <div class="spec-link-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- RAG Tracker Container -->
+            <div id="contentContainer" class="topic-list"></div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>StudyNest</h3>
+                    <p>Your central repository for A Level and BTEC revision materials.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <a href="/pages/APR.html">Past Papers</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Platform</h4>
+                    <a href="/pages/login.html" class="auth-link">Login</a>
+                    <a href="https://github.com/StudyNest/studynest.github.io" target="_blank">GitHub Repository</a>
+                </div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ... Firebase Config and Syllabus Data remain the same ...
+        const firebaseConfig={
+            apiKey:"AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
+            authDomain:"actiari-fixed.firebaseapp.com",
+            projectId:"actiari-fixed",
+            storageBucket:"actiari-fixed.firebasestorage.app",
+            messagingSenderId:"154407363342",
+            appId:"1:154407363342:web:7e3b21f8189d556afaed5f"
+        };
+
+        const app=initializeApp(firebaseConfig);
+        const auth=getAuth(app);
+        const db=getFirestore(app);
+
+        const syllabus=[
+            {
+                title:"Water and Carbon",
+                desc:"Drainage basins, carbon stores and flooding.",
+                sections:[
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["amazon","CASE STUDY","Amazon Rainforest","Rainforest and human impacts on the water cycle"],
+                            ["exe","CASE STUDY","River Exe","Drainage basin"],
+                            ["boscastle","CASE STUDY","Boscastle Floods","Flooding and mitigation"]
+                        ]
+                    },
+                    {
+                        name:"Processes and Agreements",
+                        items:[
+                            ["redd","MODEL","REDD+","International agreement reducing deforestation"],
+                            ["peat","PROCESS","Forests and Peatlands","Natural Carbon Capture & Storage"],
+                            ["ccs","PROCESS","Industrial Carbon Capture","Artifical Carbon Capture & Storage"]
+                        ]
+                    }
+                ]
+            },
+            {
+                title:"Coastal Landscapes",
+                desc:"Coastal systems, erosion and depositional landforms.",
+                sections:[
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["holderness","CASE STUDY","Holderness","Erosion and defences"],
+                            ["odisha","CASE STUDY","Odisha","ICZM and coastal flooding"]
+                        ]
+                    },
+                    {
+                        name:"Neccessary Examples",
+                        items:[
+                            ["pioneer","SPECIES","Saltmarsh Pioneer Plant Species","Mudflat and salt marsh"],
+                            ["duneplants","SPECIES","Sand Dune Pioneer Species","Sand Dunes"],
+                            ["climax","SPECIES","Climax Community","Landform Change"],
+                            ["flamborough","LANDFORM","Flamborough Head","Erosional Landform"],
+                            ["spurn","LANDFORM","Spurn Head","Depositional Landform"]
+                        ]
+                    }
+                ]
+            },
+            {
+                title:"Hazards",
+                desc:"Natural hazards, models and case studies.",
+                sections:[
+                    {
+                        name:"Models",
+                        items:[
+                            ["park","MODEL","Park Model","Disaster Model"],
+                            ["degg","MODEL","Degg Model","Disaster probability"],
+                            ["cycle","MODEL","Disaster Management Cycle","Preparedness response recovery"],
+                            ["risk","MODEL","Hazard Risk Equation","Risk calculation"],
+                            ["profiles","MODEL","Hazard Profiles","Hazard comparison"]
+                        ]
+                    },
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["tohoku_eq","CASE STUDY","Tohoku Japan","HIC earthquake and tsunami"],
+                            ["haiti","CASE STUDY","Haiti","LIC earthquake"],
+                            ["eyja","CASE STUDY","Eyjafjallajökull","HIC Distruptive Volcano"],
+                            ["unspecified","CASE STUDY","Any Named Example","LIC / NEE Volcano"],
+                            ["indotsu","CASE STUDY","Indonesia","LIC Tsunami"],
+                            ["katrina","CASE STUDY","Hurricane Katrina","HIC storm"],
+                            ["haiyan","CASE STUDY","Typhoon Haiyan","LIC storm"],
+                            ["blacksat","CASE STUDY","Black Saturday","Wildfire"],
+                            ["alberta","CASE STUDY","Alberta","Wildfire"]
+                        ]
+                    }
+                ]
+            },
+            {
+                title:"Changing Places",
+                desc:"Place perception, representation and change.",
+                sections:[
+                    {
+                        name:"Data and Representation",
+                        items:[
+                            ["imd","DATA","Index of Multiple Deprivation","Big data mapping"],
+                            ["ny_song","CASE STUDY","New York Song OR Janner Song","Media representation"]
+                        ]
+                    },
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["detroit","CASE STUDY","Detroit","Far place"],
+                            ["plymouth","CASE STUDY","Plymouth","Rebranding"],
+                            ["llandudno","CASE STUDY","Llandudno","Media rebranding"],
+                            ["ny_911","CASE STUDY","New York 9/11","Conflict of opinion"],
+                            ["medellin","CASE STUDY","Medellin","Agents of change"],
+                            ["porttalbot","CASE STUDY","Port Talbot","Industrial decline"],
+                            ["bournville","CASE STUDY","Bournville","Stability"],
+                            ["visitbritain","CASE STUDY","Visit Britain","Tourism rebranding"],
+                            ["olympics","CASE STUDY","London Olympics","Urban regeneration"],
+                            ["africa","CASE STUDY","Africa","Media representation"],
+                            ["poundbury","CASE STUDY","Poundbury","Urban design"],
+                            ["stonehenge","CASE STUDY","Stonehenge","Spirit of place"],
+                            ["glastonbury","CASE STUDY","Glastonbury","Sense of place"]
+                        ]
+                    }
+                ]
+            },
+            {
+                title:"Urban Environments",
+                desc:"Urban models, inequality and sustainability.",
+                sections:[
+                    {
+                        name:"Models",
+                        items:[
+                            ["burgess","MODEL","Burgess Concentric Model","Urban land use"],
+                            ["hoyt","MODEL","Hoyt Sector Model","Urban growth"]
+                        ]
+                    },
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["skerne","CASE STUDY","River Skerne","River management"],
+                            ["lambs","CASE STUDY","Lambs Drove","SUDS"],
+                            ["vegas","CASE STUDY","Las Vegas","Post modern city"],
+                            ["shanghai","CASE STUDY","Shanghai","Economic change"],
+                            ["coventry","CASE STUDY","Coventry","Investment shifts"],
+                            ["bangalore","CASE STUDY","Bangalore","Technology flows"],
+                            ["la","CASE STUDY","Los Angeles","Inequality"],
+                            ["mumbai","CASE STUDY","Mumbai","Urban inequality"],
+                            ["longbridge","CASE STUDY","Longbridge","Urban regeneration"],
+                            ["beijing","CASE STUDY","Beijing","Air pollution"],
+                            ["manilla","CASE STUDY","Manilla Dump","Waste disposal"],
+                            ["freiburg","CASE STUDY","Freiburg","Urban sustainability"],
+                            ["amsterdam","CASE STUDY","Amsterdam AEB","Incineration"],
+                            ["canary","CASE STUDY","Canary Wharf","Urban policy"],
+                            ["rio","CASE STUDY","Rio de Janeiro","Pacification"]
+                        ]
+                    }
+                ]
+            },
+            {
+                title:"Global Governance",
+                desc:"Globalisation, trade and inequality.",
+                sections:[
+                    {
+                        name:"Models",
+                        items:[
+                            ["kof","INDEX","KOF Index","Globalisation measurement"],
+                            ["treaties","CASE STUDY","Montreal Protocol IWC Antarctic Treaty","International Agreements"],
+                            ["treaties2","CASE STUDY","International Whaling Commission (IWC)","International Agreements"],
+                            ["treaties3","CASE STUDY","Antarctic Treaty","International Agreements"],
+                        ]
+                    },
+                    {
+                        name:"Case Studies",
+                        items:[
+                            ["swiss","CASE STUDY","Switzerland","Global inequality"],
+                            ["eritrea","CASE STUDY","Eritrea","Global inequality"],
+                            ["container","CASE STUDY","Containerisation","Shrinking world"],
+                            ["silk","CASE STUDY","Silk Road","Global flows"],
+                            ["cocoa","CASE STUDY","Cocoa","Production and consumption"],
+                            ["blocs","CASE STUDY","BRICS EU MINT NAFTA","Trading blocs"],
+                            ["apple","CASE STUDY","Apple and Foxconn","TNC spatial organisation"],
+                            ["coke","CASE STUDY","Coca Cola","Global product"],
+                            ["banana","CASE STUDY","Banana","Commodity"],
+                            ["fairtrade","CASE STUDY","Fair Trade","Reducing inequality"],
+                            ["wto","CASE STUDY","WTO IMF World Bank","Global trade"],
+                            ["un","CASE STUDY","United Nations","Global commons"],
+                            ["antarctica","CASE STUDY","Antarctica","Global commons"],
+                            ["greenpeace","CASE STUDY","Greenpeace","NGO"]
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let currentUser=null;
+        let userData={};
+
+        const container=document.getElementById("contentContainer");
+
+        function toggleAccordion(el){
+            el.parentElement.classList.toggle("open")
+        }
+
+        function ragClick(id,status){
+            if(!currentUser) return;
+            userData[id]=status;
+            const row=document.querySelector(`[data-id="${id}"]`);
+            if(row) row.dataset.status=status;
+            const ref=doc(db,"users",currentUser.uid);
+            setDoc(ref,{geoProgress:{[id]:status}},{merge:true});
+        }
+
+        function render(){
+            container.innerHTML="";
+            syllabus.forEach(topic=>{
+                let sectionHTML="";
+                topic.sections.forEach(section=>{
+                    sectionHTML+=`<div class="topic-section">${section.name}</div>`;
+                    section.items.forEach(item=>{
+                        const [id,type,name,desc]=item;
+                        const status=userData[id]||"none";
+                        sectionHTML+=`
+                        <div class="sub-item" data-id="${id}" data-status="${status}">
+                            <div class="text-stack">
+                                <span class="cs-type">${type}</span>
+                                <span class="cs-name">${name}</span>
+                                <span class="cs-desc">${desc}</span>
+                            </div>
+                            <div class="rag-actions">
+                                <button class="rag-btn btn-red" onclick="ragClick('${id}','red')"></button>
+                                <button class="rag-btn btn-amber" onclick="ragClick('${id}','amber')"></button>
+                                <button class="rag-btn btn-green" onclick="ragClick('${id}','green')"></button>
+                            </div>
+                        </div>`;
+                    });
+                });
+
+                const block=document.createElement("div");
+                block.className="topic-group";
+                block.innerHTML=`
+                <div class="topic-header" onclick="toggleAccordion(this)">
+                    <div>
+                        <h3>${topic.title}</h3>
+                        <p>${topic.desc}</p>
+                    </div>
+                </div>
+                <div class="topic-body">
+                    ${sectionHTML}
+                </div>`;
+                container.appendChild(block);
+            });
+
+            if(!currentUser){
+                const ragButtons=document.querySelectorAll(".rag-btn");
+                ragButtons.forEach(btn=>btn.disabled=true);
+            }
+            document.querySelector(".topic-group")?.classList.add("open");
+        }
+
+        onAuthStateChanged(auth,async user=>{
+            currentUser=user;
+            const loginLinks=document.querySelectorAll(".auth-link");
+            loginLinks.forEach(link=>{
+                if(user){
+                    link.textContent="Logout";link.href="#";link.style.color="#ef4444";
+                    link.onclick=async e=>{e.preventDefault();await signOut(auth);window.location.reload();};
+                }else{
+                    link.textContent="Login";link.href="/pages/login.html";link.style.color="";link.onclick=null;
+                }
+            });
+            if(!user){ render(); return; }
+            const ref=doc(db,"users",user.uid);
+            const snap=await getDoc(ref);
+            if(snap.exists() && snap.data().geoProgress){
+                userData=snap.data().geoProgress;
+            }
+            render();
+        });
+
+        window.toggleAccordion=toggleAccordion;
+        window.ragClick=ragClick;
+
+        const mobileBtn=document.querySelector(".mobile-toggle");
+        const navMenu=document.getElementById("nav-menu");
+        if(mobileBtn&&navMenu){
+            mobileBtn.addEventListener("click",()=>{
+                navMenu.classList.toggle("active");
+                document.body.classList.toggle("menu-open");
+            });
+        }
+    </script>
 
 </body>
 </html>
