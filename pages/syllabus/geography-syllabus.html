@@ -273,11 +273,11 @@
     });
 </script>
 
-<!-- 2. COMBINED FIREBASE, SYLLABUS, AND NAVBAR SCRIPT -->
 <script type="module">
+    // 1. ADDED updateDoc TO THE IMPORTS
     import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = { 
         apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", 
@@ -288,23 +288,24 @@
         appId: "1:154407363342:web:7e3b21f8189d556afaed5f" 
     };
     
-    // Safely initialize Firebase
     const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    // --- STATE VARIABLES (Must be outside functions) ---
+    let currentUser = null;
+    let userData = {};
+    let isSaving = false;
+
     // --- SYLLABUS DATA ---
-    const syllabus =[
+    const syllabus = [
         {
             title: "Water and Carbon",
             class: "topic-water",
             desc: "Drainage basins, carbon stores and flooding.",
             sections:[
-                { name: "Case Studies", items: 
-                    [["amazon", "CASE STUDY", "Amazon Rainforest", "Human impacts on rainforests"],["exe", "CASE STUDY", "River Exe", "Drainage Basin"],["boscastle", "CASE STUDY", "Boscastle Floods", "Flooding and mitigation"]] },
-                { name: "Frameworks & Processes", items: 
-                    [["redd", "FRAMEWORK", "REDD+", "Mitigation"], 
-                    ["peat", "PROCESS", "Forests and Peatlands", "Natural CCS"],["ccs_ind", "PROCESS", "Industrial Capture and Underground Storage", "Artifical CCS"]] }
+                { name: "Case Studies", items: [["amazon", "CASE STUDY", "Amazon Rainforest", "Human impacts on rainforests"],["exe", "CASE STUDY", "River Exe", "Drainage Basin"],["boscastle", "CASE STUDY", "Boscastle Floods", "Flooding and mitigation"]] },
+                { name: "Frameworks & Processes", items: [["redd", "FRAMEWORK", "REDD+", "Mitigation"], ["peat", "PROCESS", "Forests and Peatlands", "Natural CCS"],["ccs_ind", "PROCESS", "Industrial Capture and Underground Storage", "Artifical CCS"]] }
             ]
         },
         {
@@ -312,14 +313,8 @@
             class: "topic-coastal",
             desc: "Coastal systems, erosion and depositional landforms.",
             sections:[
-                { name: "Location Case Studies", items:
-                [["holderness", "CASE STUDY", "Holderness", "Erosion, Climate Change, Sediment Cells"],["odisha", "CASE STUDY", "Odisha", "ICMZ, Chilika Lake, Bhitarkanika"]] },
-                { name: "Named Examples", items: 
-                [["pioneer_salt", "SPECIES", "Pioneer Plant Species", "Mudflat / Salt Marsh"], 
-                ["pioneer_dune", "SPECIES", "Plant Species", "Sand Dunes"], 
-                ["climax", "SPECIES", "Climax Community", "Sand Dunes / Salt Marsh"], 
-                ["flamborough", "LANDFORM", "Flamborough Head", "Erosional Landforms"],
-                 ["spurn", "LANDFORM", "Spurn Head Spit", "Depositional landforms"]] }
+                { name: "Location Case Studies", items: [["holderness", "CASE STUDY", "Holderness", "Erosion, Climate Change, Sediment Cells"],["odisha", "CASE STUDY", "Odisha", "ICMZ, Chilika Lake, Bhitarkanika"]] },
+                { name: "Named Examples", items: [["pioneer_salt", "SPECIES", "Pioneer Plant Species", "Mudflat / Salt Marsh"], ["pioneer_dune", "SPECIES", "Plant Species", "Sand Dunes"], ["climax", "SPECIES", "Climax Community", "Sand Dunes / Salt Marsh"], ["flamborough", "LANDFORM", "Flamborough Head", "Erosional Landforms"], ["spurn", "LANDFORM", "Spurn Head Spit", "Depositional landforms"]] }
             ]
         },
         {
@@ -327,15 +322,8 @@
             class: "topic-hazards",
             desc: "Natural hazards, models and case studies.",
             sections:[
-                { name: "Models & Scales", items:
-                [["park", "MODEL", "Park Model", "Hazard Response"],
-                ["degg", "MODEL", "Deggs Model", "Hazard Risk"],["cycle", "MODEL", "Disaster Management Cycle", "Hazard Responses"],["risk_eq", "MODEL", "Hazard Risk Equation", "Population Vulnerability"], 
-                ["profiles", "MODEL", "Hazard Profiles", "Comparing Hazards"], 
-                ["vei", "SCALE", "VEI", "Volcanic Explosivity Index"],["mw", "SCALE", "Moment Magnitude (Mw)", "Earthquake Energy"],["mercalli", "SCALE", "Modifier Mercalli", "Earthquake Intensity"],["richter", "SCALE", "Richter Scale", "Earthquake Magnitude"]] },
-                { name: "Case Studies", items:
-                [["tohoku_eq", "CASE STUDY", "Tohoku Japan", "HIC Earthquake & Tsunami"], 
-                ["haiti", "CASE STUDY", "Haiti", "LIC Earthquake"],["eyja", "CASE STUDY", "Eyjafjallajökull", "HIC Volcano"],["lic_volcano", "CASE STUDY", "Unspecified LIC", "LIC Volcano"],["indotsu", "CASE STUDY", "Indonesia", "Tsunami"],["katrina", "CASE STUDY", "Hurricane Katrina", "HIC Storm"],["haiyan", "CASE STUDY", "Typhoon Haiyan / Cyclone Nargis", "LIC Storm"],["blacksat", "CASE STUDY", "Black Saturday", "HIC Wildfire"],
-                  ["alberta", "CASE STUDY", "Alberta", "HIC Wildfire"]] }
+                { name: "Models & Scales", items: [["park", "MODEL", "Park Model", "Hazard Response"], ["degg", "MODEL", "Deggs Model", "Hazard Risk"],["cycle", "MODEL", "Disaster Management Cycle", "Hazard Responses"],["risk_eq", "MODEL", "Hazard Risk Equation", "Population Vulnerability"], ["profiles", "MODEL", "Hazard Profiles", "Comparing Hazards"], ["vei", "SCALE", "VEI", "Volcanic Explosivity Index"],["mw", "SCALE", "Moment Magnitude (Mw)", "Earthquake Energy"],["mercalli", "SCALE", "Modifier Mercalli", "Earthquake Intensity"],["richter", "SCALE", "Richter Scale", "Earthquake Magnitude"]] },
+                { name: "Case Studies", items: [["tohoku_eq", "CASE STUDY", "Tohoku Japan", "HIC Earthquake & Tsunami"], ["haiti", "CASE STUDY", "Haiti", "LIC Earthquake"],["eyja", "CASE STUDY", "Eyjafjallajökull", "HIC Volcano"],["lic_volcano", "CASE STUDY", "Unspecified LIC", "LIC Volcano"],["indotsu", "CASE STUDY", "Indonesia", "Tsunami"],["katrina", "CASE STUDY", "Hurricane Katrina", "HIC Storm"],["haiyan", "CASE STUDY", "Typhoon Haiyan / Cyclone Nargis", "LIC Storm"],["blacksat", "CASE STUDY", "Black Saturday", "HIC Wildfire"], ["alberta", "CASE STUDY", "Alberta", "HIC Wildfire"]] }
             ]
         },
         {
@@ -343,14 +331,8 @@
             class: "topic-places",
             desc: "Place perception, representation and change.",
             sections:[
-                { name: "Data & Media", items: 
-                [["imd", "DATA", "IMD", "Big Data"],
-                ["ny_song", "CASE STUDY", "New York (Song)", "Media Representation"],
-                ["africa", "CASE STUDY", "Africa", "Media Representation"]] },
-                { name: "Case Studies", items:
-                [["detroit", "CASE STUDY", "Detroit", "Far place, shifting investment"],
-                ["plymouth", "CASE STUDY", "Plymouth", "Rebranding"],["llandudno", "CASE STUDY", "Llandudno", "Media impacted rebranding"],["ny_911", "CASE STUDY", "New York (9/11)", "Conflict of Opinion"],["medellin", "CASE STUDY", "Medellin", "Agents of Change"],["porttalbot", "CASE STUDY", "Port Talbot", "Agents of Change"],["bournville", "CASE STUDY", "Bourneville", "Agents of Change"],["visit_brit", "CASE STUDY", "Visit Britain", "Tourist Rebranding"],
-                ["olympics", "CASE STUDY", "London Olympics", "Rebranding"],["poundbury", "CASE STUDY", "Poundbury", "Urban Principles"],["stonehenge", "CASE STUDY", "Stonehenge", "Spirit of Place"],["glastonbury", "CASE STUDY", "Glastonbury", "Spirit and Sense of Place"]] }
+                { name: "Data & Media", items: [["imd", "DATA", "IMD", "Big Data"], ["ny_song", "CASE STUDY", "New York (Song)", "Media Representation"], ["africa", "CASE STUDY", "Africa", "Media Representation"]] },
+                { name: "Case Studies", items: [["detroit", "CASE STUDY", "Detroit", "Far place, shifting investment"], ["plymouth", "CASE STUDY", "Plymouth", "Rebranding"],["llandudno", "CASE STUDY", "Llandudno", "Media impacted rebranding"],["ny_911", "CASE STUDY", "New York (9/11)", "Conflict of Opinion"],["medellin", "CASE STUDY", "Medellin", "Agents of Change"],["porttalbot", "CASE STUDY", "Port Talbot", "Agents of Change"],["bournville", "CASE STUDY", "Bourneville", "Agents of Change"],["visit_brit", "CASE STUDY", "Visit Britain", "Tourist Rebranding"], ["olympics", "CASE STUDY", "London Olympics", "Rebranding"],["poundbury", "CASE STUDY", "Poundbury", "Urban Principles"],["stonehenge", "CASE STUDY", "Stonehenge", "Spirit of Place"],["glastonbury", "CASE STUDY", "Glastonbury", "Spirit and Sense of Place"]] }
             ]
         },
         {
@@ -358,13 +340,8 @@
             class: "topic-urban",
             desc: "Urban models, inequality and sustainability.",
             sections: [
-                { name: "Models", items: 
-                [["burgess", "MODEL", "Burgess Concentric Ring Model", "Urban Modelling"],["hoyt", "MODEL", "Hoyt Sector Model", "Urban Modelling"]] },
-                { name: "Case Studies", items:
-                [["skerne", "CASE STUDY", "River Skerne", "River Management"],["lambs", "CASE STUDY", "Lambs Drove", "SUDS"],["vegas", "CASE STUDY", "Las Vegas", "Post Modern City"],["shanghai", "CASE STUDY", "Shanghai China", "Economic Change"],
-                ["coventry", "CASE STUDY", "Coventry", "Economic Change"],
-                ["bangalore", "CASE STUDY", "Bangalore / Bengaluru", "Technology Flows"],["la", "CASE STUDY", "Los Angeles", "Urban Inequality & Gated Communities"],["mumbai", "CASE STUDY", "Mumbai", "Urban Inequality"],["longbridge", "CASE STUDY", "Longbridge", "Urban Regeneration"],["beijing", "CASE STUDY", "Beijing APPCAP", "Urban Air Pollution & Management"],
-                ["manilla", "CASE STUDY", "Manilla Dump", "Waste Management"],["freiburg", "CASE STUDY", "Freiburg", "Sustainability"],["amsterdam", "CASE STUDY", "Amsterdam AEB", "Waste Management"],["canary", "CASE STUDY", "Canary Wharf", "Urban Policy"],["rio", "CASE STUDY", "Rio de Janeiro", "Urban Inequality, Pacification"]] }
+                { name: "Models", items: [["burgess", "MODEL", "Burgess Concentric Ring Model", "Urban Modelling"],["hoyt", "MODEL", "Hoyt Sector Model", "Urban Modelling"]] },
+                { name: "Case Studies", items: [["skerne", "CASE STUDY", "River Skerne", "River Management"],["lambs", "CASE STUDY", "Lambs Drove", "SUDS"],["vegas", "CASE STUDY", "Las Vegas", "Post Modern City"],["shanghai", "CASE STUDY", "Shanghai China", "Economic Change"], ["coventry", "CASE STUDY", "Coventry", "Economic Change"], ["bangalore", "CASE STUDY", "Bangalore / Bengaluru", "Technology Flows"],["la", "CASE STUDY", "Los Angeles", "Urban Inequality & Gated Communities"],["mumbai", "CASE STUDY", "Mumbai", "Urban Inequality"],["longbridge", "CASE STUDY", "Longbridge", "Urban Regeneration"],["beijing", "CASE STUDY", "Beijing APPCAP", "Urban Air Pollution & Management"], ["manilla", "CASE STUDY", "Manilla Dump", "Waste Management"],["freiburg", "CASE STUDY", "Freiburg", "Sustainability"],["amsterdam", "CASE STUDY", "Amsterdam AEB", "Waste Management"],["canary", "CASE STUDY", "Canary Wharf", "Urban Policy"],["rio", "CASE STUDY", "Rio de Janeiro", "Urban Inequality, Pacification"]] }
             ]
         },
         {
@@ -372,22 +349,15 @@
             class: "topic-global",
             desc: "Globalisation, trade and inequality.",
             sections:[
-                { name: "Global Systems", items:
-                [["kof", "INDEX", "KOF Index", "Measuring inequality"]] }, 
-                { name: "Case Studies", items: 
-                [["apple", "CASE STUDY", "Apple & Foxconn", "TNC & Spatial Org"],["swiss", "CASE STUDY", "Switzerland", "Measuring inequality"],["eritrea", "CASE STUDY", "Eritrea", "Measuring inequality"],
-                ["container", "CASE STUDY", "Containerisation", "Shrinking World"],["silk", "CASE STUDY", "Silk Road", "Flow of Product"],["cocoa", "CASE STUDY", "Cocoa", "Production/Consumption"],["blocs", "TRADING", "BRICS, EU, MINT, NAFTA", "Trading Blocs"],["coke", "CASE STUDY", "Coca Cola", "Global Product"], 
-                ["banana", "CASE STUDY", "Banana", "Commodity"], 
-                ["fairtrade", "CASE STUDY", "Fair Trade", "Reducing inequality"],["wto_imf", "CASE STUDY", "WTO, IMF, World Bank", "Global Trade"],["un", "CASE STUDY", "United Nations", "Global Commons"],["antarctica", "CASE STUDY", "Antarctica", "Global Commons"],["agreements", "CASE STUDY", "IWC, Montreal, Antarctic", "International Agreements"],["greenpeace", "CASE STUDY", "Greenpeace", "NGO on Global Commons"]] }
+                { name: "Global Systems", items: [["kof", "INDEX", "KOF Index", "Measuring inequality"]] }, 
+                { name: "Case Studies", items: [["apple", "CASE STUDY", "Apple & Foxconn", "TNC & Spatial Org"],["swiss", "CASE STUDY", "Switzerland", "Measuring inequality"],["eritrea", "CASE STUDY", "Eritrea", "Measuring inequality"], ["container", "CASE STUDY", "Containerisation", "Shrinking World"],["silk", "CASE STUDY", "Silk Road", "Flow of Product"],["cocoa", "CASE STUDY", "Cocoa", "Production/Consumption"],["blocs", "TRADING", "BRICS, EU, MINT, NAFTA", "Trading Blocs"],["coke", "CASE STUDY", "Coca Cola", "Global Product"], ["banana", "CASE STUDY", "Banana", "Commodity"], ["fairtrade", "CASE STUDY", "Fair Trade", "Reducing inequality"],["wto_imf", "CASE STUDY", "WTO, IMF, World Bank", "Global Trade"],["un", "CASE STUDY", "United Nations", "Global Commons"],["antarctica", "CASE STUDY", "Antarctica", "Global Commons"],["agreements", "CASE STUDY", "IWC, Montreal, Antarctic", "International Agreements"],["greenpeace", "CASE STUDY", "Greenpeace", "NGO on Global Commons"]] }
             ]
         }
     ];
 
-    let currentUser = null;
-    let userData = {};
     const container = document.getElementById("contentContainer");
 
-    // --- UI FUNCTIONS ---
+    // --- ACCORDION LOGIC ---
     window.toggleAccordion = function(el) {
         el.parentElement.classList.toggle("open");
     };
@@ -396,58 +366,56 @@
         document.getElementById('authModal').classList.remove('active');
     };
 
-// 1. Add this variable ABOVE the ragClick function to track the cooldown
-let isSaving = false;
+    // --- RAG CLICK LOGIC ---
+    window.ragClick = async function(id, status) {
+        if (!currentUser) {
+            document.getElementById('authModal').classList.add('active');
+            return;
+        }
 
-// 2. Replace your old ragClick function with this:
-window.ragClick = async function(id, status) {
-    // Auth Check
-    if (!currentUser) {
-        document.getElementById('authModal').classList.add('active');
-        return;
-    }
+        // Safety 1: Redundancy
+        if (userData[id] === status) return;
 
-    // SAFETY 1: Redundancy Check
-    // If the topic is already 'green' and they click 'green', do nothing.
-    // This is the #1 way to save your Firestore Write quota.
-    if (userData[id] === status) {
-        return; 
-    }
+        // Safety 2: Cooldown
+        if (isSaving) return;
+        isSaving = true;
 
-    // SAFETY 2: Cooldown (Throttle)
-    // Prevents spam/autoclickers from burning your quota.
-    if (isSaving) {
-        console.warn("Saving too fast! Please wait a second.");
-        return;
-    }
+        // 1. UPDATE UI INSTANTLY (Local Save)
+        const oldStatus = userData[id];
+        userData[id] = status;
+        const row = document.querySelector(`[data-id="${id}"]`);
+        if (row) row.dataset.status = status;
 
-    // Start Save Process
-    isSaving = true;
-
-    // Update Local UI immediately (Optimistic Update)
-    userData[id] = status;
-    const row = document.querySelector(`[data-id="${id}"]`);
-    if (row) row.dataset.status = status;
-
-    const ref = doc(db, "users", currentUser.uid);
-
-    try {
-        // Update ONLY the specific topic using dot notation
-        // This ensures other topics in the list aren't touched
-        await setDoc(ref, { 
-            [`geoProgress.${id}`]: status 
-        }, { merge: true });
-
-        console.log(`Saved: ${id} is now ${status}`);
-    } catch (e) {
-        console.error("Error saving to Firebase:", e);
-    } finally {
-        // Release the lock after 1 second
-        setTimeout(() => { isSaving = false; }, 1000);
-    }
-};
+        // 2. UPDATE FIREBASE
+        try {
+            const ref = doc(db, "users", currentUser.uid);
+            
+            // updateDoc is better for nested fields like geoProgress.amazon
+            await updateDoc(ref, {
+                [`geoProgress.${id}`]: status
+            }).catch(async (error) => {
+                // If the document doesn't exist yet, catch the error and use setDoc instead
+                if (error.code === 'not-found') {
+                    await setDoc(ref, { geoProgress: { [id]: status } }, { merge: true });
+                } else {
+                    throw error;
+                }
+            });
+            
+            console.log("Saved to Firebase:", id, status);
+        } catch (e) {
+            console.error("Firebase Error:", e);
+            // Revert UI if Firebase fails
+            userData[id] = oldStatus;
+            if (row) row.dataset.status = oldStatus || "none";
+        } finally {
+            // Unlock after 1 second
+            setTimeout(() => { isSaving = false; }, 1000);
+        }
+    };
 
     function render() {
+        if (!container) return;
         container.innerHTML = "";
         syllabus.forEach(topic => {
             let sectionHTML = "";
@@ -472,7 +440,6 @@ window.ragClick = async function(id, status) {
                 });
             });
 
-            
             const block = document.createElement("div");
             block.className = `topic-group ${topic.class}`;
             block.innerHTML = `
@@ -485,24 +452,19 @@ window.ragClick = async function(id, status) {
             <div class="topic-body">${sectionHTML}</div>`;
             container.appendChild(block);
         });
-
-        // Disable buttons if not logged in
-        if (!currentUser) {
-            document.querySelectorAll(".rag-btn").forEach(btn => btn.disabled = true);
-        }
     }
-  
-    // --- COMBINED AUTH STATE LISTENER ---
+
+    // --- RUN RENDER IMMEDIATELY ---
+    render();
+
+    // --- AUTH LISTENER ---
     onAuthStateChanged(auth, async (user) => {
         currentUser = user;
         const loginLinks = document.querySelectorAll('.auth-link');
         const settingsLink = document.getElementById('nav-settings');
 
         if (user) {
-            // 1. Unhide Settings
             if(settingsLink) settingsLink.style.display = 'inline-block';
-            
-            // 2. Change Login links to Logout
             loginLinks.forEach(link => {
                 link.textContent = 'Logout'; 
                 link.href = '#'; 
@@ -510,29 +472,25 @@ window.ragClick = async function(id, status) {
                 link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
             });
 
-            // 3. Fetch user RAG data
+            // Load data
             const snap = await getDoc(doc(db, "users", user.uid));
             if (snap.exists() && snap.data().geoProgress) {
                 userData = snap.data().geoProgress;
+                render(); 
             }
         } else {
-            // 1. Hide Settings
             if(settingsLink) settingsLink.style.display = 'none';
-            
-            // 2. Set Login Links
             loginLinks.forEach(link => {
                 link.textContent = 'Login'; 
                 link.href = '/pages/login.html'; 
                 link.style.color = ''; 
                 link.onclick = null;
             });
+            userData = {};
+            render();
         }
-            // Render the page based on the loaded data/auth state
-        render();
-  
     });
 </script>
-
 <!-- If you have global auth.js, keep it. Otherwise, remove it so it doesn't conflict -->
 <script type="module" src="../../JS/auth.js"></script>
 
