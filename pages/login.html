@@ -27,6 +27,7 @@
             <a href="/index.html">Home</a>
             <a href="/pages/APR.html">Past Papers</a>
             <a href="/pages/syllabus/syllabus.html">Resources</a>
+            <a href="settings.html" id="nav-settings" style="display: none;">Settings</a>
             <a href="/pages/login.html" class="active auth-link">Login</a>
         </nav>
         <button class="mobile-toggle" aria-label="Toggle Menu">
@@ -132,31 +133,45 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <h3>StudyNest</h3>
-                <p>Your central repository for A Level and BTEC revision materials.</p>
+                <p>Your central repository for A Level and BTEC revision materials. Built for students to track progress and master past papers.</p>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
-                <a href="/pages/APR.html">Past Papers</a>
+                <h4>StudyNest</h4>
+                <a href="../about.html">About Us</a>
+                <a href="pages/APR.html">Past Papers</a>
+                <a href="pages/syllabus/syllabus.html">Syllabus Tracker</a>
             </div>
             <div class="footer-col">
-                <h4>Platform</h4>
-                <a href="/pages/login.html" class="auth-link">Login</a>
+                <h4>Support & Legal</h4>
+                <a href="../contact.html">Contact Support</a>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms of Service</a>
+                <a href="../cookies.html">Cookie Policy</a>
             </div>
         </div>
-        <div class="footer-bottom"><p>&copy; 2024 StudyNest. All rights reserved.</p></div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 StudyNest. All rights reserved.</p>
+            <p style="margin-top: 10px; opacity: 0.6; font-size: 0.75rem;">
+                StudyNest is an independent educational resource. We are not affiliated with, endorsed by, or associated with AQA, OCR, or Pearson Edexcel. All exam materials remain the intellectual property of their respective awarding bodies.
+            </p>
+        </div>
     </div>
 </footer>
 
+<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
 <script>
-    const mobileBtn = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    if(mobileBtn) {
-        mobileBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            document.body.classList.toggle('menu-open');
-        });
-    }
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+    });
 </script>
+
 
 <script type="module" src="/JS/login.js"></script>
 

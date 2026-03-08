@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
@@ -24,7 +25,6 @@
             <a href="index.html" class="active">Home</a>
             <a href="pages/APR.html">Past Papers</a>
             <a href="pages/syllabus/syllabus.html">Resources</a>
-            <!-- HIDDEN BY DEFAULT, SHOWN WHEN LOGGED IN -->
             <a href="pages/settings.html" id="nav-settings" style="display: none;">Settings</a>
             <a href="pages/login.html" class="auth-link">Login</a>
         </nav>
@@ -91,29 +91,37 @@
     </div>
 </footer>
 
+<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+    });
+</script>
+
+<!-- 2. FIREBASE AUTH SCRIPT -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
-    const app = initializeApp(firebaseConfig);
+    
+    // Safety check: Only initialize if not already initialized by auth.js
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
-
-    const mobileBtn = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    mobileBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        document.body.classList.toggle('menu-open');
-    });
 
     onAuthStateChanged(auth, (user) => {
         const loginLinks = document.querySelectorAll('.auth-link');
         const settingsLink = document.getElementById('nav-settings');
 
         if (user) {
-            // Show settings link
-            if(settingsLink) settingsLink.style.display = 'inline-block';
-            
+            if(settingsLink) settingsLink.style.display = 'block';
             loginLinks.forEach(link => {
                 link.textContent = 'Logout'; 
                 link.href = '#'; 
@@ -121,9 +129,7 @@
                 link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
             });
         } else {
-            // Hide settings link
             if(settingsLink) settingsLink.style.display = 'none';
-
             loginLinks.forEach(link => {
                 link.textContent = 'Login'; 
                 link.href = 'pages/login.html'; 

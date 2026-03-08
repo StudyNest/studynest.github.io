@@ -11,12 +11,14 @@
 <header class="site-header">
     <div class="container header-inner">
         <a href="../index.html" class="logo">StudyNest</a>
-        <nav class="nav-menu" id="nav-menu">
-            <a href="../index.html">Home</a>
-            <a href="APR.html">Past Papers</a>
-            <a href="syllabus/syllabus.html">Resources</a>
-            <a href="login.html" class="auth-link">Login</a>
-        </nav>
+<nav class="nav-menu" id="nav-menu">
+    <a href="../index.html">Home</a>
+    <a href="APR.html">Past Papers</a>
+    <a href="syllabus/syllabus.html">Resources</a>
+    <!-- Settings link for files INSIDE the pages folder -->
+    <a href="settings.html" id="nav-settings" style="display: none;">Settings</a>
+    <a href="login.html" class="auth-link">Login</a>
+</nav>
         <button class="mobile-toggle" aria-label="Toggle Menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
@@ -57,18 +59,17 @@
                 <p>Your central repository for A Level and BTEC revision materials. Built for students to track progress and master past papers.</p>
             </div>
             <div class="footer-col">
-                <h4>Resources</h4>
+                <h4>StudyNest</h4>
+                <a href="../about.html">About Us</a>
                 <a href="APR.html">Past Papers</a>
                 <a href="syllabus/syllabus.html">Syllabus Tracker</a>
-                <a href="../about.html">About StudyNest</a>
             </div>
             <div class="footer-col">
-                <h4>Legal & Support</h4>
+                <h4>Support & Legal</h4>
+                <a href="../contact.html">Contact Support</a>
                 <a href="../privacy.html">Privacy Policy</a>
                 <a href="../terms.html">Terms of Service</a>
                 <a href="../cookies.html">Cookie Policy</a>
-                <a href="../about.html">Contact Support</a>
-                <a href="login.html" class="auth-link">Student Login</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -80,61 +81,87 @@
     </div>
 </footer>
 
+<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+    });
+</script>
+
+<!-- 2. FIREBASE AUTH & SETTINGS LOGIC -->
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    // Make sure to import getApps and getApp to prevent double-initialization crashes
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    // EXACT same config
     const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
-    const app = initializeApp(firebaseConfig);
+    
+    // Safety check: Only initialize if auth.js hasn't already done it
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
-
-    const mobileBtn = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    mobileBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
 
     const userEmailInput = document.getElementById('user-email');
     const deleteBtn = document.getElementById('delete-account-btn');
     const messageBox = document.getElementById('message-box');
+    const settingsLink = document.getElementById('nav-settings');
 
-    // Standard nav header auth check
+    // Auth State Check
     onAuthStateChanged(auth, (user) => {
         const loginLinks = document.querySelectorAll('.auth-link');
         
         if (user) {
-            // Fill in the input box for Settings page
+            // 1. Un-hide the Settings link in the navbar
+            if (settingsLink) settingsLink.style.display = 'inline-block';
+
+            // 2. Fill in the email input box on the page
             if (userEmailInput) userEmailInput.value = user.email;
 
-            // Change nav links to Logout
+            // 3. Change Login button to Logout
             loginLinks.forEach(link => {
-                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
-                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.href = '../index.html'; };
+                link.textContent = 'Logout'; 
+                link.href = '#'; 
+                link.style.color = '#ef4444';
+                link.onclick = async (e) => { 
+                    e.preventDefault(); 
+                    await signOut(auth); 
+                    window.location.href = '../index.html'; 
+                };
             });
         } else {
-            // User is not logged in, boot them back to login page if they try viewing settings
+            // User is NOT logged in. Boot them back to the login page immediately.
             window.location.href = 'login.html';
         }
     });
 
     // Account Deletion Logic
-    deleteBtn.addEventListener('click', async () => {
-        const confirmDelete = confirm("Are you sure you want to delete your account? All progress will be lost.");
-        if (confirmDelete && auth.currentUser) {
-            try {
-                await deleteUser(auth.currentUser);
-                messageBox.textContent = "Account deleted successfully. Redirecting...";
-                messageBox.className = "message-box success";
-                messageBox.style.display = "block";
-                setTimeout(() => { window.location.href = '../index.html'; }, 2000);
-            } catch (error) {
-                // Firebase security feature: requires recent login to delete account
-                messageBox.textContent = "Security Notice: Please log out and log back in to verify your identity before deleting your account.";
-                messageBox.className = "message-box error";
-                messageBox.style.display = "block";
+    if (deleteBtn) {
+        deleteBtn.addEventListener('click', async () => {
+            const confirmDelete = confirm("Are you sure you want to delete your account? All progress will be lost.");
+            if (confirmDelete && auth.currentUser) {
+                try {
+                    await deleteUser(auth.currentUser);
+                    messageBox.textContent = "Account deleted successfully. Redirecting...";
+                    messageBox.className = "message-box success";
+                    messageBox.style.display = "block";
+                    setTimeout(() => { window.location.href = '../index.html'; }, 2000);
+                } catch (error) {
+                    // Firebase security feature: requires recent login to delete account
+                    messageBox.textContent = "Security Notice: Please log out and log back in to verify your identity before deleting your account.";
+                    messageBox.className = "message-box error";
+                    messageBox.style.display = "block";
+                }
             }
-        }
-    });
+        });
+    }
 </script>
+
 <script type="module" src="../JS/auth.js"></script>
 </body>
 </html>
