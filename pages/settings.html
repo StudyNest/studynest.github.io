@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings | StudyNest</title>
+    <link rel="icon" type="image/x-icon" href="../assets/Main%20Favicon.ico">
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="../index.html" class="logo">StudyNest</a>
+        <nav class="nav-menu" id="nav-menu">
+            <a href="../index.html">Home</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="syllabus/syllabus.html">Resources</a>
+            <a href="login.html" class="auth-link">Login</a>
+        </nav>
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </div>
+</header>
+
+<main class="auth-page">
+    <div class="auth-card" style="max-width: 500px;">
+        <div class="auth-header">
+            <h1>Account Settings</h1>
+            <p>Manage your StudyNest profile and data.</p>
+        </div>
+
+        <div class="form-group">
+            <label>Logged in as</label>
+            <input type="text" id="user-email" disabled value="Loading..." style="background: rgba(255,255,255,0.05); color: var(--text-secondary);">
+        </div>
+
+        <div class="divider">Data Management</div>
+
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; text-align: center;">
+            Deleting your account will permanently erase your syllabus tracking progress, saved resources, and profile data. This action cannot be undone.
+        </p>
+
+        <button id="delete-account-btn" class="btn btn-logout" style="padding: 12px; font-weight: 600;">
+            Permanently Delete Account
+        </button>
+
+        <div id="message-box" class="message-box" style="margin-top: 20px;"></div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials. Built for students to track progress and master past papers.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <a href="APR.html">Past Papers</a>
+                <a href="syllabus/syllabus.html">Syllabus Tracker</a>
+                <a href="../about.html">About StudyNest</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal & Support</h4>
+                <a href="../privacy.html">Privacy Policy</a>
+                <a href="../terms.html">Terms of Service</a>
+                <a href="../cookies.html">Cookie Policy</a>
+                <a href="../about.html">Contact Support</a>
+                <a href="login.html" class="auth-link">Student Login</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 StudyNest. All rights reserved.</p>
+            <p style="margin-top: 10px; opacity: 0.6; font-size: 0.75rem;">
+                StudyNest is an independent educational resource. We are not affiliated with, endorsed by, or associated with AQA, OCR, or Pearson Edexcel. All exam materials remain the intellectual property of their respective awarding bodies.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    // EXACT same config
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    mobileBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
+
+    const userEmailInput = document.getElementById('user-email');
+    const deleteBtn = document.getElementById('delete-account-btn');
+    const messageBox = document.getElementById('message-box');
+
+    // Standard nav header auth check
+    onAuthStateChanged(auth, (user) => {
+        const loginLinks = document.querySelectorAll('.auth-link');
+        
+        if (user) {
+            // Fill in the input box for Settings page
+            if (userEmailInput) userEmailInput.value = user.email;
+
+            // Change nav links to Logout
+            loginLinks.forEach(link => {
+                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.href = '../index.html'; };
+            });
+        } else {
+            // User is not logged in, boot them back to login page if they try viewing settings
+            window.location.href = 'login.html';
+        }
+    });
+
+    // Account Deletion Logic
+    deleteBtn.addEventListener('click', async () => {
+        const confirmDelete = confirm("Are you sure you want to delete your account? All progress will be lost.");
+        if (confirmDelete && auth.currentUser) {
+            try {
+                await deleteUser(auth.currentUser);
+                messageBox.textContent = "Account deleted successfully. Redirecting...";
+                messageBox.className = "message-box success";
+                messageBox.style.display = "block";
+                setTimeout(() => { window.location.href = '../index.html'; }, 2000);
+            } catch (error) {
+                // Firebase security feature: requires recent login to delete account
+                messageBox.textContent = "Security Notice: Please log out and log back in to verify your identity before deleting your account.";
+                messageBox.className = "message-box error";
+                messageBox.style.display = "block";
+            }
+        }
+    });
+</script>
+<script type="module" src="../JS/auth.js"></script>
+</body>
+</html>

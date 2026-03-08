@@ -1,30 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TBTVPGKM');</script>
+<!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="StudyNest is your central hub for A Level and BTEC revision materials, including past papers, syllabus trackers, and note-making tools.">
-    <meta property="og:title" content="StudyNest - Your A Level Revision Hub">
-    <meta property="og:description" content="StudyNest is your central hub for A Level and BTEC revision materials, including past papers, syllabus trackers, and note-making tools.">
-    <meta property="og:image" content="https://studynest.github.io/assets/Main%20Favicon.ico">
-    <meta property="og:url" content="https://studynest.github.io/">
-    <meta property="og:type" content="website">
-
-    <title>Home | StudyNest</title>
+    <meta name="description" content="Learn about StudyNest, your central hub for A Level and BTEC revision materials.">
+    <title>About Us | StudyNest</title>
 
     <link rel="icon" type="image/x-icon" href="assets/Main%20Favicon.ico">
     <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .about-header { text-align: center; margin: 40px 0 60px; }
+        .about-header h1 { font-size: 3rem; margin-bottom: 16px; color: var(--text-primary); letter-spacing: -0.03em; }
+        .about-header p { font-size: 1.15rem; color: var(--text-secondary); max-width: 650px; margin: 0 auto; line-height: 1.6; }
+        .content-section { margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .content-section h2 { font-size: 1.75rem; color: var(--text-primary); margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .content-section p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; font-size: 1rem; }
+        .credits-list { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; margin-top: 20px;}
+        .credits-list li { background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px; color: var(--text-secondary); font-size: 0.9rem; }
+        .credits-list li strong { color: var(--text-primary); display: block; margin-bottom: 4px; font-size: 1rem; }
+    </style>
 </head>
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBTVPGKM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
         <nav class="nav-menu" id="nav-menu">
-            <a href="index.html" class="active">Home</a>
+            <a href="index.html">Home</a>
             <a href="pages/APR.html">Past Papers</a>
             <a href="pages/syllabus/syllabus.html">Resources</a>
-            <!-- HIDDEN BY DEFAULT, SHOWN WHEN LOGGED IN -->
             <a href="pages/settings.html" id="nav-settings" style="display: none;">Settings</a>
             <a href="pages/login.html" class="auth-link">Login</a>
         </nav>
@@ -34,31 +51,30 @@
     </div>
 </header>
 
-<main>
-    <section class="hero">
-        <div class="container">
-            <h1>Study Resources</h1>
-            <p>Your central digital repository for A Level and BTEC revision.</p>
+<main class="main-content">
+    <div class="container">
+        <div class="about-header">
+            <h1>Made for students, by students.</h1>
+            <p>StudyNest was created to solve a universal A-Level problem: revision resources are scattered across the internet, poorly formatted, and hard to track.</p>
         </div>
-    </section>
 
-    <section class="main-content">
-        <div class="container">
-            <div class="section-label">Available Tools</div>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Past Papers</h3>
-                    <p>Searchable archive of exam papers from AQA, OCR A, and Edexcel. Includes question papers and official mark schemes.</p>
-                    <a href="pages/APR.html" class="btn btn-primary">Browse Archive</a>
-                </div>
-                <div class="card">
-                    <h3>Resources</h3>
-                    <p>Find resources and track your confidence levels to optimize your revision time.</p>
-                    <a href="pages/syllabus/syllabus.html" class="btn btn-primary">Find resources</a>
-                </div>
-            </div>
+        <div class="content-section">
+            <h2>Our Mission</h2>
+            <p>Preparing for A-Levels and BTECs is stressful enough without having to navigate clunky exam board websites and managing endless folders of downloaded PDFs.</p>
+            <p>We built <strong>StudyNest</strong> to act as your central digital repository. By combining an intuitive past-paper archive with interactive syllabus trackers, we aim to help UK students organize their revision efficiently and approach their final exams with confidence.</p>
+            <p>We believe that high-quality, streamlined educational tools should be accessible to everyone, without intrusive advertisements.</p>
         </div>
-    </section>
+
+        <div class="content-section">
+            <h2>Acknowledgments & Credits</h2>
+            <p>StudyNest is an independent, non-profit educational platform. We are deeply grateful to the following organizations:</p>
+            <ul class="credits-list">
+                <li><strong>AQA, OCR & Pearson Edexcel</strong> For the production and public release of the examination materials hosted on our platform for educational fair dealing.</li>
+                <li><strong>Google Firebase</strong> For providing the secure backend infrastructure and user authentication systems that power our cloud sync features.</li>
+                <li><strong>IBM Plex Sans</strong> For the clean, highly legible open-source typography used across our user interface, provided via Google Fonts.</li>
+            </ul>
+        </div>
+    </div>
 </main>
 
 <footer class="site-footer">
@@ -111,9 +127,7 @@
         const settingsLink = document.getElementById('nav-settings');
 
         if (user) {
-            // Show settings link
             if(settingsLink) settingsLink.style.display = 'inline-block';
-            
             loginLinks.forEach(link => {
                 link.textContent = 'Logout'; 
                 link.href = '#'; 
@@ -121,9 +135,7 @@
                 link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
             });
         } else {
-            // Hide settings link
             if(settingsLink) settingsLink.style.display = 'none';
-
             loginLinks.forEach(link => {
                 link.textContent = 'Login'; 
                 link.href = 'pages/login.html'; 

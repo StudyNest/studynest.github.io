@@ -3,27 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="The page you're looking for doesn't exist on StudyNest. Return to the homepage to find revision materials.">
-    <meta property="og:title" content="404 Not Found | StudyNest">
-    <meta property="og:description" content="The page you're looking for doesn't exist on StudyNest. Return to the homepage to find revision materials.">
-    <meta property="og:image" content="https://studynest.github.io/assets/Main%20Favicon.ico">
-    <meta property="og:url" content="https://studynest.github.io/404.html">
-    <meta property="og:type" content="website">
-    <title>404 Not Found | StudyNest</title>
-    
+    <title>Page Not Found | StudyNest</title>
     <link rel="icon" type="image/x-icon" href="assets/Main%20Favicon.ico">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="CSS/style.css">
-
-
 </head>
-
 <body>
-
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
@@ -33,23 +17,23 @@
             <a href="pages/syllabus/syllabus.html">Resources</a>
             <a href="pages/login.html" class="auth-link">Login</a>
         </nav>
-
         <button class="mobile-toggle" aria-label="Toggle Menu">
-            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
     </div>
 </header>
 
-<main class="error-page">
-    <div class="container error-content">
+<main class="main-content error-page">
+    <div class="container" style="max-width: 600px;">
         <div class="error-code">404</div>
-        <h1 class="error-title">Page Not Found</h1>
-        <p class="error-desc">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
-        <a href="index.html" class="btn btn-primary">Return to Home</a>
+        <h1 style="font-size: 2rem; margin-bottom: 16px;">Page Not Found</h1>
+        <p style="color: var(--text-secondary); margin-bottom: 30px;">
+            The syllabus or past paper you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center;">
+            <a href="index.html" class="btn btn-primary">Return Home</a>
+            <a href="pages/APR.html" class="btn btn-secondary">Browse Archive</a>
+        </div>
     </div>
 </main>
 
@@ -58,87 +42,49 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <h3>StudyNest</h3>
-                <p>Your central repository for A Level and BTEC revision materials. Master your subjects with curated tools.</p>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
             </div>
             <div class="footer-col">
                 <h4>Resources</h4>
                 <a href="pages/APR.html">Past Papers</a>
+                <a href="pages/syllabus/syllabus.html">Syllabus Tracker</a>
             </div>
             <div class="footer-col">
-                <h4>Platform</h4>
-                <a href="pages/login.html" class="auth-link">Login</a>
+                <h4>Legal & Support</h4>
+                <a href="about.html">Contact Support</a>
+                <a href="pages/login.html" class="auth-link">Student Login</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 StudyNest. All rights reserved.</p>
+            <p>&copy; 2026 StudyNest. All rights reserved.</p>
         </div>
     </div>
 </footer>
-
-<script>
-    const mobileBtn = document.querySelector('.mobile-toggle');
-    const navMenu = document.getElementById('nav-menu');
-    const body = document.body;
-    let isMenuOpen = false;
-
-    const hamburgerIcon = `
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>`;
-    
-    const closeIcon = `
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>`;
-
-    mobileBtn.addEventListener('click', () => {
-        isMenuOpen = !isMenuOpen;
-        navMenu.classList.toggle('active');
-        body.classList.toggle('menu-open');
-        mobileBtn.querySelector('svg').innerHTML = isMenuOpen ? closeIcon : hamburgerIcon;
-    });
-</script>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c",
-        authDomain: "actiari-fixed.firebaseapp.com",
-        projectId: "actiari-fixed",
-        storageBucket: "actiari-fixed.firebasestorage.app",
-        messagingSenderId: "154407363342",
-        appId: "1:154407363342:web:7e3b21f8189d556afaed5f"
-    };
-
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    mobileBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
+
     onAuthStateChanged(auth, (user) => {
         const loginLinks = document.querySelectorAll('.auth-link');
-        
-        if (user) {
-            loginLinks.forEach(link => {
-                link.textContent = 'Logout';
-                link.href = '#';
-                link.style.color = '#ef4444';
-                link.onclick = async (e) => {
-                    e.preventDefault();
-                    await signOut(auth);
-                    window.location.reload();
-                };
-            });
-        } else {
-            loginLinks.forEach(link => {
-                link.textContent = 'Login';
-                link.href = 'pages/login.html'; 
-                link.style.color = '';
-                link.onclick = null;
-            });
-        }
+        loginLinks.forEach(link => {
+            if (user) {
+                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
+            } else {
+                link.textContent = 'Login'; link.href = 'pages/login.html'; link.style.color = ''; link.onclick = null;
+            }
+        });
     });
 </script>
 <script type="module" src="JS/auth.js"></script>
-
 </body>
 </html>

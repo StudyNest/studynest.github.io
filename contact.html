@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TBTVPGKM');</script>
+<!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="StudyNest is your central hub for A Level and BTEC revision materials, including past papers, syllabus trackers, and note-making tools.">
-    <meta property="og:title" content="StudyNest - Your A Level Revision Hub">
-    <meta property="og:description" content="StudyNest is your central hub for A Level and BTEC revision materials, including past papers, syllabus trackers, and note-making tools.">
-    <meta property="og:image" content="https://studynest.github.io/assets/Main%20Favicon.ico">
-    <meta property="og:url" content="https://studynest.github.io/">
-    <meta property="og:type" content="website">
-
-    <title>Home | StudyNest</title>
+    <meta name="description" content="Contact StudyNest for technical support, account help, or DMCA takedown requests.">
+    <title>Contact Support | StudyNest</title>
 
     <link rel="icon" type="image/x-icon" href="assets/Main%20Favicon.ico">
     <link rel="stylesheet" href="CSS/style.css">
+    <style>
+        .contact-header { text-align: center; margin: 40px 0 40px; }
+        .contact-header h1 { font-size: 2.5rem; margin-bottom: 16px; color: var(--text-primary); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; max-width: 900px; margin: 0 auto 60px; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+        .contact-card { background: var(--bg-card); border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; text-align: left; transition: 0.2s ease; }
+        .contact-card:hover { border-color: var(--accent-color); }
+        .contact-card h3 { font-size: 1.25rem; margin-bottom: 12px; color: var(--text-primary); }
+        .contact-card p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.6; }
+        .email-link { font-weight: 600; font-size: 1.1rem; color: var(--accent-color); text-decoration: none; }
+        .email-link:hover { text-decoration: underline; }
+    </style>
 </head>
 
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBTVPGKM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
         <nav class="nav-menu" id="nav-menu">
-            <a href="index.html" class="active">Home</a>
+            <a href="index.html">Home</a>
             <a href="pages/APR.html">Past Papers</a>
             <a href="pages/syllabus/syllabus.html">Resources</a>
-            <!-- HIDDEN BY DEFAULT, SHOWN WHEN LOGGED IN -->
             <a href="pages/settings.html" id="nav-settings" style="display: none;">Settings</a>
             <a href="pages/login.html" class="auth-link">Login</a>
         </nav>
@@ -34,31 +52,35 @@
     </div>
 </header>
 
-<main>
-    <section class="hero">
-        <div class="container">
-            <h1>Study Resources</h1>
-            <p>Your central digital repository for A Level and BTEC revision.</p>
+<main class="main-content">
+    <div class="container">
+        <div class="contact-header">
+            <h1>Contact Support</h1>
+            <p style="color: var(--text-secondary);">How can we help you today?</p>
         </div>
-    </section>
 
-    <section class="main-content">
-        <div class="container">
-            <div class="section-label">Available Tools</div>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Past Papers</h3>
-                    <p>Searchable archive of exam papers from AQA, OCR A, and Edexcel. Includes question papers and official mark schemes.</p>
-                    <a href="pages/APR.html" class="btn btn-primary">Browse Archive</a>
-                </div>
-                <div class="card">
-                    <h3>Resources</h3>
-                    <p>Find resources and track your confidence levels to optimize your revision time.</p>
-                    <a href="pages/syllabus/syllabus.html" class="btn btn-primary">Find resources</a>
-                </div>
+        <div class="contact-grid">
+            <!-- General Support -->
+            <div class="contact-card">
+                <h3>Technical Support & Bugs</h3>
+                <p>Are you having trouble logging into your account, experiencing sync issues with the syllabus tracker, or did you find a broken link to a past paper? Let us know so we can fix it.</p>
+                <a href="mailto:actiari@gmail.com?subject=StudyNest Support Request" class="email-link">actiari@gmail.com</a>
+            </div>
+
+            <!-- DMCA / Copyright -->
+            <div class="contact-card">
+                <h3>Copyright & Takedown Requests</h3>
+                <p>StudyNest indexes past papers under Educational Fair Dealing. If you represent an awarding body (AQA, OCR, Edexcel) and wish to request the removal of specific copyrighted material, please contact us directly for immediate compliance.</p>
+                <a href="mailto:actiari@gmail.com?subject=DMCA Takedown Request" class="email-link">actiari@gmail.com</a>
+            </div>
+            
+            <!-- Account Deletion -->
+            <div class="contact-card" style="grid-column: 1 / -1; text-align: center;">
+                <h3>Account Deletion</h3>
+                <p>You can automatically delete your account and all associated data at any time by navigating to your <a href="pages/settings.html" style="color: var(--accent-color);">Settings page</a>. If you require manual data erasure under UK GDPR, please email us from the address associated with your account.</p>
             </div>
         </div>
-    </section>
+    </div>
 </main>
 
 <footer class="site-footer">
@@ -111,9 +133,7 @@
         const settingsLink = document.getElementById('nav-settings');
 
         if (user) {
-            // Show settings link
             if(settingsLink) settingsLink.style.display = 'inline-block';
-            
             loginLinks.forEach(link => {
                 link.textContent = 'Logout'; 
                 link.href = '#'; 
@@ -121,9 +141,7 @@
                 link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
             });
         } else {
-            // Hide settings link
             if(settingsLink) settingsLink.style.display = 'none';
-
             loginLinks.forEach(link => {
                 link.textContent = 'Login'; 
                 link.href = 'pages/login.html'; 
