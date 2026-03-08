@@ -39,12 +39,12 @@
         .topic-group { border: 1px solid var(--border-color); border-radius: 12px; background: var(--bg-card); overflow: hidden; transition: 0.2s; }
         
         /* INDIVIDUAL CARD THEME COLORS */
-        .topic-water { border-top: 4px solid #3b82f6; }
-        .topic-coastal { border-top: 4px solid #0ea5e9; }
+        .topic-water { border-top: 4px solid #62daf0; }
+        .topic-coastal { border-top: 4px solid #e7d581; }
         .topic-hazards { border-top: 4px solid #ef4444; }
-        .topic-places { border-top: 4px solid #a855f7; }
-        .topic-urban { border-top: 4px solid #f59e0b; }
-        .topic-global { border-top: 4px solid #10b981; }
+        .topic-places { border-top: 4px solid #3abe57; }
+        .topic-urban { border-top: 4px solid #d85386; }
+        .topic-global { border-top: 4px solid #1067b9; }
 
         .topic-header { padding: 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
         .topic-header:hover { background: var(--bg-card-hover); }
@@ -178,8 +178,15 @@
             class: "topic-water",
             desc: "Drainage basins, carbon stores and flooding.",
             sections: [
-                { name: "Case Studies", items: [["amazon", "CASE STUDY", "Amazon Rainforest", "Rainforest + Human impacts"], ["exe", "CASE STUDY", "River Exe", "Drainage Basin"], ["boscastle", "CASE STUDY", "Boscastle Floods", "Flooding and mitigation"]] },
-                { name: "Processes & CCS", items: [["redd", "MODEL", "REDD+", "International Agreements"], ["peat", "PROCESS", "Forests and Peatlands", "Natural CCS"], ["ccs_ind", "PROCESS", "Industrial Capture", "Stored underground CCS"]] }
+                { name: "Case Studies", items: 
+                    [["amazon", "CASE STUDY", "Amazon Rainforest", "Human impacts on rainforests"], 
+                    ["exe", "CASE STUDY", "River Exe", "Drainage Basin"], 
+                    ["boscastle", "CASE STUDY", "Boscastle Floods", "Flooding and mitigation"]] },
+
+                { name: "Frameworks & Processes", items: 
+                    [["redd", "FRAMEWORK", "REDD+", "Mitigation"], 
+                    ["peat", "PROCESS", "Forests and Peatlands", "Natural CCS"], 
+                    ["ccs_ind", "PROCESS", "Industrial Capture and Underground Storage", "Artifical CCS"]] }
             ]
         },
         {
@@ -187,8 +194,16 @@
             class: "topic-coastal",
             desc: "Coastal systems, erosion and depositional landforms.",
             sections: [
-                { name: "Location Case Studies", items: [["holderness", "CASE STUDY", "Holderness", "Erosion, Climate Change, Sediment Cells"], ["odisha", "CASE STUDY", "Odisha", "ICMZ, Chilika Lake, Bhitarkanika"]] },
-                { name: "Named Examples", items: [["pioneer_salt", "SPECIES", "Pioneer Plant Species", "Mudflat / Salt Marsh"], ["pioneer_dune", "SPECIES", "Plant Species", "Sand Dunes"], ["climax", "SPECIES", "Climax Community", "Sand Dunes / Salt Marsh"], ["flamborough", "LANDFORM", "Flamborough Head", "Erosional Landforms"], ["spurn", "LANDFORM", "Spurn Head Spit", "Depositional landforms"]] }
+                { name: "Location Case Studies", items:
+                [["holderness", "CASE STUDY", "Holderness", "Erosion, Climate Change, Sediment Cells"], 
+                ["odisha", "CASE STUDY", "Odisha", "ICMZ, Chilika Lake, Bhitarkanika"]] },
+
+                { name: "Named Examples", items: 
+                [["pioneer_salt", "SPECIES", "Pioneer Plant Species", "Mudflat / Salt Marsh"], 
+                ["pioneer_dune", "SPECIES", "Plant Species", "Sand Dunes"], 
+                ["climax", "SPECIES", "Climax Community", "Sand Dunes / Salt Marsh"], 
+                ["flamborough", "LANDFORM", "Flamborough Head", "Erosional Landforms"],
+                 ["spurn", "LANDFORM", "Spurn Head Spit", "Depositional landforms"]] }
             ]
         },
         {
@@ -196,8 +211,26 @@
             class: "topic-hazards",
             desc: "Natural hazards, models and case studies.",
             sections: [
-                { name: "Models & Scales", items: [["park", "MODEL", "Park Model", "Response Curve"], ["degg", "MODEL", "Deggs Model", "Hazard Risk"], ["cycle", "MODEL", "Disaster Management Cycle", "Mitigation"], ["risk_eq", "MODEL", "Hazard Risk Equation", "Vulnerability"], ["profiles", "MODEL", "Hazard Profiles", "Comparison"], ["vei", "SCALE", "VEI", "Volcanic Explosivity"], ["mw", "SCALE", "Moment Magnitude (Mw)", "Energy"], ["mercalli", "SCALE", "Modifier Mercalli", "Intensity"], ["richter", "SCALE", "Richter Scale", "Magnitude"]] },
-                { name: "Case Studies", items: [["tohoku_eq", "CASE STUDY", "Tohoku Japan", "HIC Earthquake"], ["haiti", "CASE STUDY", "Haiti", "LIC Earthquake"], ["eyja", "CASE STUDY", "Eyjafjallajökull", "HIC Volcano"], ["lic_volcano", "CASE STUDY", "Unspecified LIC", "LIC Volcano"], ["indotsu", "CASE STUDY", "Indonesia", "Tsunami"], ["tohoku_tsu", "CASE STUDY", "Tohoku", "Tsunami"], ["katrina", "CASE STUDY", "Hurricane Katrina", "HIC Storm"], ["haiyan", "CASE STUDY", "Typhoon Haiyan", "LIC Storm"], ["blacksat", "CASE STUDY", "Black Saturday", "HIC Wildfire"], ["alberta", "CASE STUDY", "Alberta", "HIC Wildfire"]] }
+                { name: "Models & Scales", items:
+                [["park", "MODEL", "Park Model", "Hazard Response"],
+                ["degg", "MODEL", "Deggs Model", "Hazard Risk"],
+                ["cycle", "MODEL", "Disaster Management Cycle", "Hazard Responses"],
+                ["risk_eq", "MODEL", "Hazard Risk Equation", "Population Vulnerability"], 
+                ["profiles", "MODEL", "Hazard Profiles", "Comparing Hazards"], 
+                ["vei", "SCALE", "VEI", "Volcanic Explosivity Index"], 
+                ["mw", "SCALE", "Moment Magnitude (Mw)", "Earthquake Energy"], 
+                ["mercalli", "SCALE", "Modifier Mercalli", "Earthquake Intensity"], 
+                ["richter", "SCALE", "Richter Scale", "Earthquake Magnitude"]] },
+                { name: "Case Studies", items:
+                [["tohoku_eq", "CASE STUDY", "Tohoku Japan", "HIC Earthquake & Tsunami"], 
+                ["haiti", "CASE STUDY", "Haiti", "LIC Earthquake"],
+                 ["eyja", "CASE STUDY", "Eyjafjallajökull", "HIC Volcano"], 
+                 ["lic_volcano", "CASE STUDY", "Unspecified LIC", "LIC Volcano"], 
+                 ["indotsu", "CASE STUDY", "Indonesia", "Tsunami"],
+                  ["katrina", "CASE STUDY", "Hurricane Katrina", "HIC Storm"], 
+                  ["haiyan", "CASE STUDY", "Typhoon Haiyan / Cyclone Nargis", "LIC Storm"],
+                  ["blacksat", "CASE STUDY", "Black Saturday", "HIC Wildfire"],
+                  ["alberta", "CASE STUDY", "Alberta", "HIC Wildfire"]] }
             ]
         },
         {
@@ -205,8 +238,23 @@
             class: "topic-places",
             desc: "Place perception, representation and change.",
             sections: [
-                { name: "Data & Media", items: [["imd", "DATA", "IMD", "Big Data"], ["ny_song", "CASE STUDY", "New York (Song)", "Media Representation"], ["africa", "CASE STUDY", "Africa", "Media Representation"]] },
-                { name: "Case Studies", items: [["detroit", "CASE STUDY", "Detroit", "Far place, shifting investment"], ["plymouth", "CASE STUDY", "Plymouth", "Rebranding"], ["llandudno", "CASE STUDY", "Llandudno", "Media impacted rebranding"], ["ny_911", "CASE STUDY", "New York (9/11)", "Conflict of Opinion"], ["medellin", "CASE STUDY", "Medellin", "Agents of Change (+ve)"], ["porttalbot", "CASE STUDY", "Port Talbot", "Agents of Change (-ve)"], ["bournville", "CASE STUDY", "Bourneville", "Agents of Change (Stability)"], ["visit_brit", "CASE STUDY", "Visit Britain", "Tourist Rebranding"], ["olympics", "CASE STUDY", "London Olympics", "Rebranding"], ["poundbury", "CASE STUDY", "Poundbury", "Urban Principles"], ["stonehenge", "CASE STUDY", "Stonehenge", "Spirit of Place"], ["glastonbury", "CASE STUDY", "Glastonbury", "Spirit and Sense of Place"]] }
+                { name: "Data & Media", items: 
+                [["imd", "DATA", "IMD", "Big Data"],
+                ["ny_song", "CASE STUDY", "New York (Song)", "Media Representation"],
+                ["africa", "CASE STUDY", "Africa", "Media Representation"]] },
+                { name: "Case Studies", items:
+                [["detroit", "CASE STUDY", "Detroit", "Far place, shifting investment"],
+                ["plymouth", "CASE STUDY", "Plymouth", "Rebranding"],
+                ["llandudno", "CASE STUDY", "Llandudno", "Media impacted rebranding"],
+                ["ny_911", "CASE STUDY", "New York (9/11)", "Conflict of Opinion"],
+                ["medellin", "CASE STUDY", "Medellin", "Agents of Change"],
+                ["porttalbot", "CASE STUDY", "Port Talbot", "Agents of Change"],
+                ["bournville", "CASE STUDY", "Bourneville", "Agents of Change"],
+                ["visit_brit", "CASE STUDY", "Visit Britain", "Tourist Rebranding"],
+                ["olympics", "CASE STUDY", "London Olympics", "Rebranding"],
+                ["poundbury", "CASE STUDY", "Poundbury", "Urban Principles"],
+                ["stonehenge", "CASE STUDY", "Stonehenge", "Spirit of Place"],
+                ["glastonbury", "CASE STUDY", "Glastonbury", "Spirit and Sense of Place"]] }
             ]
         },
         {
@@ -214,8 +262,25 @@
             class: "topic-urban",
             desc: "Urban models, inequality and sustainability.",
             sections: [
-                { name: "Models", items: [["burgess", "MODEL", "Burgess Model", "Concentric"], ["hoyt", "MODEL", "Hoyt Model", "Sector"]] },
-                { name: "Case Studies", items: [["skerne", "CASE STUDY", "River Skerne", "River Management"], ["lambs", "CASE STUDY", "Lambs Drove", "SUDS"], ["vegas", "CASE STUDY", "Las Vegas", "Post Modern City"], ["shanghai", "CASE STUDY", "Shanghai China", "Economic Change"], ["coventry", "CASE STUDY", "Coventry", "Investment & Restructuring"], ["bangalore", "CASE STUDY", "Bangalore", "Technology Flows"], ["la", "CASE STUDY", "Los Angeles", "Inequality & Gated Communities"], ["mumbai", "CASE STUDY", "Mumbai", "Inequality"], ["longbridge", "CASE STUDY", "Longbridge", "Urban Regeneration"], ["beijing", "CASE STUDY", "Beijing APPCAP", "Air Pollution"], ["manilla", "CASE STUDY", "Manilla Dump", "Waste Disposal"], ["freiburg", "CASE STUDY", "Freiburg", "Sustainability"], ["amsterdam", "CASE STUDY", "Amsterdam AEB", "Incineration"], ["canary", "CASE STUDY", "Canary Wharf", "Urban Policy"], ["rio", "CASE STUDY", "Rio de Janeiro", "Pacification"]] }
+                { name: "Models", items: 
+                [["burgess", "MODEL", "Burgess Concentric Ring Model", "Urban Modelling"], 
+                ["hoyt", "MODEL", "Hoyt Sector Model", "Urban Modelling"]] },
+                { name: "Case Studies", items:
+                [["skerne", "CASE STUDY", "River Skerne", "River Management"],
+                ["lambs", "CASE STUDY", "Lambs Drove", "SUDS"],
+                ["vegas", "CASE STUDY", "Las Vegas", "Post Modern City"],
+                ["shanghai", "CASE STUDY", "Shanghai China", "Economic Change"],
+                ["coventry", "CASE STUDY", "Coventry", "Economic Change"],
+                ["bangalore", "CASE STUDY", "Bangalore / Bengaluru", "Technology Flows"],
+                ["la", "CASE STUDY", "Los Angeles", "Urban Inequality & Gated Communities"],
+                ["mumbai", "CASE STUDY", "Mumbai", "Urban Inequality"],
+                ["longbridge", "CASE STUDY", "Longbridge", "Urban Regeneration"],
+                ["beijing", "CASE STUDY", "Beijing APPCAP", "Urban Air Pollution & Management"],
+                ["manilla", "CASE STUDY", "Manilla Dump", "Waste Management"],
+                ["freiburg", "CASE STUDY", "Freiburg", "Sustainability"],
+                ["amsterdam", "CASE STUDY", "Amsterdam AEB", "Waste Management"],
+                ["canary", "CASE STUDY", "Canary Wharf", "Urban Policy"],
+                ["rio", "CASE STUDY", "Rio de Janeiro", "Urban Inequality, Pacification"]] }
             ]
         },
         {
@@ -223,8 +288,24 @@
             class: "topic-global",
             desc: "Globalisation, trade and inequality.",
             sections: [
-                { name: "Global Systems", items: [["kof", "INDEX", "KOF Index", "Measuring inequality"], ["swiss", "CASE STUDY", "Switzerland", "Measuring inequality"], ["eritrea", "CASE STUDY", "Eritrea", "Measuring inequality"], ["container", "CASE STUDY", "Containerisation", "Shrinking World"], ["silk", "CASE STUDY", "Silk Road", "Flow of Product"], ["cocoa", "CASE STUDY", "Cocoa", "Production/Consumption"], ["blocs", "TRADING", "BRICS, EU, MINT, NAFTA", "Trading Blocs"]] },
-                { name: "Case Studies", items: [["apple", "CASE STUDY", "Apple & Foxconn", "TNC & Spatial Org"], ["coke", "CASE STUDY", "Coca Cola", "Global Product"], ["banana", "CASE STUDY", "Banana", "Commodity"], ["fairtrade", "CASE STUDY", "Fair Trade", "Reducing inequality"], ["wto_imf", "CASE STUDY", "WTO, IMF, World Bank", "Global Trade"], ["un", "CASE STUDY", "United Nations", "Global Commons"], ["antarctica", "CASE STUDY", "Antarctica", "Global Commons"], ["agreements", "AGREEMENT", "IWC, Montreal, Antarctic", "International Agreements"], ["greenpeace", "NGO", "Greenpeace", "NGO on Global Commons"]] }
+                { name: "Global Systems", items:
+                [["kof", "INDEX", "KOF Index", "Measuring inequality"]] }, 
+                { name: "Case Studies", items: 
+                [["apple", "CASE STUDY", "Apple & Foxconn", "TNC & Spatial Org"], 
+                ["swiss", "CASE STUDY", "Switzerland", "Measuring inequality"],
+                ["eritrea", "CASE STUDY", "Eritrea", "Measuring inequality"],
+                ["container", "CASE STUDY", "Containerisation", "Shrinking World"],
+                ["silk", "CASE STUDY", "Silk Road", "Flow of Product"],
+                ["cocoa", "CASE STUDY", "Cocoa", "Production/Consumption"],
+                ["blocs", "TRADING", "BRICS, EU, MINT, NAFTA", "Trading Blocs"],
+                ["coke", "CASE STUDY", "Coca Cola", "Global Product"], 
+                ["banana", "CASE STUDY", "Banana", "Commodity"], 
+                ["fairtrade", "CASE STUDY", "Fair Trade", "Reducing inequality"], 
+                ["wto_imf", "CASE STUDY", "WTO, IMF, World Bank", "Global Trade"], 
+                ["un", "CASE STUDY", "United Nations", "Global Commons"], 
+                ["antarctica", "CASE STUDY", "Antarctica", "Global Commons"], 
+                ["agreements", "CASE STUDY", "IWC, Montreal, Antarctic", "International Agreements"], 
+                ["greenpeace", "CASE STUDY", "Greenpeace", "NGO on Global Commons"]] }
             ]
         }
     ];
