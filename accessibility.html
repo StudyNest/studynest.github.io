@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Statement | StudyNest</title>
+    <meta name="description" content="Accessibility statement for StudyNest. We are committed to making our revision resources accessible to all students.">
+    
+    <link rel="icon" type="image/x-icon" href="assets/Main%20Favicon.ico">
+    <link rel="stylesheet" href="CSS/style.css">
+
+    <style>
+        .access-content { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+        .access-content h1 { font-size: 2.5rem; margin-bottom: 20px; color: var(--text-primary); }
+        .access-content h2 { font-size: 1.5rem; margin-top: 30px; margin-bottom: 15px; color: var(--accent-color); }
+        .access-content p { line-height: 1.7; color: var(--text-secondary); margin-bottom: 15px; }
+        .access-content ul { padding-left: 20px; color: var(--text-secondary); margin-bottom: 20px; }
+        .access-content li { margin-bottom: 10px; }
+        .contact-box { background: var(--bg-card); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); margin-top: 30px; }
+    </style>
+
+    <!-- GOOGLE CONSENT MODE -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', { 'ad_storage': 'denied', 'analytics_storage': 'denied' });
+        if (localStorage.getItem('cookieConsent') === 'granted') {
+            gtag('consent', 'update', { 'ad_storage': 'granted', 'analytics_storage': 'granted' });
+        }
+    </script>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" class="logo">StudyNest</a>
+        <nav class="nav-menu" id="nav-menu">
+            <a href="index.html">Home</a>
+            <a href="pages/APR.html">Past Papers</a>
+            <a href="pages/syllabus/syllabus.html">Resources</a>
+            <a href="pages/settings.html" id="nav-settings" style="display: none;">Settings</a>
+            <a href="pages/login.html" class="auth-link">Login</a>
+        </nav>
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </div>
+</header>
+
+<main class="access-content">
+    <h1>Accessibility Statement</h1>
+    <p>This accessibility statement applies to the <strong>StudyNest</strong> website.</p>
+    
+    <p>We want as many people as possible to be able to use this website. For example, that means you should be able to:</p>
+    <ul>
+        <li>Zoom in up to 300% without the text spilling off the screen.</li>
+        <li>Navigate most of the website using just a keyboard.</li>
+        <li>Listen to most of the website using a screen reader.</li>
+    </ul>
+
+    <h2>Compliance Status</h2>
+    <p>This website is <strong>partially compliant</strong> with the Web Content Accessibility Guidelines version 2.2 AA standard.</p>
+
+    <h2>Non-accessible Content</h2>
+    <p>We know some parts of this website are not fully accessible:</p>
+    <ul>
+        <li>Some PDF past papers are scans and may not be readable by screen reader software.</li>
+        <li>The RAG (Red/Amber/Green) tracker relies on color to convey meaning. We are working on adding text labels to these buttons.</li>
+    </ul>
+
+    <h2>Feedback and Contact Information</h2>
+    <div class="contact-box">
+        <p>If you need information on this website in a different format like accessible PDF, large print, or easy read, or if you find any problems not listed on this page, please contact us:</p>
+        <p><strong>Email:</strong> <a href="mailto:support@studynest.com" style="color: var(--accent-color);">support@studynest.com</a></p>
+        <p>We will consider your request and get back to you within 7 days.</p>
+    </div>
+
+    <h2>Enforcement Procedure</h2>
+    <p>The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018. If you are not happy with how we respond to your complaint, contact the <a href="https://www.equalityadvisoryservice.com/" target="_blank" style="color: var(--accent-color);">Equality Advisory and Support Service (EASS)</a>.</p>
+
+    <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.7;">This statement was prepared on <strong>8 March 2026</strong>.</p>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
+            </div>
+            <div class="footer-col">
+                <h4>StudyNest</h4>
+                <a href="about.html">About Us</a>
+                <a href="pages/APR.html">Past Papers</a>
+                <a href="pages/syllabus/syllabus.html">Syllabus Tracker</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support & Legal</h4>
+                <a href="contact.html">Contact Support</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms of Service</a>
+                <a href="accessibility.html">Accessibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 StudyNest. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- AUTH & NAV SCRIPT -->
+<script type="module">
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
+    
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    const auth = getAuth(app);
+
+    // Mobile Menu
+    const mobileBtn = document.querySelector('.mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if(mobileBtn) mobileBtn.addEventListener('click', () => { navMenu.classList.toggle('active'); document.body.classList.toggle('menu-open'); });
+
+    // Auth State
+    onAuthStateChanged(auth, (user) => {
+        const loginLinks = document.querySelectorAll('.auth-link');
+        const settingsLink = document.getElementById('nav-settings');
+        if (user) {
+            if(settingsLink) settingsLink.style.display = 'block';
+            loginLinks.forEach(link => {
+                link.textContent = 'Logout'; link.href = '#'; link.style.color = '#ef4444';
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.reload(); };
+            });
+        } else {
+            if(settingsLink) settingsLink.style.display = 'none';
+            loginLinks.forEach(link => {
+                link.textContent = 'Login'; link.href = 'pages/login.html'; link.style.color = ''; link.onclick = null;
+            });
+        }
+    });
+</script>
+</body>
+</html>

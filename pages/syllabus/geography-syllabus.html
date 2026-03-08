@@ -82,6 +82,21 @@
         .btn-green { background: #10b981 }
 
         @media(max-width:768px) { .sub-item { flex-direction: column; align-items: flex-start; gap: 12px; } .text-stack { max-width: 100%; } }
+
+        /* Report Button Style */
+.report-link {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 10px;
+    opacity: 0.6;
+    transition: 0.2s;
+}
+.report-link:hover {
+    color: #ef4444; /* Red color on hover */
+    opacity: 1;
+}
     </style>
 
 
@@ -159,7 +174,22 @@
 </head>
 
 <body>
-
+<script>
+    const searchInput = document.getElementById('search-syllabus');
+searchInput.addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.sub-item').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        // Show/Hide based on match
+        item.style.display = text.includes(term) ? 'flex' : 'none';
+        
+        // Optional: Automatically open the accordion if a match is found inside
+        if(text.includes(term)) {
+            item.closest('.topic-group').classList.add('open');
+        }
+    });
+});
+</script>
 <header class="site-header">
     <div class="container header-inner">
         <a href="/index.html" class="logo">StudyNest</a>
@@ -208,6 +238,7 @@
 
         <div id="contentContainer" class="topic-list"></div>
     </div>
+
 </main>
 
 <footer class="site-footer">
@@ -229,6 +260,7 @@
                 <a href="../../privacy.html">Privacy Policy</a>
                 <a href="../../terms.html">Terms of Service</a>
                 <a href="../../cookies.html">Cookie Policy</a>
+                <a href="../../accessibility.html">Accessibility</a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -415,6 +447,7 @@
                 });
             });
 
+            
             const block = document.createElement("div");
             block.className = `topic-group ${topic.class}`;
             block.innerHTML = `
