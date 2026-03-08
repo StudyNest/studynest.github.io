@@ -1,28 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Root Pages -->
   <url>
     <loc>https://studynest.github.io/</loc>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://studynest.github.io/index.html</loc>
+    <loc>https://studynest.github.io/about.html</loc>
+    <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://studynest.github.io/contact.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/privacy.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/terms.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/accessibility.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/cookies.html</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <!-- Pages Folder -->
   <url>
     <loc>https://studynest.github.io/pages/APR.html</loc>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://studynest.github.io/pages/syllabus/syllabus.html</loc>
+    <loc>https://studynest.github.io/pages/boundaries.html</loc>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
-    <loc>https://studynest.github.io/pages/syllabus/geography-syllabus.html</loc>
+    <loc>https://studynest.github.io/pages/geocoursework.html</loc>
+    <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://studynest.github.io/pages/login.html</loc>
+    <changefreq>never</changefreq>
   </url>
   <url>
-    <loc>https://studynest.github.io/pages/404.html</loc>
+    <loc>https://studynest.github.io/pages/settings.html</loc>
+    <changefreq>never</changefreq>
   </url>
-    <url>
-    <loc>https://studynest.github.io/pages/geocoursework.html</loc>
-  </url>
-</urlset>
 
+  <!-- Syllabus Folder -->
+  <url>
+    <loc>https://studynest.github.io/pages/syllabus/syllabus.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/pages/syllabus/geography-syllabus.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+
+</urlset>
