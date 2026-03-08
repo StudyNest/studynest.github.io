@@ -728,58 +728,6 @@
     "insertUrl": null
   },
   {
-    "id": 61,
-    "examBoard": "AQA",
-    "qualification": "AS-Level",
-    "subject": "Geography",
-    "year": 2019,
-    "session": "June 2019",
-    "paperTitle": "Paper 1",
-    "paperUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/1/19-jun/qp.PDF",
-    "markSchemeUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/1/19-jun/ms.PDF",
-    "examinerReportUrl": null,
-    "insertUrl": null
-  },
-  {
-    "id": 62,
-    "examBoard": "AQA",
-    "qualification": "AS-Level",
-    "subject": "Geography",
-    "year": 2019,
-    "session": "June 2019",
-    "paperTitle": "Paper 2",
-    "paperUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/2/19-jun/qp.PDF",
-    "markSchemeUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/2/19-jun/ms.PDF",
-    "examinerReportUrl": null,
-    "insertUrl": null
-  },
-  {
-    "id": 63,
-    "examBoard": "AQA",
-    "qualification": "AS-Level",
-    "subject": "Geography",
-    "year": 2018,
-    "session": "June 2018",
-    "paperTitle": "Paper 1",
-    "paperUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/1/18-jun/qp.PDF",
-    "markSchemeUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/1/18-jun/ms.PDF",
-    "examinerReportUrl": null,
-    "insertUrl": null
-  },
-  {
-    "id": 64,
-    "examBoard": "AQA",
-    "qualification": "AS-Level",
-    "subject": "Geography",
-    "year": 2018,
-    "session": "June 2018",
-    "paperTitle": "Paper 2",
-    "paperUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/2/18-jun/qp.PDF",
-    "markSchemeUrl": "https://examoo.s3.eu-west-2.amazonaws.com/papers/uk/as/geography/aqa/2/18-jun/ms.PDF",
-    "examinerReportUrl": null,
-    "insertUrl": null
-  },
-  {
     "id": 65,
     "examBoard": "AQA",
     "qualification": "A-Level",

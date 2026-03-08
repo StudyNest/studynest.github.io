@@ -1,0 +1,14 @@
+{
+  "name": "StudyNest",
+  "short_name": "StudyNest",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/Main%20Favicon.ico",
+      "sizes": "192x192",
+      "type": "image/x-icon"
+    }
+  ]
+}
