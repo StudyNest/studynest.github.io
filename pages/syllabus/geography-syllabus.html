@@ -174,22 +174,6 @@
 </head>
 
 <body>
-<script>
-    const searchInput = document.getElementById('search-syllabus');
-searchInput.addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    document.querySelectorAll('.sub-item').forEach(item => {
-        const text = item.innerText.toLowerCase();
-        // Show/Hide based on match
-        item.style.display = text.includes(term) ? 'flex' : 'none';
-        
-        // Optional: Automatically open the accordion if a match is found inside
-        if(text.includes(term)) {
-            item.closest('.topic-group').classList.add('open');
-        }
-    });
-});
-</script>
 <header class="site-header">
     <div class="container header-inner">
         <a href="/index.html" class="logo">StudyNest</a>
@@ -466,7 +450,7 @@ searchInput.addEventListener('input', (e) => {
             document.querySelectorAll(".rag-btn").forEach(btn => btn.disabled = true);
         }
     }
-
+  
     // --- COMBINED AUTH STATE LISTENER ---
     onAuthStateChanged(auth, async (user) => {
         currentUser = user;
@@ -502,9 +486,9 @@ searchInput.addEventListener('input', (e) => {
                 link.onclick = null;
             });
         }
-        
-        // Render the page based on the loaded data/auth state
+            // Render the page based on the loaded data/auth state
         render();
+  
     });
 </script>
 
