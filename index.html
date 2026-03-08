@@ -50,21 +50,6 @@
         });
     }
 </script>
-
-<!-- 2. YOUR COOKIE BANNER HTML (Put this right after <body> starts) -->
-<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0D0D0D; padding: 20px; border-top: 1px solid #374151; z-index: 10000; box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);">
-    <div class="container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
-        <p style="color: #e5e7eb; margin: 0; font-size: 0.95rem; line-height: 1.5;">
-            We use cookies to track usage statistics and improve your experience. 
-            <a href="/privacy.html" style="color: #3b82f6; text-decoration: underline;">Read Privacy Policy</a>.
-        </p>
-        <div style="display: flex; gap: 10px;">
-            <button id="btn-reject" style="padding: 8px 16px; background: transparent; border: 1px solid #4b5563; color: #9ca3af; border-radius: 6px; cursor: pointer; font-weight: 500;">Reject All</button>
-            <button id="btn-accept" style="padding: 8px 16px; background: #3b82f6; border: none; color: #0f172a; border-radius: 6px; cursor: pointer; font-weight: 600;">Accept All</button>
-        </div>
-    </div>
-</div>
-
 <!-- 3. COOKIE BANNER LOGIC -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -96,10 +81,25 @@
         });
     });
 </script>
+
+
+
 </head>
 
 <body>
-
+<!-- 2. YOUR COOKIE BANNER HTML (Put this right after <body> starts) -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0D0D0D; padding: 20px; border-top: 1px solid #374151; z-index: 10000; box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <div class="container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
+        <p style="color: #e5e7eb; margin: 0; font-size: 0.95rem; line-height: 1.5;">
+            We use cookies to track usage statistics and improve your experience. 
+            <a href="/privacy.html" style="color: #3b82f6; text-decoration: underline;">Read Privacy Policy</a>.
+        </p>
+        <div style="display: flex; gap: 10px;">
+            <button id="btn-reject" style="padding: 8px 16px; background: transparent; border: 1px solid #4b5563; color: #9ca3af; border-radius: 6px; cursor: pointer; font-weight: 500;">Reject All</button>
+            <button id="btn-accept" style="padding: 8px 16px; background: #3b82f6; border: none; color: #0f172a; border-radius: 6px; cursor: pointer; font-weight: 600;">Accept All</button>
+        </div>
+    </div>
+</div>
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
