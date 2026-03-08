@@ -396,18 +396,56 @@
         document.getElementById('authModal').classList.remove('active');
     };
 
-    window.ragClick = function(id, status) {
-        if (!currentUser) {
-            document.getElementById('authModal').classList.add('active');
-            return;
-        }
+// 1. Add this variable ABOVE the ragClick function to track the cooldown
+let isSaving = false;
 
-        userData[id] = status;
-        const row = document.querySelector(`[data-id="${id}"]`);
-        if (row) row.dataset.status = status;
-        const ref = doc(db, "users", currentUser.uid);
-        setDoc(ref, { geoProgress: { [id]: status } }, { merge: true });
-    };
+// 2. Replace your old ragClick function with this:
+window.ragClick = async function(id, status) {
+    // Auth Check
+    if (!currentUser) {
+        document.getElementById('authModal').classList.add('active');
+        return;
+    }
+
+    // SAFETY 1: Redundancy Check
+    // If the topic is already 'green' and they click 'green', do nothing.
+    // This is the #1 way to save your Firestore Write quota.
+    if (userData[id] === status) {
+        return; 
+    }
+
+    // SAFETY 2: Cooldown (Throttle)
+    // Prevents spam/autoclickers from burning your quota.
+    if (isSaving) {
+        console.warn("Saving too fast! Please wait a second.");
+        return;
+    }
+
+    // Start Save Process
+    isSaving = true;
+
+    // Update Local UI immediately (Optimistic Update)
+    userData[id] = status;
+    const row = document.querySelector(`[data-id="${id}"]`);
+    if (row) row.dataset.status = status;
+
+    const ref = doc(db, "users", currentUser.uid);
+
+    try {
+        // Update ONLY the specific topic using dot notation
+        // This ensures other topics in the list aren't touched
+        await setDoc(ref, { 
+            [`geoProgress.${id}`]: status 
+        }, { merge: true });
+
+        console.log(`Saved: ${id} is now ${status}`);
+    } catch (e) {
+        console.error("Error saving to Firebase:", e);
+    } finally {
+        // Release the lock after 1 second
+        setTimeout(() => { isSaving = false; }, 1000);
+    }
+};
 
     function render() {
         container.innerHTML = "";
