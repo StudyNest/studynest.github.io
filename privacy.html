@@ -15,6 +15,79 @@
         .policy-content li { margin-bottom: 8px; }
         .last-updated { font-size: 0.9rem; color: var(--text-tertiary); margin-bottom: 40px; }
     </style>
+
+        <!-- 1. GOOGLE CONSENT MODE SETUP (MUST BE FIRST IN HEAD) -->
+<script>
+    // Define dataLayer and the gtag function.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+
+    // 1. Set default consent to 'denied' as a placeholder
+    // This prevents cookies from being set until the user agrees
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'ad_user_data': 'denied',
+      'ad_personalization': 'denied',
+      'analytics_storage': 'denied'
+    });
+
+    // 2. Check if user has already saved a preference
+    const savedConsent = localStorage.getItem('cookieConsent');
+    if (savedConsent === 'granted') {
+        gtag('consent', 'update', {
+            'ad_storage': 'granted',
+            'ad_user_data': 'granted',
+            'ad_personalization': 'granted',
+            'analytics_storage': 'granted'
+        });
+    }
+</script>
+
+<!-- 2. YOUR COOKIE BANNER HTML (Put this right after <body> starts) -->
+<div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; background: #0D0D0D; padding: 20px; border-top: 1px solid #374151; z-index: 10000; box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);">
+    <div class="container" style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center; justify-content: space-between; max-width: 1200px; margin: 0 auto;">
+        <p style="color: #e5e7eb; margin: 0; font-size: 0.95rem; line-height: 1.5;">
+            We use cookies to track usage statistics and improve your experience. 
+            <a href="/privacy.html" style="color: #3b82f6; text-decoration: underline;">Read Privacy Policy</a>.
+        </p>
+        <div style="display: flex; gap: 10px;">
+            <button id="btn-reject" style="padding: 8px 16px; background: transparent; border: 1px solid #4b5563; color: #9ca3af; border-radius: 6px; cursor: pointer; font-weight: 500;">Reject All</button>
+            <button id="btn-accept" style="padding: 8px 16px; background: #3b82f6; border: none; color: #0f172a; border-radius: 6px; cursor: pointer; font-weight: 600;">Accept All</button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. COOKIE BANNER LOGIC -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('cookie-banner');
+        
+        // Show banner if no choice is saved yet
+        if (!localStorage.getItem('cookieConsent')) {
+            banner.style.display = 'block';
+        }
+
+        document.getElementById('btn-accept').addEventListener('click', () => {
+            // Update Google Consent Mode to 'granted'
+            gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+            
+            // Save choice and hide banner
+            localStorage.setItem('cookieConsent', 'granted');
+            banner.style.display = 'none';
+        });
+
+        document.getElementById('btn-reject').addEventListener('click', () => {
+            // Keep consent denied, just save that they made a choice
+            localStorage.setItem('cookieConsent', 'denied');
+            banner.style.display = 'none';
+        });
+    });
+</script>
 </head>
 <body>
 <header class="site-header">
