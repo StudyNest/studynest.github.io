@@ -231,14 +231,29 @@
         el.parentElement.classList.toggle("open");
     }
 
+// Update this function
     function ragClick(id, status) {
-        if (!currentUser) return;
+        if (!currentUser) {
+            // Show custom modal instead of confirm()
+            document.getElementById('authModal').classList.add('active');
+            return;
+        }
+
         userData[id] = status;
         const row = document.querySelector(`[data-id="${id}"]`);
         if (row) row.dataset.status = status;
         const ref = doc(db, "users", currentUser.uid);
         setDoc(ref, { geoProgress: { [id]: status } }, { merge: true });
     }
+
+    // Add this function
+    function closeAuthModal() {
+        document.getElementById('authModal').classList.remove('active');
+    }
+
+    // Make sure to expose the close function to the window
+    window.closeAuthModal = closeAuthModal;
+    window.ragClick = ragClick;
 
     function render() {
         container.innerHTML = "";
@@ -278,10 +293,24 @@
             container.appendChild(block);
         });
 
+
+            const block = document.createElement("div");
+            block.className = `topic-group ${topic.class}`;
+            block.innerHTML = `
+            <div class="topic-header" onclick="toggleAccordion(this)">
+                <div>
+                    <h3>${topic.title}</h3>
+                    <p>${topic.desc}</p>
+                </div>
+            </div>
+            <div class="topic-body">${sectionHTML}</div>`;
+            container.appendChild(block);
+        };
+
         if (!currentUser) {
             document.querySelectorAll(".rag-btn").forEach(btn => btn.disabled = true);
         }
-    }
+    
 
     onAuthStateChanged(auth, async user => {
         currentUser = user;
@@ -296,6 +325,19 @@
     window.ragClick = ragClick;
 </script>
 <script type="module" src="../../JS/auth.js"></script>
-
+<!-- Custom Auth Modal -->
+<div id="authModal" class="modal-overlay">
+    <div class="modal-card">
+        <div class="modal-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <h3>Sign In Required</h3>
+        <p>You need an account to track your progress and save your RAG confidence levels across sessions.</p>
+        <div class="modal-actions">
+            <button class="modal-btn btn-secondary" onclick="closeAuthModal()">Cancel</button>
+            <a href="../login.html" class="modal-btn btn-primary">Sign In</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
