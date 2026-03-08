@@ -3,47 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Technique | StudyNest</title>
-    <meta name="description" content="AQA Geography command words and exam technique guide.">
+    <title>Useful Tools | StudyNest</title>
+    <meta name="description" content="A collection of the best external tools and websites for A-Level and BTEC revision.">
     
     <!-- Standard CSS Links -->
     <link rel="icon" type="image/x-icon" href="../assets/Main%20Favicon.ico">
     <link rel="stylesheet" href="../CSS/style.css">
 
     <style>
-        /* Simple List Style for Command Words */
-        .exam-board-section {
-            margin-bottom: 40px;
+        /* Tile Grid Layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
         }
-        .board-title {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 800;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-        .command-item {
+
+        /* Individual Tool Tile */
+        .tool-tile {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            padding: 20px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            padding: 25px;
+            border-radius: 12px;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        .command-word {
-            font-size: 1.1rem;
-            font-weight: 700;
+
+        .tool-tile:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            background: var(--bg-card-hover);
+        }
+
+        .tool-tile h3 {
+            font-size: 1.25rem;
             color: var(--text-primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-        .command-desc {
-            font-size: 0.95rem;
+
+        .tool-tile p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* External Link Icon */
+        .external-icon {
+            color: var(--accent-color);
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .tool-tile:hover .external-icon {
+            opacity: 1;
+        }
+
+        .tool-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--accent-color);
+            background: rgba(98, 218, 240, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        @media (max-width: 600px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+                /* --- THE IMAGE SOLUTION --- */
+        .tool-logo {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tool-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .tool-tile h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-tile p {
+            font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.5;
+            margin-bottom: 20px;
+            flex-grow: 1; /* Pushes the tag to the bottom */
+        }
+
+        .tool-tag {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            color: var(--accent-color);
+            background: rgba(98, 218, 240, 0.1);
+            padding: 4px 10px;
+            border-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .external-icon {
+            opacity: 0.4;
         }
     </style>
 
@@ -91,40 +183,45 @@
 <!-- STANDARD HERO -->
 <section class="hero">
     <div class="container">
-        <h1>Command Words</h1>
-        <p>Definitions and requirements for exam success.</p>
+        <h1>Useful Tools</h1>
+        <p>A curated list of external resources to boost your revision productivity.</p>
     </div>
 </section>
 
-<!-- MAIN CONTENT -->
 <main class="main-content">
     <div class="container">
-        
-        <!-- EXAM BOARD: AQA GEOGRAPHY -->
-        <div class="exam-board-section">
-            <div class="board-title">AQA Geography (A-Level)</div>
+        <div class="tools-grid">
             
-            <div class="command-item">
-                <span class="command-word">Assess (9 or 20 Marks)</span>
-                <span class="command-desc">Weigh up the importance of different factors or arguments and come to a conclusion about which is the most significant.</span>
-            </div>
+          <!-- AQA TIMETABLE 2026 -->
+            <a href="https://cdn.sanity.io/files/p28bar15/green/257b60f8ef35628cc00883e943924e44dbb88915.pdf" target="_blank" class="tool-tile">
+                <div class="tool-logo">
+                    <img src="https://logo.clearbit.com/aqa.org.uk" onerror="this.src='https://www.google.com/s2/favicons?sz=128&domain=aqa.org.uk'" alt="AQA Logo">
+                </div>
+                <h3>AQA Timetable 2026 <svg class="external-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></h3>
+                <p>Official examination dates and session times for all AQA A-Level and GCSE subjects for the Summer 2026 series.</p>
+                <span class="tool-tag">Summer 2026</span>
+            </a>
 
-            <div class="command-item">
-                <span class="command-word">Evaluate (20 Marks)</span>
-                <span class="command-desc">Judge the success, validity, or usefulness of a statement, model, or strategy. Does it work in reality?</span>
-            </div>
+            <!-- OCR TIMETABLE 2026 -->
+            <a href="https://www.ocr.org.uk/Images/729358-june-2026-provisional-exam-timetable-as-a-level-core-maths-and-fsmq.pdf" target="_blank" class="tool-tile">
+                <div class="tool-logo">
+                    <img src="https://logo.clearbit.com/ocr.org.uk" onerror="this.src='https://www.google.com/s2/favicons?sz=128&domain=ocr.org.uk'" alt="OCR Logo">
+                </div>
+                <h3>OCR Timetable 2026 <svg class="external-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></h3>
+                <p>Complete examination schedule for OCR AS, A-Level, and Core Maths qualifications for the June 2026 series.</p>
+                <span class="tool-tag">Summer 2026</span>
+            </a>
 
-            <div class="command-item">
-                <span class="command-word">To what extent (20 Marks)</span>
-                <span class="command-desc">Form a judgement on how true a statement is. You can agree completely, disagree completely, or agree partially.</span>
-            </div>
-
-            <div class="command-item">
-                <span class="command-word">Analyze (6 Marks)</span>
-                <span class="command-desc">Break down the data or resource to find connections, patterns, and relationships.</span>
-            </div>
+            <!-- EDEXCEL TIMETABLE 2026 -->
+            <a href="https://qualifications.pearson.com/content/dam/pdf/Support/Examination-timetables/gce-summer-2026-final.pdf" target="_blank" class="tool-tile">
+                <div class="tool-logo">
+                    <img src="https://logo.clearbit.com/pearson.com" onerror="this.src='https://www.google.com/s2/favicons?sz=128&domain=pearson.com'" alt="Edexcel Logo">
+                </div>
+                <h3>Edexcel Timetable 2026 <svg class="external-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></h3>
+                <p>Finalized GCE A-Level examination dates for Pearson Edexcel, including all morning and afternoon session splits.</p>
+                <span class="tool-tag">Summer 2026</span>
+            </a>
         </div>
-
     </div>
 </main>
 
@@ -156,10 +253,9 @@
     </div>
 </footer>
 
-<!-- STANDARD SCRIPTS (Cookie + Mobile Menu + Auth) -->
+<!-- STANDARD SCRIPTS -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Cookie Logic
         const banner = document.getElementById('cookie-banner');
         if (!localStorage.getItem('cookieConsent')) banner.style.display = 'block';
         const acceptBtn = document.getElementById('btn-accept');
@@ -167,7 +263,6 @@
         if(acceptBtn) acceptBtn.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'granted'); banner.style.display = 'none'; });
         if(rejectBtn) rejectBtn.addEventListener('click', () => { localStorage.setItem('cookieConsent', 'denied'); banner.style.display = 'none'; });
 
-        // Mobile Menu Logic
         const mobileBtn = document.querySelector('.mobile-toggle');
         const navMenu = document.getElementById('nav-menu');
         if(mobileBtn && navMenu) {
