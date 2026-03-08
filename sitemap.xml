@@ -52,7 +52,15 @@
     <loc>https://studynest.github.io/pages/settings.html</loc>
     <changefreq>never</changefreq>
   </url>
-
+  <url>
+    <loc>https://studynest.github.io/pages/resources.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://studynest.github.io/pages/timetable.html</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  
   <!-- Syllabus Folder -->
   <url>
     <loc>https://studynest.github.io/pages/syllabus/syllabus.html</loc>
