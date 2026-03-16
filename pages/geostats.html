@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geography Statistics Guide | StudyNest</title>
+    <meta name="description" content="A Level Geography statistical skills reference. Covers central tendency, dispersion, and statistical tests.">
+    <meta property="og:title" content="Geography Statistics | StudyNest">
+    <meta property="og:type" content="website">
+
+    <!-- Paths adjusted for being inside the /pages/ folder -->
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../CSS/style.css">
+
+ <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('consent', 'default', {
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'analytics_storage': 'denied',
+    'wait_for_update': 500 
+  });
+</script>
+
+<script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0aecc39183ab4a8174ed394a04070e78.js"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MG1L4V5H6F"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-MG1L4V5H6F');
+</script>
+
+
+    <style>
+.card-icon {
+    color: var(--accent-color);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.card-icon svg {
+    width: 32px;
+    height: 32px;
+    opacity: 0.9;
+    /* No transform or transition here keeps them still */
+}
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container header-inner">
+        <!-- Logo goes up 2 levels -->
+        <a href="../../index.html" class="logo">StudyNest</a>
+
+        <!-- Fixed Navigation Links -->
+        <nav class="nav-menu" id="nav-menu">
+            <a href="../../index.html">Home</a>
+            <a href="APR.html">Past Papers</a>
+            <a href="syllabus/syllabus.html" class="active">Resources</a>
+            <!-- Settings Link (Hidden by default) -->
+            <a href="settings.html" id="nav-settings" style="display: none;">Settings</a>
+            <a href="login.html" class="auth-link">Login</a>
+        </nav>
+
+        <button class="mobile-toggle" aria-label="Toggle Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1>Geography Statistical Skills</h1>
+        <p>A comprehensive guide to the core statistical tests and measures required for A Level Geography and NEA coursework.</p>
+    </div>
+</section>
+
+<main class="main-content">
+    <div class="container">
+        
+        <div class="section-label">Measures of Central Tendency</div>
+
+        <!-- MEAN -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <h2>Mean</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To find the mathematical average of a continuous dataset (e.g., average river depth, mean annual temperature, average pebble size).
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>Uses every single value in the dataset, making it mathematically precise.</li>
+                        <li>It is required as a baseline calculation for higher-level statistics, like Standard Deviation.</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Highly skewed and distorted by extreme anomalies (e.g., one massive pebble makes the whole sample seem larger).</li>
+                        <li>Can result in impossible geographical decimals (e.g., 2.4 pedestrians).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MEDIAN -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+                <h2>Median</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To find the exact middle value of an ordered dataset. Highly useful when your geographical data is heavily skewed (e.g., income levels in a ward).
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>Completely unaffected by extreme outliers or anomalies in the data.</li>
+                        <li>Gives a much more realistic "typical" value if the data is heavily skewed to one side.</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Ignores the actual values of most data points (only cares about their rank/order).</li>
+                        <li>Can be slow and tedious to calculate manually for very large datasets because data must be ordered first.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODE -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                <h2>Mode</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To identify the most frequently occurring value or category. Perfect for nominal (categoric) data, like the most common rock type on a beach or predominant land use.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>The only measure of central tendency that can be used for categoric (worded) data.</li>
+                        <li>Completely unaffected by extreme anomalies.</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Does not use all of the data.</li>
+                        <li>There might not be a mode (if all values are unique), or there could be multiple modes (bimodal), making it confusing to interpret.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 40px;">Measures of Dispersion</div>
+
+        <!-- RANGE -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <h2>Range</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To find the total spread of your dataset from the lowest recorded value to the highest.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>Incredibly quick and easy to calculate.</li>
+                        <li>Gives an immediate, simple understanding of the total width/spread of the geographical data.</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Extremely sensitive to anomalies (it only uses the two most extreme values in the entire dataset).</li>
+                        <li>Tells you absolutely nothing about how the data is distributed between the highest and lowest values.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- IQR -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><line x1="4" y1="12" x2="20" y2="12"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                <h2>Interquartile Range (IQR)</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To measure the spread of the middle 50% of your data. Often visualized using box plots (e.g., comparing the core spread of environmental quality scores across two streets).
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>Eliminates the impact of extreme upper and lower outliers.</li>
+                        <li>Excellent for comparing the main "bulk" of two different datasets to see where the majority of data lies.</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Ignores exactly half of your data (the top 25% and bottom 25%).</li>
+                        <li>More complex and time-consuming to calculate manually compared to the simple range.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- STANDARD DEVIATION -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <h2>Standard Deviation</h2>
+            </div>
+            <div class="stat-uses">
+                <strong>When to use:</strong> To measure the average distance of all data points from the mean. A small SD means data is tightly clustered (reliable mean), a large SD means data is spread out.
+            </div>
+            <div class="stat-grid">
+                <div class="stat-box positives">
+                    <h4>Positives</h4>
+                    <ul>
+                        <li>Uses every single piece of data in the set, making it highly robust.</li>
+                        <li>Excellent for proving the reliability of the mean.</li>
+                        <li>Allows for normal distribution analysis (e.g., 68% of data falls within 1 standard deviation).</li>
+                    </ul>
+                </div>
+                <div class="stat-box negatives">
+                    <h4>Negatives</h4>
+                    <ul>
+                        <li>Requires a complex, multi-step calculation that is very easy to mess up manually.</li>
+                        <li>Because it squares the differences from the mean, extreme outliers can still heavily distort the final result.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-label" style="margin-top: 40px;">Statistical Tests of Significance</div>
+
+        <!-- SPEARMAN'S RANK -->
+        <div class="stat-card">
+            <div class="stat-header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><ci
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>StudyNest</h3>
+                <p>Your central repository for A Level and BTEC revision materials.</p>
+            </div>
+            <div class="footer-col">
+                <h4>StudyNest</h4>
+                <a href="../../about.html">About Us</a>
+                <a href="../APR.html">Past Papers</a>
+                <a href="syllabus.html">Resources</a>
+            </div>
+            <div class="footer-col">
+                <h4>Support & Legal</h4>
+                <a href="../../contact.html">Contact Support</a>
+                <a href="../../privacy.html">Privacy Policy</a>
+                <a href="../../terms.html">Terms of Service</a>
+                <a href="../../cookies.html">Cookie Policy</a>
+                <a href="../../accessibility.html">Accessibility</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p style="margin-top: 10px; opacity: 0.6; font-size: 0.75rem;">
+                StudyNest is an independent educational resource. We are not affiliated with, endorsed by, or associated with AQA, OCR, or Pearson Edexcel. All exam materials remain the intellectual property of their respective awarding bodies.
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- 3. COOKIE BANNER SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const banner = document.getElementById('cookie-banner');
+        
+        // Show banner if no choice is saved yet
+        if (!localStorage.getItem('cookieConsent')) {
+            banner.style.display = 'block';
+        }
+
+        const acceptBtn = document.getElementById('btn-accept');
+        const rejectBtn = document.getElementById('btn-reject');
+
+        if(acceptBtn) {
+            acceptBtn.addEventListener('click', () => {
+                gtag('consent', 'update', {
+                    'ad_storage': 'granted',
+                    'ad_user_data': 'granted',
+                    'ad_personalization': 'granted',
+                    'analytics_storage': 'granted'
+                });
+                localStorage.setItem('cookieConsent', 'granted');
+                banner.style.display = 'none';
+            });
+        }
+
+        if(rejectBtn) {
+            rejectBtn.addEventListener('click', () => {
+                localStorage.setItem('cookieConsent', 'denied');
+                banner.style.display = 'none';
+            });
+        }
+    });
+</script>
+
+<!-- 4. MOBILE MENU SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mobileBtn = document.querySelector('.mobile-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+        }
+    });
+</script>
+
+<!-- 5. FIREBASE AUTH & SETTINGS LOGIC -->
+<script type="module">
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
+    
+    // Initialize Firebase
+    const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+        const loginLinks = document.querySelectorAll('.auth-link');
+        const settingsLink = document.getElementById('nav-settings');
+
+        if (user) {
+            // Un-hide the settings link
+            if(settingsLink) settingsLink.style.display = 'inline-block';
+            
+            // Change Login to Logout
+            loginLinks.forEach(link => {
+                link.textContent = 'Logout'; 
+                link.href = '#'; 
+                link.style.color = '#ef4444';
+                // Go to root index on logout
+                link.onclick = async (e) => { e.preventDefault(); await signOut(auth); window.location.href = '../../index.html'; };
+            });
+        } else {
+            // Hide the settings link
+            if(settingsLink) settingsLink.style.display = 'none';
+            
+            // Reset Login link
+            loginLinks.forEach(link => {
+                link.textContent = 'Login'; 
+                link.href = '../login.html'; 
+                link.style.color = ''; 
+                link.onclick = null;
+            });
+        }
+    });
+</script>
+
+<!-- Optional Global Auth -->
+<script type="module" src="../../JS/auth.js"></script>
+<!-- RESOURCE HUB SEARCH SCRIPT -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('resource-search');
+        const cards = document.querySelectorAll('.resource-card');
+        const noResults = document.getElementById('no-results');
+        const resultsCount = document.getElementById('results-count');
+
+        if(searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase().trim();
+                let visibleCount = 0;
+
+                cards.forEach(card => {
+                    // Grab text to search against
+                    const title = card.querySelector('h3').textContent.toLowerCase();
+                    const desc = card.querySelector('p').textContent.toLowerCase();
+                    const tags = card.getAttribute('data-tags') ? card.getAttribute('data-tags').toLowerCase() : "";
+
+                    // Check if the search term exists in title, description, or tags
+                    if (title.includes(searchTerm) || desc.includes(searchTerm) || tags.includes(searchTerm)) {
+                        card.style.display = 'flex'; // Uses your flex column layout for cards
+                        visibleCount++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Handle empty state
+                if (visibleCount === 0) {
+                    noResults.classList.remove('u-hidden');
+                } else {
+                    noResults.classList.add('u-hidden');
+                }
+                
+                // Update the section label dynamically
+                if(searchTerm === '') {
+                    resultsCount.textContent = 'All Resources';
+                } else {
+                    resultsCount.textContent = `Showing ${visibleCount} result${visibleCount !== 1 ? 's' : ''}`;
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

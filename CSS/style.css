@@ -454,3 +454,130 @@ select:disabled { opacity: 0.3; cursor: not-allowed; }
         .external-icon {
             opacity: 0.4;
         }
+
+        /* Statistics Page Specific Styles */
+.stat-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.stat-card:hover {
+    border-color: var(--border-active);
+    transform: translateY(-2px);
+}
+
+.stat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+}
+
+.stat-header svg {
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.stat-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-uses {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.stat-uses strong {
+    color: var(--text-primary);
+}
+
+/* 2-Column Grid for Desktop, 1-Column for Mobile */
+.stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+@media (max-width: 768px) {
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.stat-box {
+    padding: 20px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+}
+
+.stat-box.positives {
+    border-top: 3px solid var(--color-success);
+}
+
+.stat-box.negatives {
+    border-top: 3px solid var(--color-error);
+}
+
+.stat-box h4 {
+    margin-bottom: 16px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.stat-box.positives h4 {
+    color: var(--color-success);
+}
+
+.stat-box.negatives h4 {
+    color: var(--color-error);
+}
+
+.stat-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.stat-box ul li {
+    margin-bottom: 10px;
+    padding-left: 24px;
+    position: relative;
+    line-height: 1.5;
+}
+
+/* Custom bullet points */
+.stat-box.positives ul li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    color: var(--color-success);
+    font-weight: bold;
+}
+
+.stat-box.negatives ul li::before {
+    content: '-';
+    position: absolute;
+    left: 0;
+    color: var(--color-error);
+    font-weight: bold;
+}
