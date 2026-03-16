@@ -33,21 +33,112 @@
   gtag('config', 'G-MG1L4V5H6F');
 </script>
 
+ <style>
+        /* NEW REFINED STYLES */
 
-    <style>
-.card-icon {
-    color: var(--accent-color);
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}
+        /* Category wrapper for clear division */
+        .stat-category {
+            border: 0.5px solid #3b82f6;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 40px;
+        }
 
-.card-icon svg {
-    width: 32px;
-    height: 32px;
-    opacity: 0.9;
-    /* No transform or transition here keeps them still */
-}
+        /* The main label for the category */
+        .stat-category .section-label {
+            margin-bottom: 10px;
+            font-size: 1.5rem; /* Make it a bit bigger */
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+            color: #ffffff
+        }
+
+        .section-intro {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #ffffff;
+        }
+
+        /* Individual stat item styling */
+        .stat-item {
+            padding-top: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #3b82f6;
+        }
+        
+        .stat-category .stat-item:last-child {
+            border-bottom: none; /* Remove border on the last item in a group */
+            padding-bottom: 10px;
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-header h2 {
+            margin-bottom: 0;
+            font-size: 1.75rem;
+        }
+
+        .stat-header svg {
+            width: 32px;
+            height: 32px;
+            color: var(--accent-color);
+            flex-shrink: 0;
+        }
+
+        /* Removed the background box, now it's a cleaner blockquote style */
+        .stat-uses {
+            margin-bottom: 25px;
+            font-size: 1rem;
+            line-height: 1.6;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 20px;
+            color: #ffffff;
+        }
+
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .pros-cons-list h4 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .pros h4 {
+            color: #28a745; /* Green for advantages */
+        }
+
+        .cons h4 {
+            color: #dc3545; /* Red for disadvantages */
+        }
+
+        .pros-cons-list ul {
+            padding-left: 20px;
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* Responsive adjustment */
+        @media (max-width: 768px) {
+            .pros-cons-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .stat-category {
+                padding: 15px;
+            }
+            .stat-header h2 {
+                font-size: 1.5rem;
+            }
+        }
     </style>
 </head>
 
@@ -55,19 +146,14 @@
 
 <header class="site-header">
     <div class="container header-inner">
-        <!-- Logo goes up 2 levels -->
         <a href="../../index.html" class="logo">StudyNest</a>
-
-        <!-- Fixed Navigation Links -->
         <nav class="nav-menu" id="nav-menu">
             <a href="../../index.html">Home</a>
             <a href="APR.html">Past Papers</a>
             <a href="syllabus/syllabus.html" class="active">Resources</a>
-            <!-- Settings Link (Hidden by default) -->
             <a href="settings.html" id="nav-settings" style="display: none;">Settings</a>
             <a href="login.html" class="auth-link">Login</a>
         </nav>
-
         <button class="mobile-toggle" aria-label="Toggle Menu">
             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
         </button>
@@ -84,179 +170,267 @@
 <main class="main-content">
     <div class="container">
         
-        <div class="section-label">Measures of Central Tendency</div>
+        <!-- Category 1: Central Tendency -->
+        <div class="stat-category">
+            <div class="section-label">Basic Statistical Skills</div>
 
-        <!-- MEAN -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <h2>Mean</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To find the mathematical average of a continuous dataset (e.g., average river depth, mean annual temperature, average pebble size).
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>Uses every single value in the dataset, making it mathematically precise.</li>
-                        <li>It is required as a baseline calculation for higher-level statistics, like Standard Deviation.</li>
-                    </ul>
+            <!-- MEAN -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <h2>Mean</h2>
                 </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Highly skewed and distorted by extreme anomalies (e.g., one massive pebble makes the whole sample seem larger).</li>
-                        <li>Can result in impossible geographical decimals (e.g., 2.4 pedestrians).</li>
-                    </ul>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To find the mathematical average of a continuous dataset (e.g., average river depth, mean annual temperature, average pebble size).
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Uses every value in the dataset, making it mathematically precise.</li>
+                            <li>Essential for higher-level statistics like Standard Deviation.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Can be significantly skewed by extreme values or anomalies.</li>
+                            <li>May provide invalid numbers that need manual correction (e.g., 2.4 pedestrians).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MEDIAN -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+                    <h2>Median</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To find the middle value of an ordered dataset. Ideal when data is heavily skewed (e.g., income levels, property values).
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Unaffected by extreme outliers, providing a more representative value in skewed datasets.</li>
+                            <li>More accurately reflects the 'typical' value when the data contains significant anomalies.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Ignores the specific values of most data points, focusing only on their ranked position.</li>
+                            <li>Requires the dataset to be ordered, which can be time-consuming for large samples.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODE -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                    <h2>Mode</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To identify the most frequently occurring value or category. Best suited for nominal (categorical) data, like land use types or dominant ethnic groups.
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>The only measure of central tendency applicable to categorical data.</li>
+                            <li>Unaffected by extreme numerical outliers.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>A dataset may have no mode or multiple modes (bimodal/multimodal), leading to ambiguity.</li>
+                            <li>Does not consider all data points in its calculation.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- MEDIAN -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="3" x2="12" y2="21"></line></svg>
-                <h2>Median</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To find the exact middle value of an ordered dataset. Highly useful when your geographical data is heavily skewed (e.g., income levels in a ward).
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>Completely unaffected by extreme outliers or anomalies in the data.</li>
-                        <li>Gives a much more realistic "typical" value if the data is heavily skewed to one side.</li>
-                    </ul>
+        <!-- Category 2: Dispersion -->
+        <div class="stat-category">
+            <div class="section-label">Statistics using Ranges</div>
+
+            <!-- RANGE -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    <h2>Range</h2>
                 </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Ignores the actual values of most data points (only cares about their rank/order).</li>
-                        <li>Can be slow and tedious to calculate manually for very large datasets because data must be ordered first.</li>
-                    </ul>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To quickly calculate the difference between the highest and lowest values in a dataset.
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Simple and quick to calculate.</li>
+                            <li>Provides an immediate, though basic, understanding of the data's total spread.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Extremely sensitive to outliers as it only uses the two most extreme values.</li>
+                            <li>Provides no information about the distribution of data between the extremes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IQR -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><line x1="4" y1="12" x2="20" y2="12"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
+                    <h2>Interquartile Range (IQR)</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To measure the spread of the middle 50% of the data. Often used to compare data distributions and identify potential outliers (e.g., using box plots).
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Eliminates the influence of extreme upper and lower outliers.</li>
+                            <li>Effective for comparing the internal spread of different datasets.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Ignores 50% of the dataset (the lowest 25% and highest 25%).</li>
+                            <li>More complex to calculate than the standard range.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STANDARD DEVIATION -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                    <h2>Standard Deviation</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To measure the average distance of all data points from the mean. A small SD indicates data is clustered tightly around the mean (high reliability); a large SD indicates data is widely spread out.
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Allows you to see how much scores vary around the mean.</li>
+                            <li>Not as affected by extreme values.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>It is hard to calculate.</li>
+                            <li>Has assumptions, meaning it cannot be used on skewed or irregular data.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- MODE -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                <h2>Mode</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To identify the most frequently occurring value or category. Perfect for nominal (categoric) data, like the most common rock type on a beach or predominant land use.
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>The only measure of central tendency that can be used for categoric (worded) data.</li>
-                        <li>Completely unaffected by extreme anomalies.</li>
-                    </ul>
+        <!-- Category 3: Statistical Tests -->
+        <div class="stat-category">
+            <div class="section-label">Statistical Tests & Advanced Skills</div>
+
+            <!-- SPEARMAN'S RANK -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="7" x2="17" y2="17"></line><polyline points="17 7 17 17 7 17"></polyline></svg>
+                    <h2>Spearman's Rank</h2>
                 </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Does not use all of the data.</li>
-                        <li>There might not be a mode (if all values are unique), or there could be multiple modes (bimodal), making it confusing to interpret.</li>
-                    </ul>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To measure the strength and direction of a relationship between two variables. Ideal for testing hypotheses such as "Does pebble size decrease with distance from the source?" or "Is there a correlation between a town's deprivation index and distance from the CBD?".
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Provides a precise numerical value (-1 to +1) indicating the strength and direction of a correlation.</li>
+                            <li>Can be used with ranked data and is not reliant on a normal data distribution. This means it can be used to confirm confusing correlation patterns.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Manual ranking of large datasets can be laborious and prone to error.</li>
+                            <li>Correlation does not imply causation; it cannot prove that one variable causes a change in the other.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MANN-WHITNEY U TEST -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 20V10"></path><path d="M15 20V4"></path></svg>
+                    <h2>Mann-Whitney U Test</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To test for a significant difference between two independent sets of data that are not normally distributed. It is the non-parametric equivalent of the t-test. For example, "Is there a significant difference in the Environmental Quality Score between two different residential streets?"
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Effective for skewed data as it does not require a normal distribution.</li>
+                            <li>Clearly determines if the difference between two data sets is statistically significant.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>The manual calculation is lengthy and can be prone to human error.</li>
+                            <li>Accuracy can be reduced with very small sample sizes (typically below 5).</li>
+                            <li>Can only be used to test the difference between two data sets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHI-SQUARED TEST -->
+            <div class="stat-item">
+                <div class="stat-header">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 8h8v8"/><path d="m8 16 8-8"/></svg>
+                    <h2>Chi-Squared Test</h2>
+                </div>
+                <div class="stat-uses">
+                    <strong>When to use:</strong> To compare observed categorical data with expected data to see if there is a significant association between them. For example, "Is there a significant difference in the preferred shopping location (e.g., city centre, retail park) between different age groups?".
+                </div>
+                <div class="pros-cons-grid">
+                    <div class="pros-cons-list pros">
+                        <h4>Advantages</h4>
+                        <ul>
+                            <li>Useful for testing hypotheses using categoric data / variables.</li>
+                        </ul>
+                    </div>
+                    <div class="pros-cons-list cons">
+                        <h4>Disadvantages</h4>
+                        <ul>
+                            <li>Extremely sensitive to the size of the sample used.</li>
+                            <li>It only indicates if a relationship is exists (if it is significant), not how strong that relationship is.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="section-label" style="margin-top: 40px;">Measures of Dispersion</div>
+    </div> <!--/.container-->
+</main> <!--/.main-content-->
 
-        <!-- RANGE -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                <h2>Range</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To find the total spread of your dataset from the lowest recorded value to the highest.
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>Incredibly quick and easy to calculate.</li>
-                        <li>Gives an immediate, simple understanding of the total width/spread of the geographical data.</li>
-                    </ul>
-                </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Extremely sensitive to anomalies (it only uses the two most extreme values in the entire dataset).</li>
-                        <li>Tells you absolutely nothing about how the data is distributed between the highest and lowest values.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- IQR -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><line x1="4" y1="12" x2="20" y2="12"></line><line x1="12" y1="4" x2="12" y2="20"></line></svg>
-                <h2>Interquartile Range (IQR)</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To measure the spread of the middle 50% of your data. Often visualized using box plots (e.g., comparing the core spread of environmental quality scores across two streets).
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>Eliminates the impact of extreme upper and lower outliers.</li>
-                        <li>Excellent for comparing the main "bulk" of two different datasets to see where the majority of data lies.</li>
-                    </ul>
-                </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Ignores exactly half of your data (the top 25% and bottom 25%).</li>
-                        <li>More complex and time-consuming to calculate manually compared to the simple range.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <!-- STANDARD DEVIATION -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                <h2>Standard Deviation</h2>
-            </div>
-            <div class="stat-uses">
-                <strong>When to use:</strong> To measure the average distance of all data points from the mean. A small SD means data is tightly clustered (reliable mean), a large SD means data is spread out.
-            </div>
-            <div class="stat-grid">
-                <div class="stat-box positives">
-                    <h4>Positives</h4>
-                    <ul>
-                        <li>Uses every single piece of data in the set, making it highly robust.</li>
-                        <li>Excellent for proving the reliability of the mean.</li>
-                        <li>Allows for normal distribution analysis (e.g., 68% of data falls within 1 standard deviation).</li>
-                    </ul>
-                </div>
-                <div class="stat-box negatives">
-                    <h4>Negatives</h4>
-                    <ul>
-                        <li>Requires a complex, multi-step calculation that is very easy to mess up manually.</li>
-                        <li>Because it squares the differences from the mean, extreme outliers can still heavily distort the final result.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="section-label" style="margin-top: 40px;">Statistical Tests of Significance</div>
-
-        <!-- SPEARMAN'S RANK -->
-        <div class="stat-card">
-            <div class="stat-header">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><ci
 
 <footer class="site-footer">
     <div class="container">
