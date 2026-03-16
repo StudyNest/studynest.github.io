@@ -1,39 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Support | StudyNest</title>
-
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="CSS/style.css">
     <meta name="description" content="Get in touch with the StudyNest team for support, error reporting, or feedback.">
-<meta property="og:title" content="Contact Support | StudyNest">
-<meta property="og:description" content="Have a question or found a mistake? Contact us here.">
-<meta property="og:image" content="https://studynest.github.io/assets/favicon.png">
-<meta property="og:url" content="https://studynest.github.io/contact.html">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="Contact Support | StudyNest">
+    <meta property="og:description" content="Have a question or found a mistake? Contact us here.">
+    <meta property="og:image" content="https://studynest.github.io/assets/favicon.png">
+    <meta property="og:url" content="https://studynest.github.io/contact.html">
+    <meta property="og:type" content="website">
 
  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // Set default consent to 'denied' for privacy compliance (EEA/UK)
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'wait_for_update': 500 // Gives the banner time to load
+    'wait_for_update': 500 
   });
 </script>
 
-<!-- 2. Load CookieScript Banner -->
 <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0aecc39183ab4a8174ed394a04070e78.js"></script>
-
-<!-- 3. Load Google Tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG1L4V5H6F"></script>
 <script>
   gtag('js', new Date());
@@ -51,13 +44,9 @@
         .email-link { font-weight: 600; font-size: 1.1rem; color: var(--accent-color); text-decoration: none; }
         .email-link:hover { text-decoration: underline; }
     </style>
-
-
 </head>
 
 <body>
-
-
 <header class="site-header">
     <div class="container header-inner">
         <a href="index.html" class="logo">StudyNest</a>
@@ -82,21 +71,18 @@
         </div>
 
         <div class="contact-grid">
-            <!-- General Support -->
             <div class="contact-card">
                 <h3>Technical Support & Bugs</h3>
                 <p>Are you having trouble logging into your account, experiencing sync issues with the syllabus tracker, or did you find a broken link to a past paper? Let us know so we can fix it.</p>
                 <a href="mailto:actiari@gmail.com?subject=StudyNest Support Request" class="email-link">actiari@gmail.com</a>
             </div>
 
-            <!-- DMCA / Copyright -->
             <div class="contact-card">
                 <h3>Copyright & Takedown Requests</h3>
                 <p>StudyNest indexes past papers under Educational Fair Dealing. If you represent an awarding body (AQA, OCR, Edexcel) and wish to request the removal of specific copyrighted material, please contact us directly for immediate compliance.</p>
                 <a href="mailto:actiari@gmail.com?subject=DMCA Takedown Request" class="email-link">actiari@gmail.com</a>
             </div>
             
-            <!-- Account Deletion -->
             <div class="contact-card" style="grid-column: 1 / -1; text-align: center;">
                 <h3>Account Deletion</h3>
                 <p>You can automatically delete your account and all associated data at any time by navigating to your <a href="pages/settings.html" style="color: var(--accent-color);">Settings page</a>. If you require manual data erasure under UK GDPR, please email us from the address associated with your account.</p>
@@ -135,7 +121,6 @@
     </div>
 </footer>
 
-<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mobileBtn = document.querySelector('.mobile-toggle');
@@ -149,14 +134,12 @@
     });
 </script>
 
-<!-- 2. FIREBASE AUTH SCRIPT -->
 <script type="module">
     import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
     
-    // Safety check: Only initialize if not already initialized by auth.js
     const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
 

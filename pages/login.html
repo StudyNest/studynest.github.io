@@ -11,27 +11,24 @@
     <meta property="og:url" content="https://studynest.github.io/pages/login.html">
     <meta property="og:type" content="website">
     <title>Login | StudyNest</title>
-    
-<link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/CSS/style.css">
+
  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // Set default consent to 'denied' for privacy compliance (EEA/UK)
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'wait_for_update': 500 // Gives the banner time to load
+    'wait_for_update': 500
   });
 </script>
 
-<!-- 2. Load CookieScript Banner -->
 <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0aecc39183ab4a8174ed394a04070e78.js"></script>
 
-<!-- 3. Load Google Tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG1L4V5H6F"></script>
 <script>
   gtag('js', new Date());
@@ -63,7 +60,6 @@
         
         <div id="message-box" class="message-box"></div>
 
-        <!-- 1. LOGIN VIEW -->
         <div id="login-view">
             <div class="auth-header">
                 <h1>Welcome Back</h1>
@@ -81,7 +77,6 @@
                     <input type="password" id="login-password" placeholder="••••••••" required>
                     <button type="button" class="toggle-password" data-target="login-password" aria-label="Show password">
                         <img src="/assets/icons/eye.svg" class="icon-eye" alt="Show" width="20" height="20">
-                        <!-- Use u-hidden instead of hidden -->
                         <img src="/assets/icons/eye-off.svg" class="icon-eye-off u-hidden" alt="Hide" width="20" height="20">
                     </button>
                 </div>
@@ -102,7 +97,6 @@
             <button id="btn-show-signup" class="btn btn-secondary btn-full">Create Account</button>
         </div>
 
-        <!-- 2. CREATE ACCOUNT VIEW (u-hidden) -->
         <div id="signup-view" class="u-hidden">
             <div class="auth-header">
                 <h1>Create Account</h1>
@@ -129,7 +123,6 @@
             <button id="btn-back-login" class="btn btn-secondary btn-full">Back to Login</button>
         </div>
 
-        <!-- 3. RESET PASSWORD FORM (u-hidden) -->
         <div id="reset-form" class="u-hidden">
             <div class="auth-header">
                 <h1>Reset Password</h1>
@@ -180,7 +173,6 @@
     </div>
 </footer>
 
-<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mobileBtn = document.querySelector('.mobile-toggle');

@@ -4,33 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Policy | StudyNest</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="CSS/style.css">
     <meta name="description" content="Review the legal policies, cookie usage, and terms of service for using the StudyNest platform.">
-<meta property="og:title" content="Legal Policies | StudyNest">
-<meta property="og:description" content="Your privacy and data security are important to us. Read our terms here.">
-<meta property="og:image" content="https://studynest.github.io/assets/favicon.png">
-<meta property="og:url" content="https://studynest.github.io/cookies.html">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="Legal Policies | StudyNest">
+    <meta property="og:description" content="Your privacy and data security are important to us. Read our terms here.">
+    <meta property="og:image" content="https://studynest.github.io/assets/favicon.png">
+    <meta property="og:url" content="https://studynest.github.io/cookies.html">
+    <meta property="og:type" content="website">
 
  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // Set default consent to 'denied' for privacy compliance (EEA/UK)
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'wait_for_update': 500 // Gives the banner time to load
+    'wait_for_update': 500 
   });
 </script>
 
-<!-- 2. Load CookieScript Banner -->
 <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0aecc39183ab4a8174ed394a04070e78.js"></script>
 
-<!-- 3. Load Google Tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG1L4V5H6F"></script>
 <script>
   gtag('js', new Date());
@@ -129,7 +126,6 @@
     </div>
 </footer>
 
-<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mobileBtn = document.querySelector('.mobile-toggle');
@@ -143,14 +139,12 @@
     });
 </script>
 
-<!-- 2. FIREBASE AUTH SCRIPT -->
 <script type="module">
     import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
     const firebaseConfig = { apiKey: "AIzaSyA2G_D9RCX5DfMxp2Mkri03AivhM_GNw5c", authDomain: "actiari-fixed.firebaseapp.com", projectId: "actiari-fixed", storageBucket: "actiari-fixed.firebasestorage.app", messagingSenderId: "154407363342", appId: "1:154407363342:web:7e3b21f8189d556afaed5f" };
     
-    // Safety check: Only initialize if not already initialized by auth.js
     const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
     const auth = getAuth(app);
 
@@ -179,4 +173,4 @@
 </script>
 <script type="module" src="JS/auth.js"></script>
 </body>
-</html>
+</html>s

@@ -5,30 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Account Settings | StudyNest</title>
     <meta name="robots" content="noindex, nofollow">
-<link rel="icon" href="../favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../CSS/style.css">
     <meta name="description" content="Manage your StudyNest account, preferences, and saved revision data.">
-<meta property="og:title" content="Account Settings | StudyNest">
-<meta property="og:url" content="https://studynest.github.io/pages/settings.html">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="Account Settings | StudyNest">
+    <meta property="og:url" content="https://studynest.github.io/pages/settings.html">
+    <meta property="og:type" content="website">
  <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
 
-  // Set default consent to 'denied' for privacy compliance (EEA/UK)
   gtag('consent', 'default', {
     'ad_storage': 'denied',
     'ad_user_data': 'denied',
     'ad_personalization': 'denied',
     'analytics_storage': 'denied',
-    'wait_for_update': 500 // Gives the banner time to load
+    'wait_for_update': 500 
   });
 </script>
 
-<!-- 2. Load CookieScript Banner -->
 <script type="text/javascript" charset="UTF-8" src="//cdn.cookie-script.com/s/0aecc39183ab4a8174ed394a04070e78.js"></script>
 
-<!-- 3. Load Google Tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-MG1L4V5H6F"></script>
 <script>
   gtag('js', new Date());
@@ -44,7 +41,6 @@
     <a href="../index.html">Home</a>
     <a href="APR.html">Past Papers</a>
     <a href="syllabus/syllabus.html">Resources</a>
-    <!-- Settings link for files INSIDE the pages folder -->
     <a href="settings.html" id="nav-settings" style="display: none;">Settings</a>
     <a href="login.html" class="auth-link">Login</a>
 </nav>
@@ -110,7 +106,6 @@
     </div>
 </footer>
 
-<!-- 1. BULLETPROOF MOBILE MENU SCRIPT -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const mobileBtn = document.querySelector('.mobile-toggle');
@@ -124,9 +119,7 @@
     });
 </script>
 
-<!-- 2. FIREBASE AUTH & SETTINGS LOGIC -->
 <script type="module">
-    // Make sure to import getApps and getApp to prevent double-initialization crashes
     import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
