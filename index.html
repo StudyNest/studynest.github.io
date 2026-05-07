@@ -52,6 +52,9 @@
 </header>
 
 <main>
+    <div id="exam-banner" class="exam-banner hidden">
+    <!-- JavaScript will insert the dates here -->
+</div>
     <section class="hero">
         <div class="container">
             <h1>Study Resources</h1>
@@ -153,5 +156,44 @@
     });
 </script>
 <script type="module" src="JS/auth.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Define the exams and their dates (Format: YYYY-MM-DD)
+    // Note: We add T23:59:59 so the exam stays on the banner until the day is completely over.
+    const exams = [
+        { subject: "Geography Paper 1", date: "2026-05-12T23:59:59" },
+        { subject: "Geography Paper 2", date: "2026-05-21T23:59:59" },
+        { subject: "Physics Paper 1", date: "2026-05-20T23:59:59" },
+        { subject: "Physics Paper 2", date: "2026-06-01T23:59:59" }, 
+        { subject: "Physics Paper 3", date: "2026-06-08T23:59:59" }  
+    ];
+
+    const banner = document.getElementById('exam-banner');
+    const now = new Date();
+
+    // 2. Filter out exams that have already passed
+    const upcomingExams = exams.filter(exam => new Date(exam.date) > now);
+
+    // 3. Sort exams so the closest one is shown first
+    upcomingExams.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    // 4. Update the HTML if there are upcoming exams
+    if (upcomingExams.length > 0) {
+        banner.classList.remove('hidden'); // Show the banner
+        
+        let html = '<span class="banner-title">Upcoming Exams:</span>';
+        
+        upcomingExams.forEach(exam => {
+            // Format the date to look nice (e.g., "12 May")
+            const dateObj = new Date(exam.date);
+            const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+            
+            html += `<span class="exam-item">${exam.subject}: <span class="exam-date-highlight">${formattedDate}</span></span>`;
+        });
+
+        banner.innerHTML = html;
+    }
+});
+</script>
 </body>
 </html>

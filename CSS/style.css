@@ -3,8 +3,8 @@
 
 :root {
     /* True Black Palette */
-    --bg-body: #0D0D0D;        
-    --bg-card: #0a0a0a;        
+    --bg-body: #111111;        
+    --bg-card: #111111;        
     --bg-card-hover: #111111;
     
     /* Borders & Accents */
@@ -62,7 +62,7 @@ a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
 /* --- Header & Nav --- */
 .site-header {
     height: var(--header-height);
-    background-color:#0D0D0D;
+    background-color:#111111;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-color);
@@ -455,3 +455,57 @@ select:disabled { opacity: 0.3; cursor: not-allowed; }
             opacity: 0.4;
         }
 
+.exam-banner {
+    /* Subtle dark gradient that blends with your site */
+    background: #111111;
+    border-bottom: 1px solid #2a2a2a;
+    color: #e2e8f0;
+    text-align: center;
+    padding: 16px 20px;
+    font-family: inherit; /* Uses your website's font */
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.banner-title {
+    font-weight: 600;
+    color: #9ca3af; /* Subtle grey for the title */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+.exam-item {
+    /* Sleek dark pills for the exams */
+    background-color: #111111;
+    border: 1px solid #333;
+    padding: 6px 16px;
+    border-radius: 20px; /* Fully rounded pills */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: border-color 0.3s ease;
+}
+
+.exam-item:hover {
+    border-color: #3b82f6; /* Subtle blue glow on hover */
+}
+
+/* Highlights the date in your website's blue accent color */
+.exam-date-highlight {
+    color: #4facfe; /* Blue to match your buttons */
+    font-weight: 700;
+    background: rgba(79, 172, 254, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
